@@ -51,8 +51,6 @@ const DownloadIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0 3.5-3.5M12 15l-3.5-3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" /><path d="M5 18.5h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" /></svg>
 );
 
-const waveform = [32, 58, 42, 78, 52, 88, 64, 38, 72, 94, 58, 82, 46, 68, 36, 76, 54, 86, 48, 62];
-
 export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, verified = false, best = false, tags = [], duration, currentTime = 0, playing = false, onPlayToggle, locked = false, onUnlock, canDownload = false, onDownload, downloadCount, className = '', ...props }: VoiceActorCardProps) {
   const progress = duration > 0 ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0;
 
@@ -97,8 +95,8 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
               {playing ? <PauseIcon /> : <PlayIcon />}
             </button>
             <span className={styles.sampleMain}>
-              <span className={styles.sampleMeta}><span>VOICE SAMPLE</span><span>{formatTime(currentTime)} / {formatTime(duration)}</span></span>
-              <span className={styles.waveform} aria-hidden="true">{waveform.map((height, index) => <i className={(index / waveform.length) * 100 <= progress ? styles.played : ''} style={{ height: `${height}%` }} key={`${height}-${index}`} />)}</span>
+              <span className={styles.sampleMeta}><span>보이스 샘플</span><span>{formatTime(currentTime)} / {formatTime(duration)}</span></span>
+              <span className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></span>
             </span>
             {canDownload && <button type="button" className={styles.downloadButton} aria-label="샘플 다운로드" onClick={onDownload}><DownloadIcon /></button>}
           </div>
