@@ -35,10 +35,10 @@
 .playButton:hover { border-color: var(--purple-500); background: var(--purple-500); color: var(--neutral-0); transform: scale(1.05); }
 .playButton:active { transform: scale(1); }
 
-.sampleMain { display: grid; flex: 1; gap: .5rem; min-width: 0; }
-.sampleMeta { display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: var(--neutral-500); font-size: .62rem; font-weight: 600; }
+.sampleMain { display: grid; flex: 1; gap: .55rem; min-width: 0; }
+.sampleMeta { display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: var(--neutral-700); font-size: .75rem; font-weight: 700; }
 .sampleMeta span:last-child { color: var(--neutral-400); font-variant-numeric: tabular-nums; font-weight: 500; }
-.progressTrack { position: relative; display: block; width: 100%; height: 2px; overflow: hidden; border-radius: var(--radius-full); background: var(--neutral-100); }
+.progressTrack { position: relative; display: block; width: 100%; height: 4px; overflow: hidden; border-radius: var(--radius-full); background: var(--neutral-100); }
 .progressTrack > span { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--purple-500); transition: width .2s linear; }
 
 .downloadButton { display: grid; flex: none; width: 1.75rem; height: 1.75rem; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--neutral-500); cursor: pointer; transition: background .16s ease, color .16s ease; }
