@@ -67,16 +67,17 @@
 }
 
 .primaryAction {
-  align-self: stretch;
+  align-self: flex-start;
   justify-content: center;
-  min-height: 2.85rem;
+  min-width: 12rem;
+  min-height: 2.65rem;
   margin-top: 1.35rem;
-  padding: 0 1rem;
+  padding: 0 1.15rem;
   border-radius: .7rem;
   color: var(--neutral-0);
   background: #6f48ed;
   box-shadow: none;
-  font-size: .96rem;
+  font-size: .86rem;
 }
 
 .primaryAction::after { content: '→'; margin-left: .2rem; font-size: .95rem; }
@@ -103,5 +104,6 @@
 
 @media (max-width: 560px) {
   .actionCard { min-height: auto; }
+  .primaryAction { width: 100%; }
   .secondaryActions { grid-template-columns: 1fr; }
 }
