@@ -1,0 +1,4 @@
+.banner { display: flex; align-items: center; justify-content: center; gap: clamp(.75rem, 2vw, 1.5rem); width: 100%; min-height: 4rem; padding: .75rem 1rem; color: var(--neutral-0); background: var(--gradient-deep-purple); text-align: center; }
+.banner strong { font-size: clamp(1.2rem, 2.2vw, 1.75rem); line-height: 1; letter-spacing: var(--tracking-tight); }
+.banner span { color: rgb(255 255 255 / .68); font-size: var(--text-caption); font-weight: 700; letter-spacing: .12em; }
+@media (max-width: 560px) { .banner { min-height: 4.5rem; flex-wrap: wrap; gap: .3rem 1rem; } .banner strong { order: -1; width: 100%; } .banner span { font-size: .58rem; } }

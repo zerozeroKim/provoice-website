@@ -17,3 +17,4 @@ export * from './TestimonialCard';
 export * from './PortfolioCard';
 export * from './ServiceCard';
 export * from './SectionHeader';
+export * from './VersionBanner';

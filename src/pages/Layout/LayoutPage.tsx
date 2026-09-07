@@ -10,6 +10,7 @@ import {
   TalentDirectorySection,
   TestimonialSection,
   TranslationSection,
+  VersionBanner,
   heroStats,
   portfolioCards,
   portfolioTabs,
@@ -26,6 +27,7 @@ export function LayoutPage() {
   const [versionId, setVersionId] = useState<(typeof layoutVersions)[number]['id']>(layoutVersions[0].id);
   const selectedVersion = layoutVersions.find((version) => version.id === versionId) ?? layoutVersions[0];
   const showVersionControl = window.location.hash === '#layout';
+  const showCustomerVersion = window.location.hash === '#client';
 
   return (
     <main className={styles.page}>
@@ -37,6 +39,7 @@ export function LayoutPage() {
         </div>
       </div>}
       <div className={styles.shell}>
+        {showCustomerVersion && <VersionBanner version={currentDesignVersion.label} date={currentDesignVersion.date} />}
         <GNB />
         <HeroSection stats={heroStats} />
         <TestimonialSection testimonials={reviewCards} />
@@ -45,7 +48,7 @@ export function LayoutPage() {
         <PortfolioSection tabs={portfolioTabs} cards={portfolioCards} />
         <TranslationSection rows={translationRows} languages={supportLanguages} />
         <GetStartedSection />
-        <Footer version={currentDesignVersion.label} />
+        <Footer />
       </div>
     </main>
   );
