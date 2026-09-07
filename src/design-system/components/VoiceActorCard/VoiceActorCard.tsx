@@ -83,7 +83,6 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
       </ul>
 
       <div className={styles.audioGroup}>
-        {!locked && <span className={styles.sampleLabel}>VOICE PREVIEW</span>}
         {locked ? (
           <button type="button" className={`${styles.audioSurface} ${styles.lockedPlayer}`} onClick={onUnlock}>
             <span className={styles.lockIcon} aria-hidden="true"><LockIcon /></span>
