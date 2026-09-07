@@ -6,6 +6,7 @@
   min-width: 0;
   min-height: 0;
   flex-direction: column;
+  align-items: center;
   padding: 2.25rem 2rem;
   overflow: hidden;
   border: 1px solid rgba(79, 68, 120, 0.11);
@@ -14,6 +15,7 @@
   background: #ffffff;
   box-shadow: none;
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  text-align: center;
 }
 
 .actionCard:hover,
@@ -29,7 +31,7 @@
 .gradient:hover,
 .gradient:focus-within { border-color: rgba(128, 56, 255, .34); box-shadow: none; }
 
-.content { display: grid; gap: .8rem; }
+.content { display: grid; justify-items: center; width: 100%; gap: .8rem; }
 .content h3 {
   margin: 0;
   font-size: clamp(1.4rem, 1.7vw, 1.7rem);
@@ -67,7 +69,7 @@
 }
 
 .primaryAction {
-  align-self: flex-start;
+  align-self: center;
   justify-content: center;
   min-width: 12rem;
   min-height: 2.65rem;
@@ -88,11 +90,11 @@
 .primaryAction:focus-visible,
 .secondaryAction:focus-visible { outline: 3px solid rgb(189 145 255 / .45); outline-offset: 2px; }
 
-.secondaryGroup { display: flex; align-items: center; gap: .8rem; margin-top: 1.5rem; padding: .8rem .9rem; border: 1px solid rgba(128, 56, 255, .11); border-radius: .75rem; background: rgb(128 56 255 / .045); }
+.secondaryGroup { display: flex; align-items: center; justify-content: center; width: 100%; gap: .8rem; margin-top: 1.5rem; padding: .8rem .9rem; border: 1px solid rgba(128, 56, 255, .11); border-radius: .75rem; background: rgb(128 56 255 / .045); }
 .gradient .secondaryGroup { border-top-color: transparent; }
 .secondaryLabel { display: block; margin: 0; color: var(--purple-600); font-size: .7rem; font-weight: 750; line-height: 1.4; }
 .gradient .secondaryLabel { color: var(--neutral-400); }
-.secondaryActions { display: flex; align-items: center; gap: .75rem; margin-left: auto; }
+.secondaryActions { display: flex; align-items: center; gap: .75rem; }
 .secondaryAction { min-height: 1.9rem; padding: 0 .55rem; border: 1px solid var(--neutral-100); border-radius: .5rem; color: var(--neutral-700); background: white; font-size: .75rem; font-weight: 650; }
 .gradient .secondaryAction { border-color: rgba(128, 56, 255, .1); color: var(--neutral-700); background: white; }
 .socialIcon { display: inline-grid; width: 1.25rem; height: 1.25rem; flex: 0 0 auto; place-items: center; border-radius: .3rem; line-height: 1; }
