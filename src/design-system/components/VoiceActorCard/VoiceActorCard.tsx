@@ -83,6 +83,7 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
       </ul>
 
       <div className={styles.audioGroup}>
+        {!locked && <span className={styles.sampleLabel}>VOICE PREVIEW</span>}
         {locked ? (
           <button type="button" className={`${styles.audioSurface} ${styles.lockedPlayer}`} onClick={onUnlock}>
             <span className={styles.lockIcon} aria-hidden="true"><LockIcon /></span>
@@ -95,9 +96,9 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
               {playing ? <PauseIcon /> : <PlayIcon />}
             </button>
             <span className={styles.sampleMain}>
-              <span className={styles.sampleMeta}><span>보이스 샘플</span><span>{formatTime(currentTime)} / {formatTime(duration)}</span></span>
               <span className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></span>
             </span>
+            <span className={styles.playerTime}>{formatTime(currentTime)} / {formatTime(duration)}</span>
             {canDownload && <button type="button" className={styles.downloadButton} aria-label="샘플 다운로드" onClick={onDownload}><DownloadIcon /></button>}
           </div>
         )}
