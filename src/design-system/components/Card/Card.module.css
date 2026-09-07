@@ -34,7 +34,7 @@
 .content { display: grid; justify-items: center; width: 100%; gap: .8rem; }
 .content h3 {
   margin: 0;
-  font-size: clamp(1.4rem, 1.7vw, 1.7rem);
+  font-size: clamp(1.25rem, 1.45vw, 1.5rem);
   font-weight: 650;
   line-height: 1.25;
   letter-spacing: -.025em;
