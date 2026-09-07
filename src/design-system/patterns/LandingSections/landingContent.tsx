@@ -1,0 +1,58 @@
+import type { HeroStat, PortfolioItem, ServiceItem, TalentProfile, TranslationRow } from './LandingSections';
+import type { TestimonialCardProps } from '../../components';
+
+export const portfolioTabs = ['전체', '게임', '애니메이션', '웹툰', '광고', '기업'] as const;
+type PortfolioCategory = Exclude<(typeof portfolioTabs)[number], '전체'>;
+
+export const portfolioCards: PortfolioItem<PortfolioCategory>[] = [
+  { category: '게임', title: 'MMORPG 글로벌 더빙 프로젝트', languages: ['JP', 'EN'], tone: 'GAME', tags: ['더빙', '번역'], image: 'linear-gradient(rgb(12 10 25 / .18), rgb(12 10 25 / .38)), url("https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '애니메이션', title: '극장판 애니메이션 다국어 더빙', languages: ['EN'], tone: 'ANIMATION', tags: ['더빙', 'AI 하이브리드'], highlight: 'AI 하이브리드', image: 'linear-gradient(rgb(12 10 25 / .16), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '웹툰', title: '인기 웹툰 시리즈 번역·자막', languages: ['ZH', 'EN'], tone: '웹툰', tags: ['번역', '자막'], image: 'linear-gradient(rgb(12 10 25 / .12), rgb(12 10 25 / .3)), url("https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '기업', title: '글로벌 브랜딩 홍보영상 내레이션', languages: ['ES'], tone: 'CORPORATE', tags: ['더빙', '자막'], image: 'linear-gradient(rgb(12 10 25 / .15), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '게임', title: '모바일 게임 NPC 다국어 대사', languages: ['AR'], tone: 'GAME', tags: ['더빙', '번역'], image: 'linear-gradient(rgb(12 10 25 / .18), rgb(12 10 25 / .42)), url("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '애니메이션', title: 'IP 캐릭터 서버보이스 하이브리드 제작', languages: ['KO', 'EN'], tone: 'ANIMATION', tags: ['더빙', 'AI 하이브리드'], highlight: 'AI 하이브리드', image: 'linear-gradient(rgb(12 10 25 / .12), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '광고', title: '브랜드 TV 광고 오디오 제작', languages: ['JP'], tone: '광고', tags: ['광고', '나레이션'], image: 'linear-gradient(rgb(12 10 25 / .16), rgb(12 10 25 / .38)), url("https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '웹툰', title: '신작 웹툰 더빙 프로젝트', languages: ['KO', 'EN'], tone: '웹툰', tags: ['더빙', '자막'], image: 'linear-gradient(rgb(12 10 25 / .12), rgb(12 10 25 / .3)), url("https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1200&q=82") center / cover' },
+];
+
+export const reviewCards: TestimonialCardProps[] = [
+  { quote: '멀티 언어 30개 이상 동시 진행이었는데, PM 한 명이 전 과정을 관리해줘서 커뮤니케이션 부담이 크게 줄었습니다.', name: '게임사 로컬라이징 팀장', role: '모바일 RPG 다국어 더빙' },
+  { quote: '성우 검증 프로세스가 꼼꼼해서 브랜딩 톤에 맞는 목소리를 찾는 데 큰 시간을 절약할 수 있었습니다. 재작업 없이 한 번에 진행이 가능했습니다.', name: '광고 대행사 AE', role: '글로벌 브랜드 캠페인' },
+  { quote: '웹툰 번역과 자막을 한 팀에서 처리해주니 발음, 톤, 리듬까지 자연스럽게 맞춰줘서 퀄리티가 매우 안정적이었습니다.', name: '콘텐츠 플랫폼 매니저', role: '웹툰 시리즈 해외 서비스' },
+];
+
+export const talentProfiles: TalentProfile[] = [
+  { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, verified: true },
+  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, verified: true },
+  { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, verified: true },
+  { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, verified: true },
+  { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, verified: true },
+  { name: 'Yuna M.', locale: 'JP / EN', tags: ['캐릭터', '게임'], duration: 31, verified: true },
+  { name: 'Rin T.', locale: 'JP', tags: ['캐릭터', '키즈', '더빙'], duration: 39, verified: true },
+  { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, verified: true },
+  { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, verified: true },
+];
+
+export const translationRows: TranslationRow[] = [
+  { label: '영상 자막 · 대사 번역', value: 'Subtitling' },
+  { label: '웹툰 번역 · 자막(레터링)', value: 'Webtoon' },
+  { label: '게임 텍스트 로컬라이징', value: 'In-game' },
+  { label: '기술 문서 · 계약서 · 수출 서류', value: 'Corporate' },
+  { label: '원어민 감수', value: 'Native QA' },
+];
+
+export const heroStats: HeroStat[] = [
+  { value: '1,000+', label: '글로벌 성우' },
+  { value: '30개국', label: '서비스 언어' },
+  { value: 'ISO 17100', label: '국제 인증' },
+  { value: '4년 연속', label: '수출바우처 공정 수혜기관' },
+];
+
+export const serviceCards: ServiceItem[] = [
+  { imageSrc: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=82', imageAlt: '녹음실 마이크', title: '애니메이션·게임·웹툰 더빙', description: '캐릭터 맞춤형 성우 캐스팅부터 게임 내 행동과 감정선까지 살려 자연스러운 더빙을 제공해드립니다.' },
+  { imageSrc: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=82', imageAlt: '콘텐츠를 제작하는 팀', title: '기업 홍보·유튜브 콘텐츠', description: '브랜드를 위한 원어민 내레이션과 다국어 마케팅 영상 제작까지 한 번에 맞춰 깔끔한 메시지 전달을 지원합니다.' },
+  { imageSrc: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=82', imageAlt: '번역과 현지화 작업 자료', title: '번역 (ISO 17100)', description: '게이머·매니아부터 일반 사용자까지 모두 자연스럽게 이해할 수 있는 번역과 현지화 품질을 보장합니다.' },
+  { imageSrc: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=82', imageAlt: 'AI 기술 이미지', title: 'AI × Human 하이브리드 더빙', description: '대사가 많은 서브 캐릭터 등에 AI를 더해 효율을 높이고, 중요한 장면은 사람의 감성을 살린 더빙으로 마무리합니다.', badge: '부가 옵션', link: 'PROVOICE × AI 자세히 보기 →' },
+];
+
+export const supportLanguages = ['영어', '일본어', '중국어', '스페인어', '아랍어', '베트남어', '인도네시아어', '+ 22개국'];

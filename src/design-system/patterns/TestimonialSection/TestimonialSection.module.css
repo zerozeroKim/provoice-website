@@ -1,0 +1,48 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  margin-inline: auto;
+  padding-block: clamp(3.75rem, 5vw, 4.75rem);
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgb(250 248 255 / .94), rgb(255 255 255 / .98) 48%, rgb(252 247 255 / .92));
+}
+.section > :not(.ambient) { position: relative; z-index: 1; }
+.inner { width: min(100%, 1280px); margin-inline: auto; padding-inline: 1.5rem; }
+.ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(circle at 7% 92%, rgb(132 76 255 / .24) 0%, rgb(177 132 255 / .12) 18%, transparent 43%);
+}
+.ambient::before,
+.ambient::after {
+  position: absolute;
+  width: 52rem;
+  height: 16rem;
+  border: 1.5rem solid rgb(133 82 255 / .055);
+  border-radius: 50%;
+  content: '';
+  filter: blur(1px);
+  transform: rotate(-18deg);
+}
+.ambient::before { top: -6rem; left: -20rem; }
+.ambient::after { right: -21rem; bottom: -7rem; border-color: rgb(218 69 255 / .045); transform: rotate(-20deg); }
+.ambient span { position: absolute; width: 28rem; height: 20rem; border-radius: 50%; filter: blur(42px); opacity: .62; }
+.ambient span:first-child { top: -10rem; left: 8%; background: radial-gradient(circle, rgb(119 70 255 / .13), transparent 68%); }
+.ambient span:last-child { right: 4%; bottom: -12rem; background: radial-gradient(circle, rgb(224 66 255 / .11), transparent 68%); }
+.section .header { margin-bottom: 1.75rem; padding-bottom: 0; }
+.accent { background: linear-gradient(101deg, var(--purple-500), var(--magenta-400)); background-clip: text; color: transparent; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; width: 100%; }
+
+@media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  .section { padding-block: 3rem; }
+  .inner { padding-inline: 1rem; }
+  .ambient::before,
+  .ambient::after { width: 30rem; height: 10rem; border-width: 1rem; }
+  .ambient span { width: 18rem; height: 14rem; }
+}

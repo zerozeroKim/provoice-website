@@ -1,0 +1,7 @@
+.shell { padding-top: 3.75rem; background: #fff; }
+.gnb { position: fixed; inset: 0 0 auto; z-index: 100; display: flex; height: 3.75rem; align-items: center; justify-content: space-between; padding: 0 max(2rem, calc((100vw - 960px) / 2)); border-bottom: 1px solid #eee; background: rgb(255 255 255 / .96); backdrop-filter: blur(10px); }
+.brand { color: #111; font-size: .8rem; font-weight: 700; letter-spacing: -.02em; text-decoration: none; }
+.navigation { display: flex; gap: clamp(1rem, 3vw, 2rem); align-items: center; }
+.navigation > a, .navigation > span { color: #aaa; font-size: .75rem; text-decoration: none; white-space: nowrap; }
+.navigation .active { color: #111; font-weight: 600; }.upcoming { cursor: default; }
+@media (max-width: 520px) { .gnb { padding-inline: 1.25rem; }.navigation { max-width: 65%; overflow-x: auto; scrollbar-width: none; }.navigation > a, .navigation > span { font-size: .7rem; } }

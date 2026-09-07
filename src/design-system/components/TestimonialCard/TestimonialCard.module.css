@@ -1,0 +1,53 @@
+.card {
+  position: relative;
+  min-height: 19rem;
+  padding: 1.65rem;
+  border-color: var(--neutral-100);
+  background: var(--neutral-0);
+  box-shadow: 0 14px 38px rgb(53 35 91 / .07);
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: var(--purple-100);
+  box-shadow: 0 20px 46px rgb(89 0 255 / .12);
+  transform: translateY(-3px);
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--neutral-100);
+}
+
+.profile { display: flex; min-width: 0; flex-direction: column; gap: .14rem; }
+.profile .label { margin-bottom: .55rem; color: var(--neutral-300); font-size: .6rem; font-weight: 700; line-height: 1; letter-spacing: .16em; }
+.profile strong { color: var(--neutral-900); font-size: var(--text-body); font-weight: 700; letter-spacing: var(--tracking-tight); }
+.profile span { color: var(--neutral-500); font-size: var(--text-caption); line-height: var(--leading-body); }
+
+.rating { display: flex; flex: none; gap: .2rem; padding-bottom: .15rem; color: var(--neutral-300); }
+.rating svg { width: .95rem; height: .95rem; stroke-width: 1.8; }
+.rating svg[data-active='true'] { color: var(--purple-400); fill: currentColor; }
+
+.quoteBody { display: grid; grid-template-columns: 1fr; align-items: start; gap: .65rem; padding-top: 1.4rem; }
+.quoteIcon { display: inline-flex; width: fit-content; align-items: center; justify-content: center; color: var(--purple-300); }
+.quoteIcon svg { width: 1.35rem; height: 1.35rem; fill: currentColor; stroke-width: 1.4; }
+
+.card blockquote {
+  margin: 0;
+  padding-top: .15rem;
+  color: var(--neutral-900);
+  font-size: var(--text-body);
+  font-weight: 550;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+@media (max-width: 520px) {
+  .header { align-items: flex-start; flex-direction: column; }
+}

@@ -1,0 +1,18 @@
+.footer { container-name: provoice-footer; container-type: inline-size; width: 100%; color: #c7c8d8; background: #080b1d; }
+.inner { width: min(100%, 1680px); margin: 0 auto; padding: 4.5rem clamp(2rem, 6vw, 7.5rem) 2rem; }
+.columns { display: grid; grid-template-columns: 1.45fr repeat(3, 1fr); gap: clamp(3rem, 7vw, 8rem); min-height: 14rem; }
+.brandColumn { min-width: 0; }
+.brand { display: inline-flex; align-items: center; gap: .75rem; color: #f8f8fc; text-decoration: none; }
+.brand strong { font-size: 1.45rem; font-weight: 750; letter-spacing: -.025em; }
+.brandMark { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border-radius: 50%; color: white; background: linear-gradient(135deg, #8d5bff, #642dff); }
+.brandMark svg { width: 1.3rem; height: 1.3rem; }
+.brandColumn p { margin: 1.35rem 0 0; color: #a8aabc; font-size: .92rem; line-height: 1.8; }
+.linkColumn { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.linkColumn h2 { margin: .2rem 0 .55rem; color: #8f92a8; font-size: .72rem; font-weight: 750; letter-spacing: .14em; }
+.linkColumn a { color: #c9cad8; font-size: .92rem; line-height: 1.5; text-decoration: none; transition: color .18s ease; }
+.linkColumn a:hover { color: #fff; }
+.bottomRow { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem; padding-top: 1.8rem; border-top: 1px solid rgb(255 255 255 / .12); }
+.bottomRow p { margin: 0; color: #85889f; font-size: .78rem; line-height: 1.6; }
+.bottomRow p:last-child { text-align: right; }
+@container provoice-footer (max-width: 800px) { .inner { padding: 3rem 1.5rem 1.75rem; } .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 2rem; } .brandColumn { grid-column: 1 / -1; } .bottomRow { align-items: flex-start; flex-direction: column; gap: .6rem; } .bottomRow p:last-child { text-align: left; } }
+@container provoice-footer (max-width: 430px) { .columns { grid-template-columns: 1fr; } .brandColumn { grid-column: auto; } .brandColumn p br { display: none; } }

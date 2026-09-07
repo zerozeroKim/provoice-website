@@ -1,0 +1,32 @@
+{
+  "name": "react-design-system-starter",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "@types/three": "^0.185.4",
+    "@vitejs/plugin-react": "latest",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lightswind": "^3.2.4",
+    "lucide-react": "^0.479.0",
+    "ogl": "^1.0.11",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwind-merge": "^2.6.1",
+    "three": "^0.185.1",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
+  }
+}

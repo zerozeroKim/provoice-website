@@ -1,0 +1,5 @@
+.field { display: grid; gap: .4rem; }
+.label { font-size: .875rem; font-weight: 600; color: var(--color-neutral-700); }
+.hint, .error { font-size: .8rem; }
+.hint { color: var(--color-neutral-500); }
+.error { color: var(--color-danger); }

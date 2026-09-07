@@ -1,0 +1,17 @@
+.page { width: min(100% - 4rem, 960px); margin: 0 auto; padding: 3.5rem 0 6rem; color: #161616; background: #fff; }
+.header { margin-bottom: 3.5rem; }.header h1 { font-size: 1.25rem; line-height: 1.3; letter-spacing: -.025em; }.header p { margin-top: .4rem; color: #777; font-size: .75rem; }
+.fontInfo { display: flex; align-items: baseline; gap: 2rem; margin-bottom: 3rem; }
+.fontName { font-size: clamp(4.5rem, 10vw, 8rem); font-weight: 700; line-height: .9; letter-spacing: -.065em; }
+.weights { display: flex; gap: .6rem; color: #555; font-size: .75rem; }.weights > *:not(:last-child)::after { margin-left: .6rem; color: #bbb; content: '·'; }.weights b { font-weight: 700; }
+.scale { margin-bottom: 4rem; }.scale h2, .tableSection h2 { margin-bottom: 1.25rem; font-size: 1.15rem; letter-spacing: -.02em; }
+.scale > div { display: flex; min-height: 5rem; gap: clamp(1.25rem, 4vw, 4rem); align-items: baseline; overflow: hidden; font-weight: 600; letter-spacing: -.04em; }
+.tableSection { margin-bottom: 4.5rem; }.tableSection h2 { padding-bottom: .75rem; border-bottom: 1px solid #222; }
+.row { display: grid; grid-template-columns: 1fr 1.15fr 2fr; gap: 2rem; min-height: 8.75rem; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid #d8d8d8; }
+.row > strong { align-self: start; font-size: .8rem; font-weight: 600; }.row dl { align-self: start; color: #999; font-size: .625rem; line-height: 1.55; }
+.row dl > div { display: flex; gap: .4rem; }.row dt { min-width: 4.5rem; }.row dd { margin: 0; color: #666; }
+.row > p { font-size: var(--sample-size); overflow-wrap: anywhere; }
+@media (max-width: 700px) {
+  .page { width: min(100% - 2.5rem, 960px); padding-top: 3rem; }.header { margin-bottom: 3rem; }.fontInfo { display: block; margin-bottom: 3rem; }.fontName { font-size: clamp(3.5rem, 18vw, 6rem); }.weights { margin-top: 1.5rem; flex-wrap: wrap; }
+  .scale { margin-bottom: 4rem; }.scale > div { gap: 1.25rem; overflow-x: auto; }.scale > div span { flex: none; }
+  .tableSection { margin-bottom: 4rem; }.row { grid-template-columns: 1fr 1.5fr; gap: 1.25rem; min-height: auto; }.row > strong { grid-column: 1; }.row dl { grid-column: 2; }.row > p { grid-column: 1 / -1; padding: 1.5rem 0 .5rem; font-size: min(var(--sample-size), 40px); }
+}

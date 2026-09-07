@@ -1,0 +1,45 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  color: var(--neutral-950);
+  background: var(--neutral-100);
+}
+
+.list {
+  display: grid;
+  gap: 2rem;
+}
+
+.preview {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgb(185 180 192 / .55);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--neutral-0), var(--neutral-50));
+  box-shadow: 0 20px 55px rgb(23 19 31 / .12);
+}
+
+.preview > section {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.preview:has(> section[aria-label='성우 검색']) {
+  background: var(--neutral-0);
+}
+
+.verticalSpace {
+  width: 100%;
+  height: clamp(3.75rem, 5vw, 4.75rem);
+  flex: none;
+}
+
+@media (max-width: 700px) {
+  .page { padding: .75rem; }
+  .list { gap: .75rem; }
+  .preview { border-radius: .75rem; }
+  .verticalSpace { height: 3rem; }
+}

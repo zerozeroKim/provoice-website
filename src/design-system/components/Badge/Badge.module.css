@@ -1,0 +1,4 @@
+.badge { display: inline-flex; width: fit-content; padding: .25rem .6rem; border-radius: 9999px; font-size: .75rem; font-weight: 700; }
+.brand { background: var(--color-brand-50); color: var(--color-brand-700); }
+.neutral { background: var(--color-neutral-100); color: var(--color-neutral-700); }
+.success { background: #dcfce7; color: #15803d; }
