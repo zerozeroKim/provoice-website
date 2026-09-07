@@ -36,6 +36,8 @@
   font-weight: 650;
   line-height: 1.25;
   letter-spacing: -.025em;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 .content p {
   margin: 0;
@@ -44,6 +46,9 @@
   font-size: 1rem;
   line-height: 1.6;
   letter-spacing: 0;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  text-wrap: pretty;
 }
 .gradient .content p { color: var(--neutral-500); }
 
