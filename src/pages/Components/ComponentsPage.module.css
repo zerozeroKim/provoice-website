@@ -14,7 +14,7 @@
 .chipDocs { display: grid; gap: 3rem; }.chipDocs article { padding-bottom: 1.75rem; border-bottom: 1px solid var(--neutral-100); }.chipRow { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem; }.chipRow .sampleCanvas { min-height: 6.5rem; }.emptyText { color: var(--neutral-500); font-size: .75rem; }
 .actionCardGrid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.25rem; }
 .testimonialGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-.voiceActorCardGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
+.voiceActorCardGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: stretch; }
 .voiceActorCardGrid > * { max-width: none; }
 .serviceCardGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
 .sectionHeaderDocs { display: grid; gap: 1.25rem; }
