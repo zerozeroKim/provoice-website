@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   min-width: 0;
-  min-height: 19rem;
+  min-height: 0;
   flex-direction: column;
   padding: 1.75rem;
   overflow: hidden;
@@ -88,7 +88,7 @@
 .primaryAction:focus-visible,
 .secondaryAction:focus-visible { outline: 3px solid rgb(189 145 255 / .45); outline-offset: 2px; }
 
-.secondaryGroup { display: flex; align-items: center; gap: .8rem; margin-top: auto; padding: .7rem .8rem; border: 1px solid rgba(128, 56, 255, .11); border-radius: .75rem; background: rgb(128 56 255 / .045); }
+.secondaryGroup { display: flex; align-items: center; gap: .8rem; margin-top: 1.25rem; padding: .7rem .8rem; border: 1px solid rgba(128, 56, 255, .11); border-radius: .75rem; background: rgb(128 56 255 / .045); }
 .gradient .secondaryGroup { border-top-color: transparent; }
 .secondaryLabel { display: block; margin: 0; color: var(--purple-600); font-size: .7rem; font-weight: 750; line-height: 1.4; }
 .gradient .secondaryLabel { color: var(--neutral-400); }
