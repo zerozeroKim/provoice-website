@@ -2,6 +2,8 @@ import { useState, type CSSProperties, type KeyboardEvent } from 'react';
 import { PixelCard } from '../PixelCard';
 import styles from './PortfolioCard.module.css';
 
+export type PortfolioItem<T extends string = string> = { category: T; title: string; languages: string[]; tone: string; tags: string[]; highlight?: string; image?: string };
+
 export type PortfolioCardProps = {
   title: string;
   languages: string[];
@@ -9,11 +11,13 @@ export type PortfolioCardProps = {
   tags: string[];
   highlight?: string;
   image?: string;
+  /** 제목·태그 없이 이미지만 채워서 보여주는 갤러리형 타일입니다. */
+  imageOnly?: boolean;
   onOpen?: (origin: DOMRect) => void;
   className?: string;
 };
 
-export function PortfolioCard({ title, languages, category, tags, highlight, image, onOpen, className = '' }: PortfolioCardProps) {
+export function PortfolioCard({ title, languages, category, tags, highlight, image, imageOnly = false, onOpen, className = '' }: PortfolioCardProps) {
   const [activating, setActivating] = useState(false);
   const thumbnailStyle = image ? ({ '--portfolio-image': image } as CSSProperties) : undefined;
   const open = (element?: HTMLElement) => {
@@ -30,20 +34,22 @@ export function PortfolioCard({ title, languages, category, tags, highlight, ima
   };
 
   return (
-    <PixelCard as="article" variant="dark" role={onOpen ? 'button' : undefined} tabIndex={onOpen ? 0 : undefined} onClick={(event) => open(event.currentTarget)} onKeyDown={onKeyDown} className={`${styles.card} ${onOpen ? styles.interactive : ''} ${activating ? styles.activating : ''} ${className}`}>
-      <div className={styles.thumbnail} style={thumbnailStyle}>
+    <PixelCard as="article" variant="dark" role={onOpen ? 'button' : undefined} tabIndex={onOpen ? 0 : undefined} onClick={(event) => open(event.currentTarget)} onKeyDown={onKeyDown} className={`${styles.card} ${imageOnly ? styles.imageOnlyCard : ''} ${onOpen ? styles.interactive : ''} ${activating ? styles.activating : ''} ${className}`}>
+      <div className={`${styles.thumbnail} ${imageOnly ? styles.thumbnailFill : ''}`} style={thumbnailStyle}>
         <div className={styles.languages}>
           {languages.map((language) => <span key={language}>{language}</span>)}
         </div>
         <span className={styles.category}>{category}</span>
       </div>
-      <div className={styles.body}>
-        <h3>{title}</h3>
-        <div className={styles.tags}>
-          {tags.map((tag) => <span key={tag}>{tag}</span>)}
-          {highlight && <span className={styles.highlight}>{highlight}</span>}
+      {!imageOnly && (
+        <div className={styles.body}>
+          <h3>{title}</h3>
+          <div className={styles.tags}>
+            {tags.map((tag) => <span key={tag}>{tag}</span>)}
+            {highlight && <span className={styles.highlight}>{highlight}</span>}
+          </div>
         </div>
-      </div>
+      )}
     </PixelCard>
   );
 }

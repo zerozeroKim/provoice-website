@@ -7,6 +7,30 @@
   background: var(--neutral-100);
 }
 
+.tabs {
+  display: flex;
+  gap: 1.75rem;
+  width: min(100%, 1440px);
+  margin: 0 auto 2rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--neutral-300);
+  scrollbar-width: none;
+}
+
+.tabs button {
+  flex: none;
+  padding: 0 0 .9rem;
+  border: 0;
+  background: transparent;
+  color: var(--neutral-500);
+  font: inherit;
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tabs .active { border-bottom: 1px solid var(--neutral-950); color: var(--neutral-950); font-weight: 700; }
+
 .list {
   display: grid;
   gap: 2rem;

@@ -1,15 +1,16 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight, BadgeCheck, Languages, Search, Sparkles, Users, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowRight, ArrowUpRight, BadgeCheck, ChevronDown, Languages, Search, Sparkles, Users } from 'lucide-react';
 import type { FormEvent, ReactNode } from 'react';
 import MagicRings from '@/components/reactbits/MagicRings';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ActionCard, Button, Chip, Modal, PortfolioCard, PortfolioFilter, SectionHeader, ServiceCard, TextField, VoiceActorCard } from '../../components';
+import { ActionCard, Button, Chip, LoadMoreControl, Modal, Pagination, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, TextField, VoiceActorCard } from '../../components';
+import type { PortfolioItem } from '../../components';
 import styles from './LandingSections.module.css';
 
+export type { PortfolioItem };
 export type HeroStat = { value: string; label: string };
 export type TalentProfile = { name: string; locale: string; tags: string[]; duration: number; verified: boolean };
 export type ServiceItem = { icon?: ReactNode; imageSrc?: string; imageAlt?: string; title: string; description: string; badge?: string; link?: string };
-export type PortfolioItem<T extends string = string> = { category: T; title: string; languages: string[]; tone: string; tags: string[]; highlight?: string; image?: string };
 export type TranslationRow = { label: string; value: string };
 
 export function HeroSection({ stats }: { stats: HeroStat[] }) {
@@ -58,7 +59,7 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
     <section className={styles.talentSection} aria-label="성우 검색">
       <div className={styles.talentAmbient} aria-hidden="true"><span /><span /></div>
       <div className={styles.talentInner}>
-      <SectionHeader className={styles.talentHeader} eyebrow="VOICE TALENT DIRECTORY" title="성우 검색 — 문장으로 편하게 찾아보세요" description={<>“일본어 하는 20대 여성 캐릭터 보이스”처럼 원하는 조건을 문장으로 입력하면 자동으로 매칭해드립니다.</>} />
+      <SectionHeader className={styles.talentHeader} eyebrow="VOICE TALENT DIRECTORY" title={<>성우 검색<br /><span className={styles.talentTitleGradient}>문장으로 편하게 찾아보세요</span></>} description={<>“일본어 하는 20대 여성 캐릭터 보이스”처럼 원하는 조건을 문장으로 입력하면 자동으로 매칭해드립니다.</>} />
       <div className={styles.talentWorkspace}>
         <div className={styles.searchShell}>
           <form className={styles.searchRow} onSubmit={handleSearch}>
@@ -88,88 +89,142 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
   );
 }
 
+const talentLanguageOptions = ['한국어', '영어', '일본어', '중국어', '스페인어', '아랍어', '베트남어', '인도네시아어', '태국어', '프랑스어', '독일어', '러시아어', '포르투갈어', '이탈리아어', '터키어'];
+const talentGenderOptions = ['남성', '여성'];
+const talentCategoryOptions = ['게임', '광고(TV)', '교육영상', '기업홍보', '나레이션', '노래·보컬', '안내멘트, ARS', '오디오북', '유튜브', '캐릭터', '키즈', '기타'];
+const talentToneOptions = ['감성적인&따뜻한', '고음의', '귀여운', '대화체의', '드라마틱', '무서운', '밝은', '비꼬는', '섹시한', '자신감', '자연스러운', '재밌는', '저음의', '중음의', '진중한', '차분한', '친근한', '투박한', '기타'];
+const talentAgeOptions = ['아이', '청년', '중년', '노년', '미상'];
+
+function TalentFilterDropdown({ label, options, selected, multiple = false, onSelect }: { label: string; options: string[]; selected: string[]; multiple?: boolean; onSelect: (option: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (event: PointerEvent) => { if (ref.current && !ref.current.contains(event.target as Node)) setOpen(false); };
+    window.addEventListener('pointerdown', close);
+    return () => window.removeEventListener('pointerdown', close);
+  }, [open]);
+
+  const triggerLabel = selected.length === 0 ? label : multiple ? `${label} (${selected.length})` : selected[0];
+  const handleOptionClick = (option: string) => {
+    onSelect(option);
+    if (!multiple) setOpen(false);
+  };
+
+  return (
+    <div className={styles.talentFilter} ref={ref}>
+      <button type="button" className={`${styles.talentFilterTrigger} ${selected.length ? styles.talentFilterTriggerActive : ''}`} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+        <span>{triggerLabel}</span>
+        <ChevronDown size={16} className={styles.talentFilterChevron} />
+      </button>
+      {open && (
+        <div className={styles.talentFilterPanel} role={multiple ? 'group' : 'listbox'} aria-label={`${label} 선택${multiple ? ' (다중 선택 가능)' : ''}`}>
+          {options.map((option) => (
+            <button key={option} type="button" className={`${styles.talentFilterOption} ${selected.includes(option) ? styles.talentFilterOptionActive : ''}`} aria-pressed={multiple ? selected.includes(option) : undefined} aria-selected={!multiple ? selected.includes(option) : undefined} onClick={() => handleOptionClick(option)}>{option}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function TalentFilterSection({ talents, pageSize = 8 }: { talents: TalentProfile[]; pageSize?: number }) {
+  const [languages, setLanguages] = useState<string[]>([]);
+  const [genders, setGenders] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [tones, setTones] = useState<string[]>([]);
+  const [ages, setAges] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+
+  const selectSingle = (setter: (value: string[]) => void, current: string[]) => (option: string) => {
+    setter(current.includes(option) ? [] : [option]);
+    setPage(1);
+  };
+  const toggleMulti = (setter: (updater: (current: string[]) => string[]) => void) => (option: string) => {
+    setter((current) => current.includes(option) ? current.filter((item) => item !== option) : [...current, option]);
+    setPage(1);
+  };
+
+  const matchedTalents = useMemo(() => {
+    const selectedLanguage = languages[0];
+    const localeFilter = selectedLanguage === '한국어' ? 'KO' : selectedLanguage === '영어' ? 'EN' : selectedLanguage === '일본어' ? 'JP' : null;
+    return talents.filter((talent) => !localeFilter || talent.locale.includes(localeFilter));
+  }, [languages, talents]);
+  const totalPages = Math.max(1, Math.ceil(matchedTalents.length / pageSize));
+  const visibleTalents = matchedTalents.slice((page - 1) * pageSize, page * pageSize);
+
+  return (
+    <section className={styles.talentFilterSection} aria-label="성우 검색 — 필터 검색">
+      <div className={styles.talentInner}>
+        <SectionHeader className={styles.talentHeader} eyebrow="FILTER SEARCH" title="조건으로 좁혀서 찾기" description="언어, 성별, 카테고리, 톤, 연령을 조합해 원하는 성우를 빠르게 찾아보세요." />
+        <div className={styles.talentFilterShell}>
+          <div className={styles.talentFilterRow}>
+            <TalentFilterDropdown label="언어" options={talentLanguageOptions} selected={languages} onSelect={selectSingle(setLanguages, languages)} />
+            <TalentFilterDropdown label="성별" options={talentGenderOptions} selected={genders} onSelect={selectSingle(setGenders, genders)} />
+            <TalentFilterDropdown label="카테고리" options={talentCategoryOptions} selected={categories} onSelect={selectSingle(setCategories, categories)} />
+            <TalentFilterDropdown label="톤" options={talentToneOptions} selected={tones} multiple onSelect={toggleMulti(setTones)} />
+            <TalentFilterDropdown label="연령" options={talentAgeOptions} selected={ages} onSelect={selectSingle(setAges, ages)} />
+          </div>
+        </div>
+        <div className={styles.talentResults}>
+          <div className={styles.talentResultsHeader}>
+            <div className={styles.talentSummary}><Users size={16} strokeWidth={1.75} aria-hidden="true" /> 검색 결과 <strong>{matchedTalents.length}명</strong></div>
+          </div>
+          <div className={styles.talentGrid}>{visibleTalents.map((talent) => <VoiceActorCard key={talent.name} className={styles.talentCard} name={talent.name} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />)}</div>
+          <Pagination page={page} totalPages={totalPages} onChange={setPage} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ServiceSection({ services }: { services: ServiceItem[] }) {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   return <><section className={styles.serviceSection} aria-label="서비스 소개"><div className={styles.serviceInner}><SectionHeader className={styles.serviceHeader} eyebrow="SERVICE" title="하나의 팀, 원스톱 로컬라이징" description="캐스팅부터 번역, 사운드까지 — 콘텐츠 하나를 세계 여러 시장에 내보낼 수 있도록 설계된 서비스를 제공합니다." /><div className={styles.serviceGrid}>{services.map((service) => <ServiceCard key={service.title} {...service} onOpen={() => setSelectedService(service)} />)}</div></div></section><Modal open={Boolean(selectedService)} title={selectedService?.title ?? '서비스 안내'} onClose={() => setSelectedService(null)}>{selectedService && <div className={styles.serviceModalBody}>{selectedService.imageSrc && <img src={selectedService.imageSrc} alt={selectedService.imageAlt ?? ''} />}<p>{selectedService.description}</p><Button fullWidth onClick={() => setSelectedService(null)}>프로젝트 문의하기</Button></div>}</Modal></>;
 }
 
-export function PortfolioSection<T extends string>({ tabs, cards }: { tabs: readonly T[]; cards: PortfolioItem<Exclude<T, '전체'>>[] }) {
+export function PortfolioSection<T extends string>({ tabs, cards, initialCount = 6, increment = 6, maxCount = 12 }: { tabs: readonly T[]; cards: PortfolioItem<Exclude<T, '전체'>>[]; initialCount?: number; increment?: number; maxCount?: number }) {
   const [active, setActive] = useState<T>(tabs[0]);
+  const [visibleCount, setVisibleCount] = useState(initialCount);
   const [selectedPortfolio, setSelectedPortfolio] = useState<PortfolioItem<Exclude<T, '전체'>> | null>(null);
   const [origin, setOrigin] = useState<DOMRect | null>(null);
   const filtered = active === '전체' ? cards : cards.filter((card) => card.category === active);
+  const visible = filtered.slice(0, Math.min(visibleCount, maxCount));
+  const hasMore = visible.length < filtered.length && visible.length < maxCount;
+  const handleFilter = (value: T) => { setActive(value); setVisibleCount(initialCount); };
   const openPortfolio = (card: PortfolioItem<Exclude<T, '전체'>>, cardOrigin: DOMRect) => {
     setOrigin(cardOrigin);
     setSelectedPortfolio(card);
   };
-  return <><section className={`${styles.portfolioSection} ${selectedPortfolio ? styles.portfolioIsOpen : ''}`} aria-label="포트폴리오"><SectionHeader className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="장르별 · 언어별로 보는 포트폴리오" description="게임, 애니메이션, 웹툰, 광고 등 다양한 프로젝트를 여러 언어의 목소리와 스타일로 한 번에 확인할 수 있습니다." /><PortfolioFilter items={tabs} value={active} onChange={setActive} className={styles.portfolioFilter} /><div className={styles.portfolioGrid}>{filtered.map((card) => <PortfolioCard key={`${card.title}-${card.tone}`} className={styles.portfolioGridCard} title={card.title} languages={card.languages} category={card.tone} tags={card.tags} highlight={card.highlight} image={card.image} onOpen={(cardOrigin) => openPortfolio(card, cardOrigin)} />)}</div></section>{selectedPortfolio && origin && <PortfolioDetail item={selectedPortfolio} origin={origin} onClose={() => setSelectedPortfolio(null)} />}</>;
+  return <><section className={`${styles.portfolioSection} ${selectedPortfolio ? styles.portfolioIsOpen : ''}`} aria-label="포트폴리오"><SectionHeader className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="장르별 · 언어별로 보는 포트폴리오" description="게임, 애니메이션, 웹툰, 광고 등 다양한 프로젝트를 여러 언어의 목소리와 스타일로 한 번에 확인할 수 있습니다." /><PortfolioFilter items={tabs} value={active} onChange={handleFilter} className={styles.portfolioFilter} /><div className={styles.portfolioGrid}>{visible.map((card) => <PortfolioCard key={`${card.title}-${card.tone}`} className={styles.portfolioGridCard} title={card.title} languages={card.languages} category={card.tone} tags={card.tags} highlight={card.highlight} image={card.image} onOpen={(cardOrigin) => openPortfolio(card, cardOrigin)} />)}</div><LoadMoreControl visible={visible.length} total={filtered.length} hasMore={hasMore} onLoadMore={() => setVisibleCount((count) => Math.min(count + increment, maxCount))} allHref="#portfolio" /></section>{selectedPortfolio && origin && <PortfolioDetail item={selectedPortfolio} origin={origin} onClose={() => setSelectedPortfolio(null)} />}</>;
 }
 
-function PortfolioDetail({ item, origin, onClose }: { item: PortfolioItem; origin: DOMRect; onClose: () => void }) {
-  const panelRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const closingRef = useRef(false);
+const portfolioLanguageOptions = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
 
-  const motionFrames = () => {
-    const panel = panelRef.current;
-    if (!panel) return null;
-    const target = panel.getBoundingClientRect();
-    return [
-      { transform: `translate(${origin.left - target.left}px, ${origin.top - target.top}px) scale(${origin.width / target.width}, ${origin.height / target.height})`, borderRadius: '1.25rem' },
-      { transform: 'translate(0, 0) scale(1)', borderRadius: '1.5rem' },
-    ];
+export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: readonly T[]; cards: PortfolioItem<Exclude<T, '전체'>>[] }) {
+  const [active, setActive] = useState<T>(tabs[0]);
+  const [languages, setLanguages] = useState<string[]>([]);
+  const [selectedPortfolio, setSelectedPortfolio] = useState<PortfolioItem<Exclude<T, '전체'>> | null>(null);
+  const [origin, setOrigin] = useState<DOMRect | null>(null);
+  const byCategory = active === '전체' ? cards : cards.filter((card) => card.category === active);
+  const selectedLanguage = languages[0];
+  const filtered = selectedLanguage ? byCategory.filter((card) => card.languages.includes(selectedLanguage)) : byCategory;
+  const handleFilter = (value: T) => setActive(value);
+  const selectLanguage = (option: string) => setLanguages((current) => current.includes(option) ? [] : [option]);
+  const openPortfolio = (card: PortfolioItem<Exclude<T, '전체'>>, cardOrigin: DOMRect) => {
+    setOrigin(cardOrigin);
+    setSelectedPortfolio(card);
   };
-
-  useLayoutEffect(() => {
-    const panel = panelRef.current;
-    const image = imageRef.current;
-    const content = contentRef.current;
-    if (!panel || !image || !content) return;
-    document.body.style.overflow = 'hidden';
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduceMotion) {
-      const frames = motionFrames();
-      if (frames) panel.animate(frames, { duration: 380, easing: 'cubic-bezier(.22,.9,.28,1)', fill: 'both' });
-      image.animate([{ transform: 'scale(1.035)' }, { transform: 'scale(1)' }], { duration: 440, easing: 'cubic-bezier(.22,.9,.28,1)', fill: 'both' });
-      content.animate([{ opacity: 0, transform: 'translateY(-28px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 280, delay: 90, easing: 'cubic-bezier(.22,.9,.28,1)', fill: 'both' });
-    }
-    const onKeyDown = (event: KeyboardEvent) => event.key === 'Escape' && close();
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, []);
-
-  const close = async () => {
-    if (closingRef.current) return;
-    closingRef.current = true;
-    const panel = panelRef.current;
-    const content = contentRef.current;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (panel && content && !reduceMotion) {
-      content.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-24px)' }], { duration: 110, easing: 'ease-in', fill: 'both' });
-      const frames = motionFrames();
-      if (frames) await panel.animate(frames.reverse(), { duration: 300, delay: 40, easing: 'cubic-bezier(.7,0,.78,.1)', fill: 'both' }).finished;
-    }
-    onClose();
-  };
-
-  return <div className={styles.portfolioDetailBackdrop} role="presentation" onMouseDown={(event) => event.target === event.currentTarget && close()}>
-    <section ref={panelRef} className={styles.portfolioDetail} role="dialog" aria-modal="true" aria-labelledby="portfolio-detail-title">
-      <button type="button" className={styles.portfolioDetailClose} aria-label="포트폴리오 상세 닫기" onClick={close}><X size={20} /></button>
-      <div ref={imageRef} className={styles.portfolioDetailImage} style={{ background: item.image }} role="img" aria-label={`${item.title} 프로젝트 이미지`}>
-        <div className={styles.portfolioDetailBadges}>{item.languages.map((language) => <span key={language}>{language}</span>)}<span>{item.tone}</span></div>
-      </div>
-      <div ref={contentRef} className={styles.portfolioDetailContent}>
-        <div><span className={styles.portfolioDetailKicker}>CASE STUDY · {item.category}</span><h2 id="portfolio-detail-title">{item.title}</h2></div>
-        <div className={styles.portfolioDetailMeta}>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}{item.highlight && <span>{item.highlight}</span>}</div>
-        <p>프로젝트 목표와 콘텐츠의 감정선에 맞춰 캐스팅부터 번역, 녹음과 사운드 후반 작업까지 하나의 팀으로 완성한 다국어 제작 사례입니다.</p>
-        <button type="button" className={styles.portfolioDetailCta}>이런 프로젝트 의뢰하기 <ArrowUpRight size={18} /></button>
-      </div>
-    </section>
-  </div>;
+  return <><section className={`${styles.portfolioSection} ${selectedPortfolio ? styles.portfolioIsOpen : ''}`} aria-label="전체 포트폴리오">
+    <SectionHeader className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="모든 프로젝트 살펴보기" description="장르, 언어별로 원하는 작업 사례를 찾아보세요." />
+    <div className={styles.portfolioPageControls}>
+      <TalentFilterDropdown label="언어" options={portfolioLanguageOptions} selected={languages} onSelect={selectLanguage} />
+      <PortfolioFilter items={tabs} value={active} onChange={handleFilter} className={styles.portfolioPageFilter} />
+    </div>
+    <div className={styles.portfolioImageGrid}>{filtered.map((card) => <PortfolioCard key={`${card.title}-${card.tone}`} imageOnly title={card.title} languages={card.languages} category={card.tone} tags={card.tags} highlight={card.highlight} image={card.image} onOpen={(cardOrigin) => openPortfolio(card, cardOrigin)} />)}</div>
+    {filtered.length === 0 && <p className={styles.portfolioEmpty}>검색 조건에 맞는 프로젝트가 없습니다.</p>}
+  </section>{selectedPortfolio && origin && <PortfolioDetail item={selectedPortfolio} origin={origin} onClose={() => setSelectedPortfolio(null)} />}</>;
 }
 
 export function TranslationSection({ rows, languages }: { rows: TranslationRow[]; languages: string[] }) {

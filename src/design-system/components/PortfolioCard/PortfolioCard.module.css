@@ -30,7 +30,12 @@
   min-height: 11.5rem;
   padding: .9rem .9rem .75rem;
   background: var(--portfolio-image, linear-gradient(180deg, var(--neutral-950) 0%, #171f38 100%));
+  background-position: center;
+  background-size: cover;
 }
+
+.imageOnlyCard { aspect-ratio: 16 / 9; }
+.thumbnailFill { height: 100%; min-height: 0; }
 
 .languages { display: flex; align-items: center; gap: .3rem; }
 .languages span,

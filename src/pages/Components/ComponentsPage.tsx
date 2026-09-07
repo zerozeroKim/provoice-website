@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { ActionCard, Button, Chip, Footer, GNB, Modal, PortfolioCard, PortfolioFilter, SectionHeader, ServiceCard, TestimonialCard, TextField, VoiceActorCard } from '../../design-system';
+import { ActionCard, Button, Chip, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, TestimonialCard, TextField, VoiceActorCard } from '../../design-system';
 import styles from './ComponentsPage.module.css';
 
-const tabs = ['GNB', 'Footer', 'Button', 'Input', 'Chip', 'Card', 'Section Header', 'Portfolio'];
+const tabs = ['GNB', 'Footer', 'Button', 'Input', 'Chip', 'Card', 'Section Header', 'Portfolio', 'Load More'];
 
 const testimonialCards = [
   {
@@ -52,6 +52,8 @@ export function ComponentsPage() {
   const [tags, setTags] = useState(['광고', '내레이션', '20대']);
   const [portfolioTab, setPortfolioTab] = useState('애니메이션');
   const [selectedPortfolio, setSelectedPortfolio] = useState<(typeof portfolioCards)[number] | null>(null);
+  const [portfolioOrigin, setPortfolioOrigin] = useState<DOMRect | null>(null);
+  const [loadMoreVisible, setLoadMoreVisible] = useState(6);
 
   useEffect(() => {
     if (!previewOpen) return;
@@ -205,9 +207,33 @@ export function ComponentsPage() {
               {portfolioCards
                 .filter((card) => card.category === portfolioTab)
                 .map((card) => (
-                  <PortfolioCard key={`${card.title}-${card.languages.join('-')}`} title={card.title} languages={card.languages} category={card.tone} tags={[card.type, ...card.tags]} image={card.image} onOpen={() => setSelectedPortfolio(card)} />
+                  <PortfolioCard key={`${card.title}-${card.languages.join('-')}`} title={card.title} languages={card.languages} category={card.tone} tags={[card.type, ...card.tags]} image={card.image} onOpen={(origin) => { setPortfolioOrigin(origin); setSelectedPortfolio(card); }} />
                 ))}
             </div>
+          </div>
+        </section>
+      ) : activeTab === 'Load More' ? (
+        <section className={styles.content}>
+          <div className={styles.title}><div><h2>Load More</h2><p>목록을 한 번에 노출하지 않고 점진적으로 확장할 때 사용하는 컨트롤입니다.</p></div></div>
+          <div className={styles.buttonDocs}>
+            <article>
+              <div className={styles.exampleHead}><strong>Default</strong><span>더 보기 클릭 시 6개씩 증가</span></div>
+              <div className={styles.buttonRow}>
+                <NamedSample name="LoadMoreControl / Default"><LoadMoreControl visible={Math.min(loadMoreVisible, 20)} total={20} hasMore={loadMoreVisible < 20} onLoadMore={() => setLoadMoreVisible((count) => Math.min(count + 6, 20))} /></NamedSample>
+              </div>
+            </article>
+            <article>
+              <div className={styles.exampleHead}><strong>Exhausted</strong><span>더 보기 버튼 없이 결과 수 + 전체 보기만 노출</span></div>
+              <div className={styles.buttonRow}>
+                <NamedSample name="LoadMoreControl / No more items"><LoadMoreControl visible={20} total={20} hasMore={false} /></NamedSample>
+              </div>
+            </article>
+            <article>
+              <div className={styles.exampleHead}><strong>Without view-all</strong><span>전용 포트폴리오 페이지 등 자기 자신을 가리킬 필요가 없을 때</span></div>
+              <div className={styles.buttonRow}>
+                <NamedSample name="LoadMoreControl / showViewAll=false"><LoadMoreControl visible={12} total={20} hasMore showViewAll={false} onLoadMore={() => {}} /></NamedSample>
+              </div>
+            </article>
           </div>
         </section>
       ) : (
@@ -227,14 +253,13 @@ export function ComponentsPage() {
           </div>
         </div>
       )}
-      <Modal open={Boolean(selectedPortfolio)} title={selectedPortfolio?.title ?? '포트폴리오 상세'} onClose={() => setSelectedPortfolio(null)}>
-        {selectedPortfolio && <div className={styles.portfolioModalBody}>
-          <div className={styles.portfolioModalImage} style={{ background: selectedPortfolio.image }} role="img" aria-label={`${selectedPortfolio.title} 프로젝트 이미지`} />
-          <div className={styles.portfolioModalMeta}>{selectedPortfolio.languages.map((language) => <span key={language}>{language}</span>)}<span>{selectedPortfolio.tone}</span></div>
-          <p>{selectedPortfolio.title}의 제작 사례입니다. 프로젝트의 목표와 콘텐츠 톤에 맞춰 다국어 보이스와 사운드를 제작했습니다.</p>
-          <Button fullWidth onClick={() => setSelectedPortfolio(null)}>프로젝트 문의하기</Button>
-        </div>}
-      </Modal>
+      {selectedPortfolio && portfolioOrigin && (
+        <PortfolioDetail
+          item={{ category: selectedPortfolio.category, title: selectedPortfolio.title, languages: selectedPortfolio.languages, tone: selectedPortfolio.tone, tags: [selectedPortfolio.type, ...selectedPortfolio.tags], image: selectedPortfolio.image }}
+          origin={portfolioOrigin}
+          onClose={() => setSelectedPortfolio(null)}
+        />
+      )}
     </main>
   );
 }
