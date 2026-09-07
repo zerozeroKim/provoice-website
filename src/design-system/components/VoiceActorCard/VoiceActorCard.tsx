@@ -29,7 +29,7 @@ const formatTime = (seconds: number) => {
   const safe = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
   const m = Math.floor(safe / 60);
   const s = Math.floor(safe % 60);
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  return `${m}:${String(s).padStart(2, '0')}`;
 };
 
 const VerifiedIcon = () => (
@@ -95,9 +95,9 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
               {playing ? <PauseIcon /> : <PlayIcon />}
             </button>
             <span className={styles.sampleMain}>
-              <span className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></span>
+              <span className={styles.progressTrack} role="progressbar" aria-label={`재생 위치 ${formatTime(currentTime)}`} aria-valuemin={0} aria-valuemax={duration} aria-valuenow={Math.round(currentTime)}><span style={{ width: `${progress}%` }} /></span>
             </span>
-            <span className={styles.playerTime}>{formatTime(currentTime)} / {formatTime(duration)}</span>
+            <span className={styles.playerTime}>{formatTime(duration)}</span>
             {canDownload && <button type="button" className={styles.downloadButton} aria-label="샘플 다운로드" onClick={onDownload}><DownloadIcon /></button>}
           </div>
         )}
