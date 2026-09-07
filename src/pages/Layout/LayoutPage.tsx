@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { currentDesignVersion, layoutVersions } from '@/app/version';
 import {
   Footer,
   GetStartedSection,
@@ -19,10 +20,6 @@ import {
   translationRows,
 } from '@/design-system';
 import styles from './LayoutPage.module.css';
-
-const layoutVersions = [
-  { id: '0260907-ver2', label: '0260907 VER2', date: '2026.09.07', status: '현재 시안' },
-] as const;
 
 /** 최종 고객 화면: 디자인 시스템의 완성된 템플릿을 순서대로 조합합니다. */
 export function LayoutPage() {
@@ -48,7 +45,7 @@ export function LayoutPage() {
         <PortfolioSection tabs={portfolioTabs} cards={portfolioCards} />
         <TranslationSection rows={translationRows} languages={supportLanguages} />
         <GetStartedSection />
-        <Footer />
+        <Footer version={currentDesignVersion.label} />
       </div>
     </main>
   );

@@ -8,7 +8,7 @@ function BrandMark() {
   return <span className={styles.brandMark} aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="10" y="4" width="4" height="10" rx="2" fill="currentColor"/><path d="M7.5 11.5a4.5 4.5 0 0 0 9 0M12 16v3M9.5 19h5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg></span>;
 }
 
-export function Footer() {
+export function Footer({ version }: { version?: string }) {
   const stopDemoLink = (event: MouseEvent<HTMLAnchorElement>) => event.preventDefault();
   return (
     <footer className={styles.footer}>
@@ -22,7 +22,7 @@ export function Footer() {
           <nav className={styles.linkColumn} aria-label="회사"><h2>COMPANY</h2>{companyLinks.map((label) => <a href="#company" onClick={stopDemoLink} key={label}>{label}</a>)}</nav>
           <div className={styles.linkColumn}><h2>CONTACT</h2><a href="https://www.instagram.com/provoice_kr/" target="_blank" rel="noreferrer">@provoice_kr</a><a href="https://provoice.co.kr" target="_blank" rel="noreferrer">provoice.co.kr</a></div>
         </div>
-        <div className={styles.bottomRow}><p>© 2026 (주)프로보이스. All rights reserved.</p><p>ISO 17100 · 수출바우처 공식 수행기관 · 데이터바우처 공급기업</p></div>
+        <div className={styles.bottomRow}><p>© 2026 (주)프로보이스. All rights reserved.</p><div className={styles.footerMeta}><p>ISO 17100 · 수출바우처 공식 수행기관 · 데이터바우처 공급기업</p>{version && <span className={styles.version}>VERSION {version}</span>}</div></div>
       </div>
     </footer>
   );
