@@ -200,7 +200,9 @@ export function PortfolioSection<T extends string>({ tabs, cards, initialCount =
   return <><section className={`${styles.portfolioSection} ${selectedPortfolio ? styles.portfolioIsOpen : ''}`} aria-label="포트폴리오"><SectionHeader className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="장르별 · 언어별로 보는 포트폴리오" description="게임, 애니메이션, 웹툰, 광고 등 다양한 프로젝트를 여러 언어의 목소리와 스타일로 한 번에 확인할 수 있습니다." /><PortfolioFilter items={tabs} value={active} onChange={handleFilter} className={styles.portfolioFilter} /><div className={styles.portfolioGrid}>{visible.map((card) => <PortfolioCard key={`${card.title}-${card.tone}`} className={styles.portfolioGridCard} title={card.title} languages={card.languages} category={card.tone} tags={card.tags} highlight={card.highlight} image={card.image} onOpen={(cardOrigin) => openPortfolio(card, cardOrigin)} />)}</div><LoadMoreControl visible={visible.length} total={filtered.length} hasMore={hasMore} onLoadMore={() => setVisibleCount((count) => Math.min(count + increment, maxCount))} allHref="#portfolio" /></section>{selectedPortfolio && origin && <PortfolioDetail item={selectedPortfolio} origin={origin} onClose={() => setSelectedPortfolio(null)} />}</>;
 }
 
-const portfolioLanguageOptions = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
+const portfolioLanguageLabels: Record<string, string> = { KO: '한국어', EN: '영어', JP: '일본어', ZH: '중국어', ES: '스페인어', AR: '아랍어', FR: '프랑스어', DE: '독일어', RU: '러시아어', PT: '포르투갈어', IT: '이탈리아어', TR: '터키어', VI: '베트남어', ID: '인도네시아어', TH: '태국어' };
+const portfolioLanguageOptions = Object.values(portfolioLanguageLabels);
+const portfolioLanguageCodeByLabel = Object.fromEntries(Object.entries(portfolioLanguageLabels).map(([code, label]) => [label, code]));
 
 export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: readonly T[]; cards: PortfolioItem<Exclude<T, '전체'>>[] }) {
   const [active, setActive] = useState<T>(tabs[0]);
@@ -208,8 +210,8 @@ export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: 
   const [selectedPortfolio, setSelectedPortfolio] = useState<PortfolioItem<Exclude<T, '전체'>> | null>(null);
   const [origin, setOrigin] = useState<DOMRect | null>(null);
   const byCategory = active === '전체' ? cards : cards.filter((card) => card.category === active);
-  const selectedLanguage = languages[0];
-  const filtered = selectedLanguage ? byCategory.filter((card) => card.languages.includes(selectedLanguage)) : byCategory;
+  const selectedLanguageCode = languages[0] ? portfolioLanguageCodeByLabel[languages[0]] : null;
+  const filtered = selectedLanguageCode ? byCategory.filter((card) => card.languages.includes(selectedLanguageCode)) : byCategory;
   const handleFilter = (value: T) => setActive(value);
   const selectLanguage = (option: string) => setLanguages((current) => current.includes(option) ? [] : [option]);
   const openPortfolio = (card: PortfolioItem<Exclude<T, '전체'>>, cardOrigin: DOMRect) => {
