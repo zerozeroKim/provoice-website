@@ -6,7 +6,7 @@
   min-width: 0;
   min-height: 0;
   flex-direction: column;
-  padding: 1.75rem;
+  padding: 2.25rem 2rem;
   overflow: hidden;
   border: 1px solid rgba(79, 68, 120, 0.11);
   border-radius: 1.35rem;
@@ -29,7 +29,7 @@
 .gradient:hover,
 .gradient:focus-within { border-color: rgba(128, 56, 255, .34); box-shadow: none; }
 
-.content { display: grid; gap: .65rem; }
+.content { display: grid; gap: .8rem; }
 .content h3 {
   margin: 0;
   font-size: clamp(1.4rem, 1.7vw, 1.7rem);
@@ -71,7 +71,7 @@
   justify-content: center;
   min-width: 12rem;
   min-height: 2.65rem;
-  margin-top: 1.35rem;
+  margin-top: 1.6rem;
   padding: 0 1.15rem;
   border-radius: .7rem;
   color: var(--neutral-0);
@@ -88,7 +88,7 @@
 .primaryAction:focus-visible,
 .secondaryAction:focus-visible { outline: 3px solid rgb(189 145 255 / .45); outline-offset: 2px; }
 
-.secondaryGroup { display: flex; align-items: center; gap: .8rem; margin-top: 1.25rem; padding: .7rem .8rem; border: 1px solid rgba(128, 56, 255, .11); border-radius: .75rem; background: rgb(128 56 255 / .045); }
+.secondaryGroup { display: flex; align-items: center; gap: .8rem; margin-top: 1.5rem; padding: .8rem .9rem; border: 1px solid rgba(128, 56, 255, .11); border-radius: .75rem; background: rgb(128 56 255 / .045); }
 .gradient .secondaryGroup { border-top-color: transparent; }
 .secondaryLabel { display: block; margin: 0; color: var(--purple-600); font-size: .7rem; font-weight: 750; line-height: 1.4; }
 .gradient .secondaryLabel { color: var(--neutral-400); }
@@ -103,7 +103,7 @@
 .gradient .kakao .socialIcon { color: #191919; background: #fee500; }
 
 @media (max-width: 560px) {
-  .actionCard { min-height: auto; }
+  .actionCard { min-height: auto; padding: 1.6rem 1.35rem; }
   .primaryAction { width: 100%; }
   .secondaryActions { grid-template-columns: 1fr; }
 }
