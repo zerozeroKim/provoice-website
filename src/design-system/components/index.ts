@@ -21,3 +21,4 @@ export * from './ServiceCard';
 export * from './SectionHeader';
 export * from './VersionBanner';
 export * from './LoadMoreControl';
+export * from './FilterDropdown';

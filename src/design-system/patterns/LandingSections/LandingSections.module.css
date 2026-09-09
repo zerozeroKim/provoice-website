@@ -595,71 +595,8 @@
   gap: .75rem;
 }
 
-.talentFilter { position: relative; flex: 1 1 0; }
-
-.talentFilterTrigger {
-  display: flex;
-  width: 100%;
-  min-width: 8rem;
-  min-height: 3.5rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: .5rem;
-  padding: 0 1rem;
-  border: 1px solid var(--neutral-100);
-  border-radius: .875rem;
-  background: var(--neutral-50);
-  color: var(--neutral-700);
-  font: inherit;
-  font-size: var(--text-body-sm);
-  text-align: left;
-  cursor: pointer;
-  transition: border-color .18s ease, background .18s ease;
-}
-
-.talentFilterTrigger:hover { border-color: var(--neutral-300); }
-.talentFilterTriggerActive { border-color: var(--purple-300); background: var(--neutral-0); color: var(--neutral-900); font-weight: 600; }
-
-.talentFilterChevron { flex: none; color: var(--neutral-500); transition: transform .18s ease; }
-.talentFilterTrigger[aria-expanded='true'] .talentFilterChevron { transform: rotate(180deg); }
-
-.talentFilterPanel {
-  position: absolute;
-  z-index: 20;
-  top: calc(100% + .5rem);
-  left: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: .4rem;
-  width: max(24rem, 100%);
-  padding: 1rem;
-  border: 1px solid var(--neutral-100);
-  border-radius: 1rem;
-  background: var(--neutral-0);
-  box-shadow: var(--shadow-md);
-}
-
-.talentFilterOption {
-  padding: .4rem .8rem;
-  border: 1px solid var(--neutral-100);
-  border-radius: 999px;
-  background: var(--neutral-50);
-  color: var(--neutral-700);
-  font-size: var(--text-caption);
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: border-color .16s ease, color .16s ease, background .16s ease;
-}
-
-.talentFilterOption:hover { border-color: var(--purple-300); color: var(--purple-600); }
-.talentFilterOptionActive { border-color: var(--purple-400); background: color-mix(in srgb, var(--purple-100) 45%, var(--neutral-0)); color: var(--purple-600); }
-
 @media (max-width: 720px) {
   .talentFilterRow { flex-direction: column; align-items: stretch; }
-  .talentFilter { width: 100%; }
-  .talentFilterTrigger { width: 100%; }
-  .talentFilterPanel { width: 100%; }
 }
 
 .talentResults {

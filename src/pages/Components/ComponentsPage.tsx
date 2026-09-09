@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { ActionCard, Button, Chip, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, TestimonialCard, TextField, VoiceActorCard } from '../../design-system';
+import { ActionCard, Button, Chip, FilterDropdown, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, TestimonialCard, TextField, VoiceActorCard } from '../../design-system';
 import styles from './ComponentsPage.module.css';
 
-const tabs = ['GNB', 'Footer', 'Button', 'Input', 'Chip', 'Card', 'Section Header', 'Portfolio', 'Load More'];
+const tabs = ['GNB', 'Footer', 'Button', 'Input', 'Chip', 'Filter Dropdown', 'Card', 'Section Header', 'Portfolio', 'Load More'];
 
 const testimonialCards = [
   {
@@ -54,6 +54,8 @@ export function ComponentsPage() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<(typeof portfolioCards)[number] | null>(null);
   const [portfolioOrigin, setPortfolioOrigin] = useState<DOMRect | null>(null);
   const [loadMoreVisible, setLoadMoreVisible] = useState(6);
+  const [filterLanguage, setFilterLanguage] = useState<string[]>([]);
+  const [filterTones, setFilterTones] = useState<string[]>([]);
 
   useEffect(() => {
     if (!previewOpen) return;
@@ -132,6 +134,18 @@ export function ComponentsPage() {
             <article><div className={styles.exampleHead}><strong>Input</strong><span>Removable values</span></div><div className={styles.chipRow}>{tags.map((tag) => <NamedSample name="Chip / Input / Medium / Removable" key={tag}><Chip variant="input" onRemove={() => setTags((items) => items.filter((item) => item !== tag))}>{tag}</Chip></NamedSample>)}{tags.length === 0 && <span className={styles.emptyText}>선택된 항목이 없습니다.</span>}</div></article>
             <article><div className={styles.exampleHead}><strong>Status</strong><span>Non-interactive</span></div><div className={styles.chipRow}><NamedSample name="Chip / Status / Purple"><Chip variant="status" tone="purple">신규</Chip></NamedSample><NamedSample name="Chip / Status / Success"><Chip variant="status" tone="success">활성</Chip></NamedSample><NamedSample name="Chip / Status / Warning"><Chip variant="status" tone="warning">검토 중</Chip></NamedSample><NamedSample name="Chip / Status / Danger"><Chip variant="status" tone="danger">마감</Chip></NamedSample></div></article>
             <article><div className={styles.exampleHead}><strong>Assist / Sizes</strong><span>Action · Small / Medium</span></div><div className={styles.chipRow}><NamedSample name="Chip / Assist / Small"><Chip variant="assist" size="sm" leadingIcon={<span>＋</span>}>필터 추가</Chip></NamedSample><NamedSample name="Chip / Assist / Medium"><Chip variant="assist" leadingIcon={<span>✦</span>}>AI 추천</Chip></NamedSample><NamedSample name="Chip / Choice / Medium / Disabled"><Chip disabled>비활성</Chip></NamedSample></div></article>
+          </div>
+        </section>
+      ) : activeTab === 'Filter Dropdown' ? (
+        <section className={styles.content}>
+          <div className={styles.title}><div><h2>Filter Dropdown</h2><p>네이티브 select로 표현하기 어려운 칩 스타일 옵션 패널이 필요할 때 쓰는 단일/다중 선택 드롭다운입니다. 성우 검색·포트폴리오 필터에서 사용합니다.</p></div></div>
+          <div className={styles.buttonRow}>
+            <NamedSample name="FilterDropdown / Single select">
+              <FilterDropdown label="언어" options={['한국어', '영어', '일본어']} selected={filterLanguage} onSelect={(option) => setFilterLanguage((current) => current.includes(option) ? [] : [option])} />
+            </NamedSample>
+            <NamedSample name="FilterDropdown / Multi select">
+              <FilterDropdown label="톤" options={['밝은', '차분한', '진중한', '귀여운']} selected={filterTones} multiple onSelect={(option) => setFilterTones((current) => current.includes(option) ? current.filter((item) => item !== option) : [...current, option])} />
+            </NamedSample>
           </div>
         </section>
       ) : activeTab === 'Card' ? (

@@ -1,4 +1,4 @@
-import type { HeroStat, PortfolioItem, ServiceItem, TalentProfile, TranslationRow } from './LandingSections';
+import type { HeroStat, PortfolioItem, ServiceItem, TalentProfile, TranslationRow } from './types';
 import type { TestimonialCardProps } from '../../components';
 
 export const portfolioTabs = ['전체', '게임', '애니메이션', '웹툰', '광고', '기업'] as const;
