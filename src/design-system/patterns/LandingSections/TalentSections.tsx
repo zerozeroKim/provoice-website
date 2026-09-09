@@ -1,7 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import { Search, Users } from 'lucide-react';
 import { Button, Chip, FilterDropdown, Pagination, SectionHeader, TextField, VoiceActorCard } from '../../components';
-import styles from './LandingSections.module.css';
+import styles from './TalentSections.module.css';
 import type { TalentProfile } from './types';
 
 const recognizedConditions = ['일본어', '20대', '여성', '캐릭터 보이스'];

@@ -1,0 +1,48 @@
+.aiHero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: clamp(400px, 46vh, 560px);
+  padding-block: clamp(2rem, 3.5vh, 3.25rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 105%, rgb(195 77 255 / .12), transparent 42%),
+    var(--neutral-0);
+}
+
+.aiWave {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .58;
+  mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / .18) 18%, #000 100%);
+}
+
+/* Overrides applied on top of the shared Hero copy classes (composed alongside them in JSX). */
+.kicker {
+  background: color-mix(in srgb, var(--purple-100) 30%, var(--neutral-0));
+  border-color: var(--purple-100);
+  color: var(--purple-500);
+}
+
+.title { color: var(--neutral-950); }
+.description { color: var(--neutral-500); }
+
+.secondaryButton {
+  color: var(--neutral-900);
+  background: var(--neutral-0);
+  border-color: var(--neutral-100);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 1024px) {
+  .aiHero { min-height: 43vh; }
+}
+
+@media (max-width: 768px) {
+  .aiHero { min-height: 41vh; }
+}

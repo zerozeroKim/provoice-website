@@ -1,5 +1,5 @@
 import { ActionCard, SectionHeader } from '../../components';
-import styles from './LandingSections.module.css';
+import styles from './GetStartedSection.module.css';
 
 const quickContactActions = [
   { label: '네이버', href: 'https://blog.naver.com/provoiceon', tone: 'naver' as const },

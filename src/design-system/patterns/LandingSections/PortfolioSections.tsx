@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Instagram, Youtube } from 'lucide-react';
 import { FilterDropdown, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader } from '../../components';
-import styles from './LandingSections.module.css';
+import styles from './PortfolioSections.module.css';
 import type { PortfolioItem } from './types';
 
 const portfolioSocialLinks = [

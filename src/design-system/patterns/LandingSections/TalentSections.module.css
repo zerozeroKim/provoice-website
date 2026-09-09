@@ -1,0 +1,402 @@
+.talentSection {
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding: var(--provoice-section-padding-block, clamp(3.75rem, 5vw, 4.75rem)) var(--provoice-section-padding, clamp(1.25rem, 2vw, 1.5rem));
+}
+
+.talentInner {
+  width: 100%;
+}
+
+.talentHeader {
+  margin-top: 0;
+}
+
+.talentTitleGradient {
+  background: var(--gradient-deep-purple);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.searchShell {
+  margin-top: 2.2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--provoice-radius-xl, 1.35rem);
+  background:
+    radial-gradient(circle at 78% -30%, rgba(198, 96, 255, 0.38), transparent 38%),
+    linear-gradient(135deg, #171126 0%, #28124f 58%, #4f16aa 100%);
+  box-shadow: 0 22px 48px rgba(34, 18, 67, 0.16);
+}
+
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.searchField {
+  flex: 1;
+  min-width: 0;
+}
+
+.searchMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.searchMetaChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.talentFilterShell {
+  margin-top: 0;
+}
+
+.talentFilterRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: .75rem;
+}
+
+@media (max-width: 720px) {
+  .talentFilterRow { flex-direction: column; align-items: stretch; }
+}
+
+.talentResults {
+  margin-top: 1.25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.talentSummary {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 1.1rem;
+  color: var(--neutral-700);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.talentSummary strong { color: var(--purple-500); font-weight: 700; }
+
+.talentGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.talentGrid > .talentCard[data-component='VoiceActorCard'] {
+  width: 100%;
+  max-width: none;
+}
+
+.bottomBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(110deg, #171126, #241540 70%, #321668);
+  box-shadow: 0 14px 30px rgba(29, 17, 53, 0.12);
+}
+
+.bottomBanner p {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+  max-width: 52rem;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.bottomBanner p strong { color: var(--neutral-0); font-size: 1rem; }
+.bottomBanner p span { color: rgba(255, 255, 255, 0.64); }
+
+.bannerButton {
+  flex-shrink: 0;
+  min-height: 3rem;
+  padding: 0 1.35rem;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #9762ff, #6a36ff);
+  color: var(--neutral-0);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(112, 55, 255, 0.28);
+}
+
+/* Cool-toned talent directory, visually distinct from Client Voices */
+.talentSection {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  padding-inline: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 48% 30% at 100% 12%, rgba(125, 83, 235, 0.075), transparent 72%),
+    radial-gradient(ellipse 42% 26% at 0% 92%, rgba(187, 139, 255, 0.055), transparent 74%),
+    var(--neutral-0);
+}
+
+.talentInner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1280px);
+  margin-inline: auto;
+  padding-inline: var(--provoice-section-padding, clamp(1.25rem, 2vw, 1.5rem));
+}
+
+.talentFilterSection {
+  width: 100%;
+  padding-block: var(--provoice-section-padding-block, clamp(3rem, 5vw, 4rem)) clamp(3.75rem, 5vw, 4.75rem);
+  background: var(--neutral-50);
+  border-top: 1px solid var(--neutral-100);
+}
+
+.talentAmbient {
+  display: none;
+}
+
+.talentAmbient::before {
+  position: absolute;
+  top: 7%;
+  right: -7rem;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 2.65rem, rgba(123, 86, 244, 0.11) 2.7rem 2.78rem, transparent 2.84rem 4.65rem);
+  content: '';
+  opacity: 0.92;
+  mask-image: linear-gradient(135deg, transparent 6%, #000 38%, #000 72%, transparent 96%);
+  transform: rotate(-8deg) scaleY(0.82);
+}
+
+.talentAmbient::after {
+  position: absolute;
+  right: 4%;
+  bottom: -10rem;
+  width: 34rem;
+  height: 24rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.13), rgba(196, 145, 255, 0.045) 44%, transparent 72%);
+  content: '';
+  filter: blur(18px);
+}
+
+.talentAmbient span {
+  position: absolute;
+  pointer-events: none;
+}
+
+.talentAmbient span:first-child {
+  top: 14%;
+  right: 7%;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, rgba(255, 255, 255, 0.92) 0 5%, rgba(167, 119, 255, 0.28) 25%, rgba(105, 72, 226, 0.08) 52%, transparent 70%);
+  filter: blur(1px);
+}
+
+.talentAmbient span:last-child {
+  right: 11%;
+  bottom: 12%;
+  width: 15rem;
+  height: 9rem;
+  background-image: radial-gradient(circle, rgba(122, 82, 227, 0.2) 1px, transparent 1.4px);
+  background-size: 14px 14px;
+  opacity: 0.48;
+  mask-image: radial-gradient(ellipse, #000 12%, transparent 72%);
+  transform: rotate(-7deg);
+}
+
+.talentWorkspace {
+  width: 100%;
+  max-width: none;
+  margin: 1.5rem auto 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.talentWorkspace .searchShell {
+  margin-top: 0;
+  padding: 1rem;
+  border: 1px solid rgba(29, 25, 45, 0.1);
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: none;
+}
+
+.talentWorkspace .searchField > div:first-child {
+  min-height: 4rem;
+  border-color: rgba(29, 25, 45, 0.14);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: none;
+}
+
+.talentWorkspace .searchField input {
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.talentWorkspace .searchRow > button {
+  border-color: transparent;
+  min-width: 5.5rem;
+  min-height: 4rem;
+  border-radius: 0.9rem;
+  background: #6f48ed;
+  color: var(--neutral-0);
+  box-shadow: none;
+}
+
+.talentWorkspace .searchRow > button:hover { background: #5f3bd6; }
+
+.talentWorkspace .searchMeta {
+  margin-top: 1.25rem;
+  padding: 0 0.3rem;
+  border: 0;
+  background: transparent;
+}
+
+.talentWorkspace .searchMetaChips > * {
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+  border-color: rgba(111, 72, 237, 0.14) !important;
+  background: rgba(111, 72, 237, 0.055) !important;
+  color: #554a70 !important;
+  font-size: 0.92rem;
+}
+
+.talentWorkspace .searchMetaChips > *::before { display: none; }
+
+.talentWorkspace .talentResults {
+  margin-top: 2.4rem;
+  padding: 0;
+}
+
+.talentCarousel {
+  width: 100%;
+  margin-top: 2.4rem;
+  margin-left: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+}
+
+.talentCarouselTrack {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  padding: 0.25rem 0.4rem 0.9rem;
+  animation: talentMarquee 88s linear infinite;
+}
+
+.talentCarousel:hover .talentCarouselTrack { animation-play-state: paused; }
+
+.talentCarouselCard[data-component='VoiceActorCard'] {
+  flex: 0 0 18rem;
+  width: 18rem;
+}
+
+@keyframes talentMarquee {
+  to { transform: translateX(calc(-50% - 0.5rem)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .talentCarousel { overflow-x: auto; mask-image: none; }
+  .talentCarouselTrack { animation: none; }
+}
+
+.talentResultsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .75rem;
+}
+
+.talentWorkspace .talentSummary { margin: 0; }
+
+.talentWorkspace .bottomBanner {
+  margin-top: 1.5rem;
+  border-color: rgba(69, 87, 110, 0.12);
+  background: linear-gradient(100deg, #faf8ff, #f4efff);
+  box-shadow: 0 8px 24px rgba(42, 55, 72, 0.045);
+}
+
+.talentWorkspace .bottomBanner p,
+.talentWorkspace .bottomBanner p span { color: var(--neutral-500); }
+.talentWorkspace .bottomBanner p strong { color: var(--neutral-900); }
+
+@media (max-width: 1024px) {
+  .talentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .talentSection {
+    padding-inline: 0;
+  }
+
+  .talentInner {
+    padding-inline: 1rem;
+  }
+
+  .talentWorkspace {
+    padding: 0;
+  }
+
+  .talentHeader {
+    margin-top: 2.25rem;
+  }
+
+  .searchRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchRow > [data-component='Button'] {
+    width: 100%;
+  }
+
+  .talentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .6rem;
+  }
+
+  .talentCarouselCard[data-component='VoiceActorCard'] {
+    flex-basis: 16.5rem;
+    width: 16.5rem;
+  }
+
+  .bottomBanner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bannerButton {
+    width: 100%;
+  }
+}

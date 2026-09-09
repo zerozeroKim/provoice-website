@@ -1,0 +1,23 @@
+.getStartedSection {
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding: clamp(2.75rem, 4vw, 3.5rem) var(--provoice-section-padding, clamp(1.25rem, 2vw, 1.5rem));
+}
+
+.getStartedHeader {
+  margin-bottom: 1.25rem;
+}
+
+.getStartedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 68rem);
+  margin-inline: auto;
+  gap: 1rem;
+}
+
+.getStartedCard { max-width: none; }
+
+@media (max-width: 760px) {
+  .getStartedGrid { grid-template-columns: 1fr; }
+}

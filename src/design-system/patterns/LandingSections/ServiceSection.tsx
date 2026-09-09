@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal, SectionHeader, ServiceCard } from '../../components';
-import styles from './LandingSections.module.css';
+import styles from './ServiceSection.module.css';
 import type { ServiceItem } from './types';
 
 export function ServiceSection({ services }: { services: ServiceItem[] }) {

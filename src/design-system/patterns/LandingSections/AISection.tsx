@@ -1,5 +1,6 @@
 import GradientWaves from '@/components/reactbits/GradientWaves';
-import styles from './LandingSections.module.css';
+import shared from './HeroShared.module.css';
+import styles from './AISection.module.css';
 
 export function AISection() {
   return (
@@ -28,21 +29,21 @@ export function AISection() {
           grainIntensity={0.015}
         />
       </div>
-      <div className={styles.heroInner}>
-        <div className={styles.copy}>
-          <div className={styles.kicker}>PROVOICE × AI</div>
-          <h1 className={styles.title}>
+      <div className={shared.heroInner}>
+        <div className={shared.copy}>
+          <div className={`${shared.kicker} ${styles.kicker}`}>PROVOICE × AI</div>
+          <h1 className={`${shared.title} ${styles.title}`}>
             <span>AI와 사람이 함께 완성하는</span>
-            <span className={styles.gradientText}>다음 세대의 목소리</span>
+            <span className={shared.gradientText}>다음 세대의 목소리</span>
           </h1>
-          <p className={styles.description}>
+          <p className={`${shared.description} ${styles.description}`}>
             대사가 많은 서브 캐릭터와 반복 작업은 AI로 속도를 높이고,
             <br />
             감정이 중요한 장면은 성우의 연기로 완성하는 하이브리드 더빙입니다.
           </p>
-          <div className={styles.ctaRow}>
-            <button type="button" className={styles.primaryButton}>AI 하이브리드 더빙 문의하기</button>
-            <button type="button" className={styles.secondaryButton}>적용 사례 보기</button>
+          <div className={shared.ctaRow}>
+            <button type="button" className={shared.primaryButton}>AI 하이브리드 더빙 문의하기</button>
+            <button type="button" className={`${shared.secondaryButton} ${styles.secondaryButton}`}>적용 사례 보기</button>
           </div>
         </div>
       </div>

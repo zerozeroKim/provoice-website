@@ -1,0 +1,53 @@
+.serviceSection {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--provoice-section-padding-block, clamp(3.75rem, 5vw, 4.75rem)) 0;
+  overflow: hidden;
+}
+
+.serviceInner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1280px);
+  margin-inline: auto;
+  padding-inline: var(--provoice-section-padding, clamp(1.25rem, 2vw, 1.5rem));
+}
+
+.serviceHeader {
+  margin-top: 0;
+  align-items: center;
+  text-align: center;
+}
+
+.serviceHeader p { margin-inline: auto; }
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.2rem;
+}
+
+.serviceModalBody { display: grid; gap: 1.2rem; }
+.serviceModalBody img { display: block; width: 100%; height: 13rem; object-fit: cover; border-radius: 0.9rem; }
+.serviceModalBody p { margin: 0; color: var(--neutral-600); font-size: 0.96rem; line-height: 1.7; }
+
+@media (max-width: 1024px) {
+  .serviceGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .serviceSection {
+    padding-inline: 0;
+  }
+
+  .serviceInner { padding-inline: 1rem; }
+
+  .serviceGrid {
+    grid-template-columns: 1fr;
+  }
+}

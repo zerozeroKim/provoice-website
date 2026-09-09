@@ -1,6 +1,6 @@
 import { ArrowRight, ArrowUpRight, BadgeCheck, Languages, Sparkles } from 'lucide-react';
 import { SectionHeader } from '../../components';
-import styles from './LandingSections.module.css';
+import styles from './TranslationSection.module.css';
 import type { TranslationRow } from './types';
 
 export function TranslationSection({ rows, languages }: { rows: TranslationRow[]; languages: string[] }) {
