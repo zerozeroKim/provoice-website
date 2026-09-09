@@ -1,17 +1,2 @@
 .page { min-height: auto; background: var(--neutral-0); }
 .shell { position: relative; width: 100%; min-height: auto; background: var(--neutral-0); }
-
-.back {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  width: min(100%, 1280px);
-  margin: 1.5rem auto 0;
-  padding: 0 clamp(1.25rem, 2vw, 1.5rem);
-  color: var(--neutral-500);
-  font-size: var(--text-caption);
-  font-weight: 650;
-  text-decoration: none;
-}
-
-.back:hover { color: var(--purple-600); }

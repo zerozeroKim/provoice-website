@@ -1,6 +1,7 @@
 import path from 'path'
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { sites } from '@openai/sites-vite-plugin';
 
 export default defineConfig({
   resolve: {
@@ -8,5 +9,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-plugins: [react()],
+plugins: [react(), sites()],
 });

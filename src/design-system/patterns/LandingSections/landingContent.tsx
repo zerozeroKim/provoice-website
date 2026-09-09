@@ -77,7 +77,7 @@ export const reviewCards: TestimonialCardProps[] = [
   { quote: '웹툰 번역과 자막을 한 팀에서 처리해주니 발음, 톤, 리듬까지 자연스럽게 맞춰줘서 퀄리티가 매우 안정적이었습니다.', name: '콘텐츠 플랫폼 매니저', role: '웹툰 시리즈 해외 서비스' },
 ];
 
-export const talentProfiles: TalentProfile[] = [
+const curatedTalentProfiles: TalentProfile[] = [
   { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, verified: true },
   { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, verified: true },
   { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, verified: true },
@@ -88,6 +88,29 @@ export const talentProfiles: TalentProfile[] = [
   { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, verified: true },
   { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, verified: true },
 ];
+
+const talentLocalePool = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
+const talentTagPool = ['내레이션', '광고', '캐릭터', '게임', 'NPC', '키즈', '더빙', '연기', '다큐', '애니메이션'];
+
+/** 페이지네이션 데모를 위한 가라 데이터 — 목표 개수까지 채웁니다. */
+function fillTalentProfiles(existingCount: number, target: number): TalentProfile[] {
+  return Array.from({ length: Math.max(0, target - existingCount) }, (_, index) => {
+    const seed = existingCount + index;
+    const localeA = talentLocalePool[seed % talentLocalePool.length];
+    const localeB = talentLocalePool[(seed + 3) % talentLocalePool.length];
+    const tagA = talentTagPool[seed % talentTagPool.length];
+    const tagB = talentTagPool[(seed + 2) % talentTagPool.length];
+    return {
+      name: `성우 ${String(seed + 1).padStart(3, '0')}`,
+      locale: localeA === localeB ? localeA : `${localeA} / ${localeB}`,
+      tags: tagA === tagB ? [tagA] : [tagA, tagB],
+      duration: 20 + (seed % 40),
+      verified: seed % 5 !== 0,
+    };
+  });
+}
+
+export const talentProfiles: TalentProfile[] = [...curatedTalentProfiles, ...fillTalentProfiles(curatedTalentProfiles.length, 200)];
 
 export const translationRows: TranslationRow[] = [
   { label: '영상 자막 · 대사 번역', value: 'Subtitling' },

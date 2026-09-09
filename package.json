@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && mkdir -p dist/server && cp server/index.js dist/server/index.js",
     "preview": "vite preview",
     "typecheck": "tsc -b"
   },
   "dependencies": {
+    "@openai/sites-vite-plugin": "^0.2.0",
     "@types/three": "^0.185.4",
     "@vitejs/plugin-react": "latest",
     "class-variance-authority": "^0.7.1",

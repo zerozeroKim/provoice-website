@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import {
+  AISection,
   GetStartedSection,
   HeroSection,
   PortfolioPageSection,
@@ -22,7 +23,7 @@ import {
 } from '../../design-system/patterns/LandingSections';
 import styles from './TemplatesPage.module.css';
 
-const tabs = ['홈', '성우검색', '서비스', '포트폴리오', '번역'] as const;
+const tabs = ['홈', '성우검색', '서비스', '포트폴리오', '번역', 'PROVOICE × AI'] as const;
 type Tab = (typeof tabs)[number];
 
 const getTabFromHash = (): Tab => {
@@ -95,6 +96,12 @@ export function TemplatesPage() {
       {activeTab === '번역' && (
         <div className={styles.list}>
           <TemplatePreview flush><TranslationSection rows={translationRows} languages={supportLanguages} /></TemplatePreview>
+        </div>
+      )}
+
+      {activeTab === 'PROVOICE × AI' && (
+        <div className={styles.list}>
+          <TemplatePreview flush><AISection /></TemplatePreview>
         </div>
       )}
     </main>

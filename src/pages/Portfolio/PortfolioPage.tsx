@@ -7,7 +7,6 @@ export function PortfolioPage() {
     <main className={styles.page}>
       <div className={styles.shell}>
         <GNB />
-        <a className={styles.back} href="#client">← 홈으로</a>
         <PortfolioPageSection tabs={portfolioTabs} cards={portfolioCards} />
         <Footer />
       </div>

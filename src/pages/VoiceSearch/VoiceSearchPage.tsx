@@ -7,7 +7,6 @@ export function VoiceSearchPage() {
     <main className={styles.page}>
       <div className={styles.shell}>
         <GNB />
-        <a className={styles.back} href="#client">← 홈으로</a>
         <TalentDirectorySection talents={talentProfiles} />
         <TalentFilterSection talents={talentProfiles} />
         <Footer />

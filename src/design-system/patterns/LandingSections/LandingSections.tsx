@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight, BadgeCheck, ChevronDown, Languages, Search, Sparkles, Users } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BadgeCheck, ChevronDown, Instagram, Languages, Search, Sparkles, Users, Youtube } from 'lucide-react';
 import type { FormEvent, ReactNode } from 'react';
 import MagicRings from '@/components/reactbits/MagicRings';
+import GradientWaves from '@/components/reactbits/GradientWaves';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ActionCard, Button, Chip, LoadMoreControl, Modal, Pagination, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, TextField, VoiceActorCard } from '../../components';
 import type { PortfolioItem } from '../../components';
@@ -29,13 +30,29 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
   );
 }
 
+export function AISection() {
+  return (
+    <section className={styles.aiHero} aria-label="PROVOICE × AI">
+      <div className={styles.aiWave} aria-hidden="true">
+        <GradientWaves horizonColor="#ffffff" waveColor="#e8dcff" crestColor="#f3d8ff" speed={0.4} amplitude={2.4} waveScale={0.55} waveRatio={0.9} swell={30} turbulence={18} tilt={1.15} zoom={1.05} height={4.2} fogDepth={19} detail="medium" brightness={1.08} opacity={0.72} mouseInteraction parallaxStrength={0.5} grain grainIntensity={0.015} />
+      </div>
+      <div className={styles.heroInner}><div className={styles.copy}>
+        <div className={styles.kicker}>PROVOICE × AI</div>
+        <h1 className={styles.title}><span>AI와 사람이 함께 완성하는</span><span className={styles.gradientText}>다음 세대의 목소리</span></h1>
+        <p className={styles.description}>대사가 많은 서브 캐릭터와 반복 작업은 AI로 속도를 높이고,<br />감정이 중요한 장면은 성우의 연기로 완성하는 하이브리드 더빙입니다.</p>
+        <div className={styles.ctaRow}><button type="button" className={styles.primaryButton}>AI 하이브리드 더빙 문의하기</button><button type="button" className={styles.secondaryButton}>적용 사례 보기</button></div>
+      </div></div>
+    </section>
+  );
+}
+
 const recognizedConditions = ['일본어', '20대', '여성', '캐릭터 보이스'];
 
 export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }) {
   const [query, setQuery] = useState('일본어 하는 20대 여성 캐릭터 보이스');
   const [hasSearched, setHasSearched] = useState(false);
   const [showAllTalents, setShowAllTalents] = useState(false);
-  const carouselTalents = useMemo(() => [...talents].sort(() => Math.random() - 0.5), [talents]);
+  const carouselTalents = useMemo(() => [...talents].sort(() => Math.random() - 0.5).slice(0, 10), [talents]);
   const carouselSequence = useMemo(() => Array.from({ length: 4 }, () => carouselTalents).flat(), [carouselTalents]);
   const matchedTalents = useMemo(() => {
     const normalized = query.toLowerCase();
@@ -129,7 +146,7 @@ function TalentFilterDropdown({ label, options, selected, multiple = false, onSe
   );
 }
 
-export function TalentFilterSection({ talents, pageSize = 8 }: { talents: TalentProfile[]; pageSize?: number }) {
+export function TalentFilterSection({ talents, pageSize = 20 }: { talents: TalentProfile[]; pageSize?: number }) {
   const [languages, setLanguages] = useState<string[]>([]);
   const [genders, setGenders] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -157,7 +174,6 @@ export function TalentFilterSection({ talents, pageSize = 8 }: { talents: Talent
   return (
     <section className={styles.talentFilterSection} aria-label="성우 검색 — 필터 검색">
       <div className={styles.talentInner}>
-        <SectionHeader className={styles.talentHeader} eyebrow="FILTER SEARCH" title="조건으로 좁혀서 찾기" description="언어, 성별, 카테고리, 톤, 연령을 조합해 원하는 성우를 빠르게 찾아보세요." />
         <div className={styles.talentFilterShell}>
           <div className={styles.talentFilterRow}>
             <TalentFilterDropdown label="언어" options={talentLanguageOptions} selected={languages} onSelect={selectSingle(setLanguages, languages)} />
@@ -169,7 +185,7 @@ export function TalentFilterSection({ talents, pageSize = 8 }: { talents: Talent
         </div>
         <div className={styles.talentResults}>
           <div className={styles.talentResultsHeader}>
-            <div className={styles.talentSummary}><Users size={16} strokeWidth={1.75} aria-hidden="true" /> 검색 결과 <strong>{matchedTalents.length}명</strong></div>
+            <div className={styles.talentSummary}>검색 결과 <strong>{matchedTalents.length}명</strong></div>
           </div>
           <div className={styles.talentGrid}>{visibleTalents.map((talent) => <VoiceActorCard key={talent.name} className={styles.talentCard} name={talent.name} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />)}</div>
           <Pagination page={page} totalPages={totalPages} onChange={setPage} />
@@ -182,6 +198,25 @@ export function TalentFilterSection({ talents, pageSize = 8 }: { talents: Talent
 export function ServiceSection({ services }: { services: ServiceItem[] }) {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   return <><section className={styles.serviceSection} aria-label="서비스 소개"><div className={styles.serviceInner}><SectionHeader className={styles.serviceHeader} eyebrow="SERVICE" title="하나의 팀, 원스톱 로컬라이징" description="캐스팅부터 번역, 사운드까지 — 콘텐츠 하나를 세계 여러 시장에 내보낼 수 있도록 설계된 서비스를 제공합니다." /><div className={styles.serviceGrid}>{services.map((service) => <ServiceCard key={service.title} {...service} onOpen={() => setSelectedService(service)} />)}</div></div></section><Modal open={Boolean(selectedService)} title={selectedService?.title ?? '서비스 안내'} onClose={() => setSelectedService(null)}>{selectedService && <div className={styles.serviceModalBody}>{selectedService.imageSrc && <img src={selectedService.imageSrc} alt={selectedService.imageAlt ?? ''} />}<p>{selectedService.description}</p><Button fullWidth onClick={() => setSelectedService(null)}>프로젝트 문의하기</Button></div>}</Modal></>;
+}
+
+const portfolioSocialLinks = [
+  { key: 'naver', label: '네이버 블로그', href: 'https://blog.naver.com/provoiceon', icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h5.05l4.15 6.06V4H19v16h-5.05L9.8 13.94V20H5V4Z" fill="currentColor" /></svg> },
+  { key: 'youtube', label: '유튜브', href: 'https://www.youtube.com/channel/UCdJLg6AEtIPnuU-1OaaYPbQ', icon: <Youtube size={14} /> },
+  { key: 'instagram', label: '인스타그램', href: 'https://www.instagram.com/provoice_kr/', icon: <Instagram size={14} /> },
+] as const;
+
+function PortfolioSocialLinks() {
+  return (
+    <div className={styles.portfolioSocialLinks}>
+      {portfolioSocialLinks.map((link) => (
+        <a key={link.key} className={styles.portfolioSocialLink} href={link.href} target="_blank" rel="noreferrer">
+          <span className={`${styles.portfolioSocialIcon} ${styles[link.key]}`} aria-hidden="true">{link.icon}</span>
+          {link.label}
+        </a>
+      ))}
+    </div>
+  );
 }
 
 export function PortfolioSection<T extends string>({ tabs, cards, initialCount = 6, increment = 6, maxCount = 12 }: { tabs: readonly T[]; cards: PortfolioItem<Exclude<T, '전체'>>[]; initialCount?: number; increment?: number; maxCount?: number }) {
@@ -220,6 +255,7 @@ export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: 
   };
   return <><section className={`${styles.portfolioSection} ${selectedPortfolio ? styles.portfolioIsOpen : ''}`} aria-label="전체 포트폴리오">
     <SectionHeader className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="모든 프로젝트 살펴보기" description="장르, 언어별로 원하는 작업 사례를 찾아보세요." />
+    <PortfolioSocialLinks />
     <div className={styles.portfolioPageControls}>
       <TalentFilterDropdown label="언어" options={portfolioLanguageOptions} selected={languages} onSelect={selectLanguage} />
       <PortfolioFilter items={tabs} value={active} onChange={handleFilter} className={styles.portfolioPageFilter} />

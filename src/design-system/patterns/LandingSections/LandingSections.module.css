@@ -45,7 +45,8 @@
   background: #ffffff;
 }
 
-.hero {
+.hero,
+.aiHero {
   position: relative;
   z-index: 1;
   display: flex;
@@ -55,6 +56,9 @@
   min-height: clamp(400px, 46vh, 560px);
   padding-block: clamp(2rem, 3.5vh, 3.25rem);
   overflow: hidden;
+}
+
+.hero {
   background: radial-gradient(circle at 50% 30%, #17102b 0%, #0c0817 55%, #08060f 100%);
 }
 
@@ -72,6 +76,37 @@
   height: 100%;
   transform-origin: center center;
   animation: heroWaveFloat 17s ease-in-out infinite alternate;
+}
+
+.aiHero {
+  background:
+    radial-gradient(circle at 50% 105%, rgb(195 77 255 / .12), transparent 42%),
+    var(--neutral-0);
+}
+
+.aiWave {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .58;
+  mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / .18) 18%, #000 100%);
+}
+
+.aiHero .kicker {
+  background: color-mix(in srgb, var(--purple-100) 30%, var(--neutral-0));
+  border-color: var(--purple-100);
+  color: var(--purple-500);
+}
+
+.aiHero .title { color: var(--neutral-950); }
+.aiHero .description { color: var(--neutral-500); }
+
+.aiHero .secondaryButton {
+  color: var(--neutral-900);
+  background: var(--neutral-0);
+  border-color: var(--neutral-100);
+  box-shadow: var(--shadow-sm);
 }
 
 .heroInner {
@@ -138,7 +173,8 @@
 }
 
 @media (max-width: 1024px) {
-  .hero {
+  .hero,
+  .aiHero {
     min-height: 43vh;
   }
 
@@ -149,7 +185,8 @@
 }
 
 @media (max-width: 768px) {
-  .hero {
+  .hero,
+  .aiHero {
     min-height: 41vh;
   }
 
@@ -548,12 +585,7 @@
 }
 
 .talentFilterShell {
-  margin-top: 2.2rem;
-  padding: 1.25rem;
-  border: 1px solid var(--neutral-100);
-  border-radius: var(--provoice-radius-xl, 1.35rem);
-  background: var(--neutral-0);
-  box-shadow: var(--shadow-sm);
+  margin-top: 0;
 }
 
 .talentFilterRow {
@@ -631,7 +663,7 @@
 }
 
 .talentResults {
-  margin-top: 2.25rem;
+  margin-top: 1.25rem;
   padding: 0;
   border: 0;
   background: transparent;
@@ -897,7 +929,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: .75rem;
 }
 
 .talentWorkspace .talentSummary { margin: 0; }
@@ -1081,6 +1113,48 @@
 .portfolioHeader {
   margin-top: 0;
 }
+
+.portfolioSocialLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+  margin: 1.25rem 0 0;
+}
+
+.portfolioSocialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 2.5rem;
+  padding: 0 1rem 0 .5rem;
+  border: 1px solid var(--neutral-100);
+  border-radius: 999px;
+  background: var(--neutral-0);
+  color: var(--neutral-700);
+  font-size: var(--text-caption);
+  font-weight: 650;
+  text-decoration: none;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.portfolioSocialLink:hover { border-color: var(--purple-200); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+
+.portfolioSocialIcon {
+  display: inline-grid;
+  width: 1.6rem;
+  height: 1.6rem;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+}
+
+.portfolioSocialIcon svg { display: block; width: .8rem; height: .8rem; }
+
+.naver.portfolioSocialIcon { background: #03c75a; }
+.youtube.portfolioSocialIcon { background: #ff0000; }
+.instagram.portfolioSocialIcon { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
 
 .portfolioEyebrow {
   color: var(--purple-500);
@@ -1625,7 +1699,8 @@
   }
 
   .talentGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .6rem;
   }
 
   .talentCarouselCard[data-component='VoiceActorCard'] {
