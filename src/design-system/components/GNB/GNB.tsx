@@ -133,7 +133,7 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
                   )}
                 </div>
                 <span className={styles.utilityDivider} aria-hidden="true" />
-                <a href="#login" onClick={stopDemoLink}>로그인</a>
+                <a href="#login">로그인</a>
               </nav>
               <button className={styles.cta} type="button">의뢰 문의 <span>↗</span></button>
             </div>
@@ -171,7 +171,7 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
             })}
             <div className={styles.mobileUtility}>
               <a href="#register" tabIndex={open ? 0 : -1} onClick={stopDemoLink}>전문가등록</a>
-              <a href="#login" tabIndex={open ? 0 : -1} onClick={stopDemoLink}>로그인</a>
+              <a href="#login" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>로그인</a>
             </div>
             <button className={styles.mobileCta} type="button" tabIndex={open ? 0 : -1}>의뢰 문의 <span>↗</span></button>
           </nav>
