@@ -2,7 +2,19 @@ import { useState, type CSSProperties, type KeyboardEvent } from 'react';
 import { PixelCard } from '../PixelCard';
 import styles from './PortfolioCard.module.css';
 
-export type PortfolioItem<T extends string = string> = { category: T; title: string; languages: string[]; tone: string; tags: string[]; highlight?: string; image?: string };
+export type PortfolioItem<T extends string = string> = {
+  category: T;
+  title: string;
+  languages: string[];
+  tone: string;
+  tags: string[];
+  highlight?: string;
+  image?: string;
+  /** 프로젝트 상세 페이지 등 외부 링크. */
+  link?: string;
+  /** WAV 원본 파일 첨부 여부. */
+  wavAttached?: boolean;
+};
 
 export type PortfolioCardProps = {
   title: string;

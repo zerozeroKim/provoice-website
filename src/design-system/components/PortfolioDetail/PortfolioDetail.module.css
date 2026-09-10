@@ -68,6 +68,24 @@
 .content > p { margin: 0; color: var(--neutral-600); font-size: .92rem; line-height: 1.75; }
 .meta { display: flex; flex-wrap: wrap; gap: .4rem; }
 .meta span { border-color: var(--purple-100); background: rgb(215 190 255 / .2); color: var(--purple-600); }
+.fileInfo {
+  display: grid;
+  gap: .6rem;
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--neutral-100);
+  border-radius: 1rem;
+  background: var(--neutral-50);
+}
+
+.fileInfo > div { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 1rem; }
+.fileInfo dt { display: flex; flex: none; align-items: center; gap: .4rem; margin: 0; color: var(--neutral-500); font-size: .78rem; font-weight: 600; }
+.fileInfo dd { display: flex; flex: 1 1 auto; min-width: 0; align-items: center; justify-content: flex-end; gap: .3rem; margin: 0; overflow: hidden; color: var(--neutral-800); font-size: .78rem; font-weight: 600; text-align: right; }
+.fileInfo dd a { overflow: hidden; color: var(--purple-500); text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+.fileInfo dd a:hover { text-decoration: underline; }
+.fileInfoOk { color: #1a8f4c !important; }
+.fileInfoEmpty { color: var(--neutral-400) !important; font-weight: 500 !important; }
+
 .cta { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 3.25rem; margin-top: auto; padding: 0 1.1rem; border: 0; border-radius: .85rem; background: linear-gradient(135deg, #8038ff, #a655ff); color: white; font: inherit; font-weight: 750; cursor: pointer; box-shadow: 0 14px 30px rgb(128 56 255 / .25); }
 
 @keyframes portfolio-detail-backdrop-in { from { opacity: 0; } }

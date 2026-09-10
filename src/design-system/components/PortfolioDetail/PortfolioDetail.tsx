@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, ExternalLink, FileAudio, X, XCircle } from 'lucide-react';
 import type { PortfolioItem } from '../PortfolioCard';
 import styles from './PortfolioDetail.module.css';
 
@@ -67,6 +67,18 @@ export function PortfolioDetail({ item, origin, onClose }: PortfolioDetailProps)
           <div><span className={styles.kicker}>CASE STUDY · {item.category}</span><h2 id="portfolio-detail-title">{item.title}</h2></div>
           <div className={styles.meta}>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}{item.highlight && <span>{item.highlight}</span>}</div>
           <p>프로젝트 목표와 콘텐츠의 감정선에 맞춰 캐스팅부터 번역, 녹음과 사운드 후반 작업까지 하나의 팀으로 완성한 다국어 제작 사례입니다.</p>
+          <dl className={styles.fileInfo}>
+            <div>
+              <dt><ExternalLink size={14} strokeWidth={1.75} /> 프로젝트 링크</dt>
+              <dd>{item.link ? <a href={item.link} target="_blank" rel="noreferrer">{item.link}</a> : <span className={styles.fileInfoEmpty}>등록된 링크 없음</span>}</dd>
+            </div>
+            <div>
+              <dt><FileAudio size={14} strokeWidth={1.75} /> WAV 원본 파일</dt>
+              <dd className={item.wavAttached ? styles.fileInfoOk : styles.fileInfoEmpty}>
+                {item.wavAttached ? <><CheckCircle2 size={14} strokeWidth={1.75} /> 첨부됨</> : <><XCircle size={14} strokeWidth={1.75} /> 첨부 안 됨</>}
+              </dd>
+            </div>
+          </dl>
           <button type="button" className={styles.cta}>이런 프로젝트 의뢰하기 <ArrowUpRight size={18} /></button>
         </div>
       </section>
