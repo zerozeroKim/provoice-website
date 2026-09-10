@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { ArrowLeft, Pause, Play, ShieldCheck } from 'lucide-react';
-import { Button, Footer, GNB, PortfolioCard, PortfolioDetail, TestimonialCard, VoiceTraitChip, talentProfiles } from '@/design-system';
+import { ArrowLeft, ArrowRight, Pause, Play, ShieldCheck } from 'lucide-react';
+import { Button, FilterDropdown, Footer, GNB, PortfolioCard, PortfolioDetail, TestimonialCard, VoiceTraitChip, talentProfiles } from '@/design-system';
 import type { PortfolioItem, TalentProfile } from '@/design-system';
 import styles from './VoiceActorDetailPage.module.css';
 
 const tabs = ['프로필', '포트폴리오', '경력·크레딧', '고객사 리뷰'] as const;
+const reviewSortOptions = ['최신순', '별점 높은순'] as const;
 
 /** 실제 프로필 데이터가 없는 상태에서 IMDB 배우 페이지처럼 구성만 보여주기 위한 예시 데이터 풀. */
 const projectPool = [
@@ -45,6 +46,7 @@ export function VoiceActorDetailPage() {
   const [playing, setPlaying] = useState(false);
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
   const [origin, setOrigin] = useState<DOMRect | null>(null);
+  const [reviewSort, setReviewSort] = useState<(typeof reviewSortOptions)[number]>('최신순');
   const talent: TalentProfile | undefined = talentProfiles.find((item) => item.name === getRequestedName());
 
   if (!talent) {
@@ -64,6 +66,7 @@ export function VoiceActorDetailPage() {
   const projects = [...projectPool.slice(seed % projectPool.length), ...projectPool.slice(0, seed % projectPool.length)];
   const career = [...careerPool.slice(seed % careerPool.length), ...careerPool.slice(0, seed % careerPool.length)];
   const reviews = [...reviewPool.slice(seed % reviewPool.length), ...reviewPool.slice(0, seed % reviewPool.length)];
+  const sortedReviews = reviewSort === '별점 높은순' ? [...reviews].sort((a, b) => b.rating - a.rating) : reviews;
 
   const openProject = (project: (typeof projectPool)[number], cardOrigin: DOMRect) => {
     setOrigin(cardOrigin);
@@ -131,7 +134,10 @@ export function VoiceActorDetailPage() {
                 </ul>
               </section>
               <section>
-                <h2>고객사 리뷰</h2>
+                <div className={styles.sectionHead}>
+                  <h2>고객사 리뷰 <span className={styles.countBadge}>{reviews.length}</span></h2>
+                  <button type="button" className={styles.viewAllLink} onClick={() => setActiveTab('고객사 리뷰')}>전체보기 <ArrowRight size={14} /></button>
+                </div>
                 <div className={styles.reviewRow}>
                   {reviews.slice(0, 1).map((review) => <TestimonialCard key={review.name} {...review} />)}
                 </div>
@@ -156,8 +162,14 @@ export function VoiceActorDetailPage() {
           )}
 
           {activeTab === '고객사 리뷰' && (
-            <div className={styles.reviewGrid}>
-              {reviews.slice(0, 5).map((review) => <TestimonialCard key={review.name} {...review} />)}
+            <div>
+              <div className={styles.reviewToolbar}>
+                <span>전체 <strong>{reviews.length}</strong></span>
+                <FilterDropdown label="정렬" options={[...reviewSortOptions]} selected={[reviewSort]} onSelect={(option) => setReviewSort(option as (typeof reviewSortOptions)[number])} />
+              </div>
+              <div className={styles.reviewGrid}>
+                {sortedReviews.map((review) => <TestimonialCard key={review.name} {...review} />)}
+              </div>
             </div>
           )}
         </div>
