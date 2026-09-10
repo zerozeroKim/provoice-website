@@ -13,7 +13,10 @@ const serviceMenu = [
   { label: 'AI × Human 하이브리드 더빙', href: '#ai' },
 ] as const;
 
-const languageOptions = ['한국어', 'English'] as const;
+const languageOptions = [
+  { label: '한국어', flag: '🇰🇷' },
+  { label: 'English', flag: '🇺🇸' },
+] as const;
 
 const getCurrentMenuItem = () => {
   const hash = window.location.hash;
@@ -34,7 +37,7 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
   const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
   const [serviceOpen, setServiceOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [language, setLanguage] = useState<(typeof languageOptions)[number]>('한국어');
+  const [language, setLanguage] = useState<(typeof languageOptions)[number]>(languageOptions[0]);
   const [scrolled, setScrolled] = useState(false);
   const [current, setCurrent] = useState(getCurrentMenuItem);
   const menuId = useId();
@@ -104,7 +107,7 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
   return (
     <header className={`${styles.gnb} ${mobile ? styles.mobile : ''} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.inner}>
-        <a className={styles.logo} href="#home" aria-label="PROVOICE 홈" onClick={stopDemoLink}><img src="/assets/provoice-logo.png" alt="PROVOICE" /></a>
+        <a className={styles.logo} href="#client" aria-label="PROVOICE 홈"><img src="/assets/provoice-logo.png" alt="PROVOICE" /></a>
 
         {!mobile && (
           <>
@@ -117,12 +120,14 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
                 <span className={styles.utilityDivider} aria-hidden="true" />
                 <div className={styles.langMenu} ref={langRef}>
                   <button type="button" className={styles.langTrigger} aria-expanded={langOpen} onClick={() => setLangOpen((value) => !value)}>
-                    {language} <ChevronDown size={13} className={styles.chevron} />
+                    <span aria-hidden="true">{language.flag}</span> {language.label} <ChevronDown size={13} className={styles.chevron} />
                   </button>
                   {langOpen && (
                     <div className={styles.langPanel} role="menu">
                       {languageOptions.map((option) => (
-                        <button type="button" role="menuitem" key={option} className={option === language ? styles.current : ''} onClick={() => { setLanguage(option); setLangOpen(false); }}>{option}</button>
+                        <button type="button" role="menuitem" key={option.label} className={option.label === language.label ? styles.current : ''} onClick={() => { setLanguage(option); setLangOpen(false); }}>
+                          <span aria-hidden="true">{option.flag}</span> {option.label}
+                        </button>
                       ))}
                     </div>
                   )}

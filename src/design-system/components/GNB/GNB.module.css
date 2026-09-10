@@ -12,7 +12,13 @@
 .inner {
   position: relative;
   display: grid;
-  grid-template-columns: 9.25rem minmax(0, 1fr) auto;
+  /*
+   * 양쪽을 동일한 1fr로 둬서 로고/유틸리티 영역 폭이 서로 달라도 가운데 대메뉴가 화면
+   * 정중앙에 오도록 함. minmax(9.25rem, 1fr)처럼 최소값을 직접 못박으면 좁은 화면에서
+   * 유틸리티 쪽이 그 최소값보다 더 필요할 때 트랙이 콘텐츠보다 좁아져 겹쳐 보이므로,
+   * 콘텐츠 최소 크기를 자동 보호하는 순수 1fr(= minmax(auto, 1fr))을 씁니다.
+   */
+  grid-template-columns: 1fr auto 1fr;
   width: min(100%, 1440px);
   min-height: 5.25rem;
   align-items: center;
@@ -26,7 +32,7 @@
 .scrolled:not(.mobile) { background: rgb(255 255 255 / .96); }
 .scrolled { background: rgb(255 255 255 / .94); box-shadow: 0 8px 28px rgb(13 11 18 / .07); }
 
-.logo { display: block; width: 8.5rem; line-height: 0; transition: width .25s ease; }
+.logo { display: block; justify-self: start; width: 8.5rem; line-height: 0; transition: width .25s ease; }
 .logo img { width: 100%; height: auto; }
 .scrolled:not(.mobile) .logo { width: 8rem; }
 
