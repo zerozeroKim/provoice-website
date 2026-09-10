@@ -125,8 +125,11 @@
 
 .tabBody { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
 
-.profileGrid { display: grid; gap: 2.25rem; }
-.profileGrid h2 { margin: 0 0 1rem; color: var(--neutral-900); font-size: 1rem; letter-spacing: -.01em; }
+.profileGrid { display: grid; gap: 0; }
+.profileGrid > section { padding-block: 1.85rem; }
+.profileGrid > section:first-child { padding-top: 0; }
+.profileGrid > section:last-child { padding-bottom: 0; }
+.profileGrid h2 { margin: 0 0 1.1rem; color: var(--neutral-900); font-size: 1rem; letter-spacing: -.01em; }
 
 .projectRow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .reviewRow, .reviewGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; }
