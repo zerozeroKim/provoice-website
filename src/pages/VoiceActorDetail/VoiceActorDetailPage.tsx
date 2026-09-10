@@ -139,7 +139,7 @@ export function VoiceActorDetailPage() {
                   <button type="button" className={styles.viewAllLink} onClick={() => setActiveTab('고객사 리뷰')}>전체보기 <ArrowRight size={14} /></button>
                 </div>
                 <div className={styles.reviewRow}>
-                  {reviews.slice(0, 1).map((review) => <TestimonialCard key={review.name} {...review} />)}
+                  {reviews.slice(0, 3).map((review) => <TestimonialCard key={review.name} {...review} />)}
                 </div>
               </section>
             </div>
