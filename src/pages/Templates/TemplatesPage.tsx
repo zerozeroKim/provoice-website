@@ -23,7 +23,7 @@ import {
 } from '../../design-system/patterns/LandingSections';
 import styles from './TemplatesPage.module.css';
 
-const tabs = ['홈', '성우검색', '서비스', '포트폴리오', '번역', 'PROVOICE × AI'] as const;
+const tabs = ['홈', '성우검색', '서비스', '포트폴리오', 'PROVOICE × AI'] as const;
 type Tab = (typeof tabs)[number];
 
 const getTabFromHash = (): Tab => {
@@ -83,6 +83,7 @@ export function TemplatesPage() {
       {activeTab === '서비스' && (
         <div className={styles.list}>
           <TemplatePreview flush><ServiceSection services={serviceCards} /></TemplatePreview>
+          <TemplatePreview><TranslationSection rows={translationRows} languages={supportLanguages} /></TemplatePreview>
         </div>
       )}
 
@@ -90,12 +91,6 @@ export function TemplatesPage() {
         <div className={styles.list}>
           <TemplatePreview flush><PortfolioSection tabs={portfolioTabs} cards={portfolioCards} /></TemplatePreview>
           <TemplatePreview><PortfolioPageSection tabs={portfolioTabs} cards={portfolioCards} /></TemplatePreview>
-        </div>
-      )}
-
-      {activeTab === '번역' && (
-        <div className={styles.list}>
-          <TemplatePreview flush><TranslationSection rows={translationRows} languages={supportLanguages} /></TemplatePreview>
         </div>
       )}
 

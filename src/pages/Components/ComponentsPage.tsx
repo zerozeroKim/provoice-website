@@ -82,7 +82,7 @@ export function ComponentsPage() {
 
           <article className={styles.example}>
             <div className={styles.exampleHead}><strong>Desktop</strong><span>Full width · 72px</span></div>
-            <div className={styles.desktopFrame}><GNB /><div className={styles.demoBody}><span className={styles.skeletonEyebrow} /><strong><i /><i /></strong><div className={styles.skeletonCopy}><i /><i /></div></div></div>
+            <div className={styles.desktopFrame}><div className={styles.gnbFrameInner}><GNB /><div className={styles.demoBody}><span className={styles.skeletonEyebrow} /><strong><i /><i /></strong><div className={styles.skeletonCopy}><i /><i /></div></div></div></div>
           </article>
 
           <article className={styles.example}>
