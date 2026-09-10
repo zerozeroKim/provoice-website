@@ -10,6 +10,7 @@ import { VoiceSearchPage } from '../pages/VoiceSearch/VoiceSearchPage';
 import { AIPage } from '../pages/AI/AIPage';
 import { LoginPage } from '../pages/Login/LoginPage';
 import { SignupPage } from '../pages/Signup/SignupPage';
+import { VoiceActorDetailPage } from '../pages/VoiceActorDetail/VoiceActorDetailPage';
 
 /**
  * 고객용/개발용 분리는 호스트 이름이 아니라 빌드 타임 환경 변수(VITE_SITE_MODE)로 결정합니다.
@@ -35,6 +36,7 @@ const getPage = () => {
   const hash = window.location.hash;
   if (hash.startsWith('#components')) return 'components';
   if (hash.startsWith('#templates')) return 'templates';
+  if (hash.startsWith('#voice-actor/')) return 'voice-actor';
   return hashToPage[hash] ?? 'client';
 };
 
@@ -42,6 +44,7 @@ const getPage = () => {
 function renderStandalonePage(page: string) {
   if (page === 'portfolio') return <PortfolioPage />;
   if (page === 'voice-search') return <VoiceSearchPage />;
+  if (page === 'voice-actor') return <VoiceActorDetailPage />;
   if (page === 'ai') return <AIPage />;
   if (page === 'login') return <LoginPage />;
   if (page === 'signup') return <SignupPage />;

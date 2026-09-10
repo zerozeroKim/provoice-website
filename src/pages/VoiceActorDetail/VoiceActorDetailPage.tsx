@@ -1,13 +1,8 @@
 import { useState } from 'react';
-import { Pause, Play, ShieldCheck, X } from 'lucide-react';
-import { Button } from '../Button';
-import { PortfolioCard } from '../PortfolioCard';
-import { TestimonialCard } from '../TestimonialCard';
-import { VoiceTraitChip } from '../VoiceTraitChip';
-import styles from './VoiceActorDetail.module.css';
-
-export type VoiceActorDetailTalent = { name: string; locale: string; tags: string[]; duration: number; verified: boolean };
-export type VoiceActorDetailProps = { talent: VoiceActorDetailTalent; onClose: () => void };
+import { ArrowLeft, Pause, Play, ShieldCheck } from 'lucide-react';
+import { Button, Footer, GNB, PortfolioCard, TestimonialCard, VoiceTraitChip, talentProfiles } from '@/design-system';
+import type { TalentProfile } from '@/design-system';
+import styles from './VoiceActorDetailPage.module.css';
 
 const tabs = ['프로필', '포트폴리오', '경력·크레딧', '고객사 리뷰'] as const;
 
@@ -37,25 +32,42 @@ const reviewPool = [
 
 const seedFromName = (name: string) => name.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
 
-export function VoiceActorDetail({ talent, onClose }: VoiceActorDetailProps) {
+const getRequestedName = () => decodeURIComponent(window.location.hash.split('/')[1] ?? '');
+
+export function VoiceActorDetailPage() {
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>('프로필');
   const [playing, setPlaying] = useState(false);
-  const seed = seedFromName(talent.name);
+  const talent: TalentProfile | undefined = talentProfiles.find((item) => item.name === getRequestedName());
 
+  if (!talent) {
+    return (
+      <main className={styles.page}>
+        <GNB />
+        <div className={styles.notFound}>
+          <p>해당 성우 프로필을 찾을 수 없습니다.</p>
+          <a href="#voice-search">성우검색으로 돌아가기</a>
+        </div>
+        <Footer />
+      </main>
+    );
+  }
+
+  const seed = seedFromName(talent.name);
   const projects = [...projectPool.slice(seed % projectPool.length), ...projectPool.slice(0, seed % projectPool.length)];
   const career = [...careerPool.slice(seed % careerPool.length), ...careerPool.slice(0, seed % careerPool.length)];
   const reviews = [...reviewPool.slice(seed % reviewPool.length), ...reviewPool.slice(0, seed % reviewPool.length)];
 
   return (
-    <div className={styles.backdrop} role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className={styles.panel} role="dialog" aria-modal="true" aria-labelledby="voice-actor-detail-name">
-        <button type="button" className={styles.close} aria-label="성우 상세 닫기" onClick={onClose}><X size={20} /></button>
+    <main className={styles.page}>
+      <GNB />
+      <div className={styles.shell}>
+        <a className={styles.backLink} href="#voice-search"><ArrowLeft size={16} /> 성우검색으로</a>
 
         <div className={styles.hero}>
           <span className={styles.avatar} aria-hidden="true">{talent.name.slice(0, 1)}</span>
           <div className={styles.heroBody}>
             <div className={styles.nameRow}>
-              <h2 id="voice-actor-detail-name">{talent.name}</h2>
+              <h1>{talent.name}</h1>
               {talent.verified && <span className={styles.verified}><ShieldCheck size={14} strokeWidth={2} /> 프로보이스 등록 성우</span>}
             </div>
             <p className={styles.stageName}>예명 · {talent.name} VO — {talent.locale}</p>
@@ -86,7 +98,7 @@ export function VoiceActorDetail({ talent, onClose }: VoiceActorDetailProps) {
           {activeTab === '프로필' && (
             <div className={styles.profileGrid}>
               <section>
-                <h3>대표 프로젝트</h3>
+                <h2>대표 프로젝트</h2>
                 <div className={styles.projectRow}>
                   {projects.slice(0, 3).map((project) => (
                     <PortfolioCard key={project.title} imageOnly title={project.title} languages={[talent.locale]} category={project.category} tags={[project.category]} image={project.image} />
@@ -94,11 +106,11 @@ export function VoiceActorDetail({ talent, onClose }: VoiceActorDetailProps) {
                 </div>
               </section>
               <section>
-                <h3>스킬 태그</h3>
+                <h2>스킬 태그</h2>
                 <ul className={styles.tags}>{talent.tags.map((tag) => <li key={tag}><VoiceTraitChip label={tag} /></li>)}</ul>
               </section>
               <section>
-                <h3>경력 하이라이트</h3>
+                <h2>경력 하이라이트</h2>
                 <ul className={styles.careerList}>
                   {career.slice(0, 3).map((item) => (
                     <li key={`${item.year}-${item.title}`}><span className={styles.careerYear}>{item.year}</span><span>{item.title}</span><span className={styles.careerRole}>{item.role}</span></li>
@@ -106,7 +118,7 @@ export function VoiceActorDetail({ talent, onClose }: VoiceActorDetailProps) {
                 </ul>
               </section>
               <section>
-                <h3>고객사 리뷰</h3>
+                <h2>고객사 리뷰</h2>
                 <div className={styles.reviewRow}>
                   {reviews.slice(0, 1).map((review) => <TestimonialCard key={review.name} {...review} />)}
                 </div>
@@ -136,7 +148,8 @@ export function VoiceActorDetail({ talent, onClose }: VoiceActorDetailProps) {
             </div>
           )}
         </div>
-      </section>
-    </div>
+      </div>
+      <Footer />
+    </main>
   );
 }

@@ -21,6 +21,7 @@ const languageOptions = [
 const getCurrentMenuItem = () => {
   const hash = window.location.hash;
   if (hash === '#ai') return '서비스';
+  if (hash.startsWith('#voice-actor/')) return '성우검색';
   return mainMenu.find((item) => menuHref[item] === hash);
 };
 

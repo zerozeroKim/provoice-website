@@ -1,16 +1,16 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import { Search, Users } from 'lucide-react';
-import { Button, Chip, FilterDropdown, Pagination, SectionHeader, TextField, VoiceActorCard, VoiceActorDetail } from '../../components';
+import { Button, Chip, FilterDropdown, Pagination, SectionHeader, TextField, VoiceActorCard } from '../../components';
 import styles from './TalentSections.module.css';
 import type { TalentProfile } from './types';
 
 const recognizedConditions = ['일본어', '20대', '여성', '캐릭터 보이스'];
+const openTalentDetail = (talent: TalentProfile) => { window.location.hash = `#voice-actor/${encodeURIComponent(talent.name)}`; };
 
 export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }) {
   const [query, setQuery] = useState('일본어 하는 20대 여성 캐릭터 보이스');
   const [hasSearched, setHasSearched] = useState(false);
   const [showAllTalents, setShowAllTalents] = useState(false);
-  const [selectedTalent, setSelectedTalent] = useState<TalentProfile | null>(null);
   const carouselTalents = useMemo(() => [...talents].sort(() => Math.random() - 0.5).slice(0, 10), [talents]);
   const carouselSequence = useMemo(() => Array.from({ length: 4 }, () => carouselTalents).flat(), [carouselTalents]);
   const matchedTalents = useMemo(() => {
@@ -66,7 +66,7 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
             <div className={styles.talentCarousel} aria-label="추천 성우">
               <div className={styles.talentCarouselTrack}>
                 {[...carouselSequence, ...carouselSequence].map((talent, index) => (
-                  <div key={`${talent.name}-${index}`} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => setSelectedTalent(talent)} onKeyDown={(event) => event.key === 'Enter' && setSelectedTalent(talent)}>
+                  <div key={`${talent.name}-${index}`} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
                     <VoiceActorCard
                       className={styles.talentCarouselCard}
                       name={talent.name}
@@ -92,7 +92,7 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
               </div>
               <div className={styles.talentGrid}>
                 {visibleTalents.map((talent) => (
-                  <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => setSelectedTalent(talent)} onKeyDown={(event) => event.key === 'Enter' && setSelectedTalent(talent)}>
+                  <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
                     <VoiceActorCard className={styles.talentCard} name={talent.name} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />
                   </div>
                 ))}
@@ -105,7 +105,6 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
           )}
         </div>
       </div>
-      {selectedTalent && <VoiceActorDetail talent={selectedTalent} onClose={() => setSelectedTalent(null)} />}
     </section>
   );
 }
@@ -123,7 +122,6 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
   const [tones, setTones] = useState<string[]>([]);
   const [ages, setAges] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const [selectedTalent, setSelectedTalent] = useState<TalentProfile | null>(null);
 
   const selectSingle = (setter: (value: string[]) => void, current: string[]) => (option: string) => {
     setter(current.includes(option) ? [] : [option]);
@@ -160,7 +158,7 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
           </div>
           <div className={styles.talentGrid}>
             {visibleTalents.map((talent) => (
-              <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => setSelectedTalent(talent)} onKeyDown={(event) => event.key === 'Enter' && setSelectedTalent(talent)}>
+              <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
                 <VoiceActorCard className={styles.talentCard} name={talent.name} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />
               </div>
             ))}
@@ -168,7 +166,6 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
           <Pagination page={page} totalPages={totalPages} onChange={setPage} />
         </div>
       </div>
-      {selectedTalent && <VoiceActorDetail talent={selectedTalent} onClose={() => setSelectedTalent(null)} />}
     </section>
   );
 }
