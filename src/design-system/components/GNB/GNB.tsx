@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState, type MouseEvent } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { isLoggedIn, logout, onAuthChange } from '@/lib/mockAuth';
+import { VersionSwitcher } from '../VersionSwitcher';
 import styles from './GNB.module.css';
 
 const mainMenu = ['성우검색', '서비스', '포트폴리오', '작업문의', '블로그'] as const;
@@ -114,7 +115,9 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
   };
 
   return (
-    <header className={`${styles.gnb} ${mobile ? styles.mobile : ''} ${scrolled ? styles.scrolled : ''}`}>
+    <>
+      <VersionSwitcher />
+      <header className={`${styles.gnb} ${mobile ? styles.mobile : ''} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.inner}>
         <a className={styles.logo} href="#client" aria-label="PROVOICE 홈"><img src="/assets/provoice-logo.png" alt="PROVOICE" /></a>
 
@@ -194,6 +197,7 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
           </nav>
         )}
       </div>
-    </header>
+      </header>
+    </>
   );
 }

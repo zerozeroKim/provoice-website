@@ -1,0 +1,52 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  width: 100%;
+  padding: .6rem 1rem;
+  background: var(--gradient-deep-purple);
+  color: white;
+}
+
+.label {
+  color: rgb(255 255 255 / .78);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.switch {
+  display: flex;
+  gap: .25rem;
+  padding: .2rem;
+  border-radius: var(--radius-full);
+  background: rgb(255 255 255 / .14);
+}
+
+.switch button {
+  min-width: 4rem;
+  padding: .4rem 1rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: rgb(255 255 255 / .78);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease;
+}
+
+.switch button:hover { color: white; }
+
+.switch button.active {
+  background: white;
+  color: var(--purple-500);
+  cursor: default;
+}
+
+@media (max-width: 560px) {
+  .bar { flex-wrap: wrap; gap: .5rem; padding: .5rem .75rem; }
+  .label { width: 100%; text-align: center; }
+}

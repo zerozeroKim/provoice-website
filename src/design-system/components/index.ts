@@ -24,3 +24,4 @@ export * from './LoadMoreControl';
 export * from './FilterDropdown';
 export * from './ToggleGroup';
 export * from './Stepper';
+export * from './VersionSwitcher';
