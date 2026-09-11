@@ -1,30 +1,25 @@
-import MagicRings from '@/components/reactbits/MagicRings';
-import { useIsMobile } from '@/hooks/use-mobile';
-import type { ElementType } from 'react';
-import shared from './HeroShared.module.css';
+import Particles from '@/components/reactbits/Particles';
 import styles from './HeroSection.module.css';
 import type { HeroStat } from './types';
+import type { ElementType } from 'react';
+import shared from './HeroShared.module.css';
+
+const particleColors = ['#1c1030', '#8038ff', '#fe6fff'];
 
 export function HeroSection({ stats, headingLevel = 1 }: { stats: HeroStat[]; headingLevel?: 1 | 2 }) {
-  const isMobile = useIsMobile();
   const Heading = `h${headingLevel}` as ElementType;
   return (
     <section className={styles.hero} aria-label="프로보이스 히어로 섹션">
       <div className={styles.heroWave} aria-hidden="true">
-        <MagicRings
-          color="#8038FF"
-          colorTwo="#C34DFF"
-          ringCount={isMobile ? 3 : 4}
-          speed={0.55}
-          attenuation={8}
-          lineThickness={isMobile ? 1.4 : 2}
-          baseRadius={isMobile ? 0.22 : 0.6}
-          radiusStep={isMobile ? 0.05 : 0.09}
-          scaleRate={0.12}
-          opacity={0.7}
-          blur={3}
-          noiseAmount={0.04}
-          ringGap={1.4}
+        <Particles
+          particleColors={particleColors}
+          particleCount={500}
+          particleSpread={10}
+          speed={0.7}
+          particleBaseSize={100}
+          moveParticlesOnHover
+          alphaParticles
+          disableRotation={false}
         />
       </div>
       <div className={shared.heroInner}>
