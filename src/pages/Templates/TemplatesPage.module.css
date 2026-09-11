@@ -7,6 +7,20 @@
   background: var(--neutral-100);
 }
 
+.header {
+  width: min(100%, 1440px);
+  margin: 0 auto 1.75rem;
+}
+
+.header h1 {
+  margin: .35rem 0 .4rem;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: var(--leading-heading);
+}
+
+.header p { margin: 0; color: var(--neutral-600); line-height: 1.65; }
+.header .eyebrow { color: var(--purple-500); font-size: var(--text-caption); font-weight: 800; letter-spacing: .12em; }
+
 .tabs {
   display: flex;
   gap: 1.75rem;

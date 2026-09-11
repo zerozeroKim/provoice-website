@@ -18,7 +18,7 @@ export function TestimonialCard({ quote, name, role, rating = 5, className = '' 
       <div className={styles.header}>
         <div className={styles.profile}>
           <span className={styles.label}>PROJECT REVIEW</span>
-          <strong>{name}</strong>
+          <h3>{name}</h3>
           <span>{role}</span>
         </div>
         <div className={styles.rating} aria-label={`별점 ${safeRating}점`}>

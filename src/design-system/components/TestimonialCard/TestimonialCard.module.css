@@ -25,7 +25,7 @@
 
 .profile { display: flex; min-width: 0; flex-direction: column; gap: .14rem; }
 .profile .label { margin-bottom: .55rem; color: var(--neutral-300); font-size: .6rem; font-weight: 700; line-height: 1; letter-spacing: .16em; }
-.profile strong { color: var(--neutral-900); font-size: var(--text-body); font-weight: 700; letter-spacing: var(--tracking-tight); }
+.profile h3 { margin: 0; color: var(--neutral-900); font-size: var(--text-body); font-weight: 700; letter-spacing: var(--tracking-tight); }
 .profile span { color: var(--neutral-500); font-size: var(--text-caption); line-height: var(--leading-body); }
 
 .rating { display: flex; flex: none; gap: .2rem; padding-bottom: .15rem; color: var(--neutral-300); }

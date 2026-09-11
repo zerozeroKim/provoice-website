@@ -1,11 +1,13 @@
 import MagicRings from '@/components/reactbits/MagicRings';
 import { useIsMobile } from '@/hooks/use-mobile';
+import type { ElementType } from 'react';
 import shared from './HeroShared.module.css';
 import styles from './HeroSection.module.css';
 import type { HeroStat } from './types';
 
-export function HeroSection({ stats }: { stats: HeroStat[] }) {
+export function HeroSection({ stats, headingLevel = 1 }: { stats: HeroStat[]; headingLevel?: 1 | 2 }) {
   const isMobile = useIsMobile();
+  const Heading = `h${headingLevel}` as ElementType;
   return (
     <section className={styles.hero} aria-label="프로보이스 히어로 섹션">
       <div className={styles.heroWave} aria-hidden="true">
@@ -28,10 +30,10 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
       <div className={shared.heroInner}>
         <div className={shared.copy}>
           <div className={shared.kicker}>MULTILINGUAL VOICE LOCALIZATION</div>
-          <h1 className={shared.title}>
+          <Heading className={shared.title}>
             <span>글로벌 성우 더빙 No.1</span>
             <span className={shared.gradientText}>&amp; ISO 인증 전문 번역</span>
-          </h1>
+          </Heading>
           <p className={shared.description}>
             ISO 17100 인증 번역부터 30개국 원어민 성우 녹음,
             <br />

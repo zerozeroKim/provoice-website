@@ -31,7 +31,7 @@ export function ServiceCard({ icon, imageSrc, imageAlt = '', title, description,
     <StarBorder as="article" color="#9b6cff" speed="8s" thickness={2} backgroundColor={badge ? 'var(--gradient-deep-purple)' : '#ffffff'} textColor="inherit" borderColor="rgba(128, 56, 255, 0.16)" data-featured={badge ? 'true' : undefined} data-layout={layout} role={onOpen ? 'button' : undefined} tabIndex={onOpen ? 0 : undefined} onClick={open} onKeyDown={onKeyDown} className={`${styles.card} ${onOpen ? styles.interactive : ''} ${activating ? styles.activating : ''} ${className}`}>
       <div className={styles.surface}>
         {badge && <span className={styles.badge}>{badge}</span>}
-        {imageSrc && <div className={styles.media}><img src={imageSrc} alt={imageAlt} loading="lazy" /></div>}
+        {imageSrc && <div className={styles.media}><img src={imageSrc} alt={imageAlt || `${title} 서비스 이미지`} loading="lazy" /></div>}
         <div className={styles.content}>
           {!imageSrc && icon && <div className={styles.icon}>{icon}</div>}
           <h3>{title}</h3>

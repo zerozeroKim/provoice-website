@@ -77,23 +77,23 @@ export const reviewCards: TestimonialCardProps[] = [
   { quote: '웹툰 번역과 자막을 한 팀에서 처리해주니 발음, 톤, 리듬까지 자연스럽게 맞춰줘서 퀄리티가 매우 안정적이었습니다.', name: '콘텐츠 플랫폼 매니저', role: '웹툰 시리즈 해외 서비스' },
 ];
 
-const curatedTalentProfiles: TalentProfile[] = [
-  { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, verified: true },
-  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, verified: true },
-  { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, verified: true },
-  { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, verified: true },
-  { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, verified: true },
-  { name: 'Yuna M.', locale: 'JP / EN', tags: ['캐릭터', '게임'], duration: 31, verified: true },
-  { name: 'Rin T.', locale: 'JP', tags: ['캐릭터', '키즈', '더빙'], duration: 39, verified: true },
-  { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, verified: true },
-  { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, verified: true },
+const curatedTalentProfiles: Omit<TalentProfile, 'avatarSrc'>[] = [
+  { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, verified: true, gender: '남성', tones: ['자신감', '친근한'], favorites: 482, completedProjects: 61 },
+  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, verified: true, gender: '여성', tones: ['귀여운', '재밌는'], favorites: 513, completedProjects: 45 },
+  { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, verified: true, gender: '여성', tones: ['귀여운', '친근한'], favorites: 391, completedProjects: 72 },
+  { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, verified: true, gender: '남성', tones: ['진중한', '차분한'], favorites: 276, completedProjects: 38 },
+  { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, verified: true, gender: '여성', tones: ['밝은', '재밌는'], favorites: 341, completedProjects: 50 },
+  { name: 'Yuna M.', locale: 'JP / EN', tags: ['캐릭터', '게임'], duration: 31, verified: true, gender: '여성', tones: ['자신감', '차분한'], favorites: 299, completedProjects: 42 },
+  { name: 'Rin T.', locale: 'JP', tags: ['캐릭터', '키즈', '더빙'], duration: 39, verified: true, gender: '여성', tones: ['귀여운', '밝은'], favorites: 261, completedProjects: 35 },
+  { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, verified: true, gender: '여성', tones: ['감성적인&따뜻한', '차분한'], favorites: 411, completedProjects: 58 },
+  { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, verified: true, gender: '여성', tones: ['진중한', '드라마틱'], favorites: 356, completedProjects: 47 },
 ];
 
 const talentLocalePool = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
 const talentTagPool = ['내레이션', '광고', '캐릭터', '게임', 'NPC', '키즈', '더빙', '연기', '다큐', '애니메이션'];
 
 /** 페이지네이션 데모를 위한 가라 데이터 — 목표 개수까지 채웁니다. */
-function fillTalentProfiles(existingCount: number, target: number): TalentProfile[] {
+function fillTalentProfiles(existingCount: number, target: number): Omit<TalentProfile, 'avatarSrc'>[] {
   return Array.from({ length: Math.max(0, target - existingCount) }, (_, index) => {
     const seed = existingCount + index;
     const localeA = talentLocalePool[seed % talentLocalePool.length];
@@ -104,13 +104,20 @@ function fillTalentProfiles(existingCount: number, target: number): TalentProfil
       name: `성우 ${String(seed + 1).padStart(3, '0')}`,
       locale: localeA === localeB ? localeA : `${localeA} / ${localeB}`,
       tags: tagA === tagB ? [tagA] : [tagA, tagB],
+      gender: seed % 2 === 0 ? '여성' : '남성',
+      tones: seed % 3 === 0 ? ['귀여운', '친근한'] : seed % 3 === 1 ? ['차분한', '자연스러운'] : ['밝은', '감성적인'],
+      favorites: 120 + seed * 7,
+      completedProjects: 20 + seed % 130,
       duration: 20 + (seed % 40),
       verified: seed % 5 !== 0,
     };
   });
 }
 
-export const talentProfiles: TalentProfile[] = [...curatedTalentProfiles, ...fillTalentProfiles(curatedTalentProfiles.length, 200)];
+export const talentProfiles: TalentProfile[] = [...curatedTalentProfiles, ...fillTalentProfiles(curatedTalentProfiles.length, 200)].map((talent, index) => ({
+  ...talent,
+  avatarSrc: `/assets/talents/portrait-${String(talent.gender === '여성' ? 1 : talent.gender === '남성' ? 2 + index % 2 : index % 3 + 1).padStart(2, '0')}.jpg`,
+}));
 
 export const translationRows: TranslationRow[] = [
   { label: '영상 자막 · 대사 번역', value: 'Subtitling' },

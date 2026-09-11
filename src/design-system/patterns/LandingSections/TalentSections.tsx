@@ -7,7 +7,7 @@ import type { TalentProfile } from './types';
 const recognizedConditions = ['일본어', '20대', '여성', '캐릭터 보이스'];
 const openTalentDetail = (talent: TalentProfile) => { window.location.hash = `#voice-actor/${encodeURIComponent(talent.name)}`; };
 
-export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }) {
+export function TalentDirectorySection({ talents, headingLevel = 2 }: { talents: TalentProfile[]; headingLevel?: 1 | 2 }) {
   const [query, setQuery] = useState('일본어 하는 20대 여성 캐릭터 보이스');
   const [hasSearched, setHasSearched] = useState(false);
   const [showAllTalents, setShowAllTalents] = useState(false);
@@ -36,6 +36,7 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
       <div className={styles.talentAmbient} aria-hidden="true"><span /><span /></div>
       <div className={styles.talentInner}>
         <SectionHeader
+          headingLevel={headingLevel}
           className={styles.talentHeader}
           eyebrow="VOICE TALENT DIRECTORY"
           title={<>성우 검색<br /><span className={styles.talentTitleGradient}>문장으로 편하게 찾아보세요</span></>}
@@ -69,7 +70,7 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
                   <div key={`${talent.name}-${index}`} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
                     <VoiceActorCard
                       className={styles.talentCarouselCard}
-                      name={talent.name}
+                      name={talent.name} avatarSrc={talent.avatarSrc}
                       nickname={talent.locale}
                       verified={talent.verified}
                       tags={talent.tags}
@@ -93,12 +94,12 @@ export function TalentDirectorySection({ talents }: { talents: TalentProfile[] }
               <div className={styles.talentGrid}>
                 {visibleTalents.map((talent) => (
                   <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
-                    <VoiceActorCard className={styles.talentCard} name={talent.name} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />
+                    <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />
                   </div>
                 ))}
               </div>
               <div className={styles.bottomBanner}>
-                <p><strong>프로보이스 등록 성우</strong><span>실제 프로젝트 이력으로 검증된 프로필을 만들고 새로운 프로젝트 섭외를 받아보세요.</span></p>
+                <div className={styles.bottomBannerCopy}><h3>프로보이스 등록 성우</h3><p>실제 프로젝트 이력으로 검증된 프로필을 만들고 새로운 프로젝트 섭외를 받아보세요.</p></div>
                 <button type="button" className={styles.bannerButton}>성우 등록하기</button>
               </div>
             </div>
@@ -159,7 +160,7 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
           <div className={styles.talentGrid}>
             {visibleTalents.map((talent) => (
               <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
-                <VoiceActorCard className={styles.talentCard} name={talent.name} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />
+                <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} nickname={talent.locale} verified={talent.verified} tags={talent.tags} duration={talent.duration} />
               </div>
             ))}
           </div>

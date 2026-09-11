@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-react';
-import { Button, FilterDropdown, Footer, GNB, PortfolioCard, PortfolioDetail, TestimonialCard, VoiceTraitChip, talentProfiles } from '@/design-system';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { Select, Footer, GNB, PortfolioCard, PortfolioDetail, TestimonialCard, talentProfiles } from '@/design-system';
 import type { PortfolioItem, TalentProfile } from '@/design-system';
 import { createDemoAudio } from '@/utils/demoAudio';
 import styles from './VoiceActorDetailPage.module.css';
+import { VoiceProfile } from './VoiceProfile';
+import { ActivityFields } from './ActivityFields';
 
 const tabs = ['프로필', '포트폴리오', '경력·크레딧', '고객사 리뷰'] as const;
 const reviewSortOptions = ['최신순', '별점 높은순'] as const;
@@ -64,7 +66,7 @@ export function VoiceActorDetailPage() {
 
   const seed = seedFromName(talent.name);
   const projects = [...projectPool.slice(seed % projectPool.length), ...projectPool.slice(0, seed % projectPool.length)];
-  const career = [...careerPool.slice(seed % careerPool.length), ...careerPool.slice(0, seed % careerPool.length)];
+  const career = [...careerPool].sort((a, b) => Number(b.year) - Number(a.year));
   const reviews = [...reviewPool.slice(seed % reviewPool.length), ...reviewPool.slice(0, seed % reviewPool.length)];
   const sortedReviews = reviewSort === '별점 높은순' ? [...reviews].sort((a, b) => b.rating - a.rating) : reviews;
 
@@ -79,26 +81,7 @@ export function VoiceActorDetailPage() {
       <div className={styles.shell}>
         <a className={styles.backLink} href="#voice-search"><ArrowLeft size={16} /> 성우검색으로</a>
 
-        <section className={styles.hero} aria-labelledby="voice-actor-name">
-          <div className={styles.profileMain}>
-            <span className={styles.avatar} aria-hidden="true">{talent.name.slice(0, 1)}</span>
-            <div className={styles.heroBody}>
-              <div className={styles.nameRow}>
-                <h1 id="voice-actor-name">{talent.name}</h1>
-                {talent.verified && <span className={styles.verified}><ShieldCheck size={14} strokeWidth={2} /> 프로보이스 등록 성우</span>}
-              </div>
-              <p className={styles.stageName}><strong>{talent.name} VO</strong><span aria-hidden="true">·</span>{talent.locale}</p>
-              <div className={styles.specialties}>
-                <span>전문 분야</span>
-                <ul className={styles.tags}>{talent.tags.map((tag) => <li key={tag}><VoiceTraitChip label={tag} /></li>)}</ul>
-              </div>
-            </div>
-          </div>
-
-          <aside className={styles.contactBlock} aria-label="성우 섭외 문의">
-            <Button className={styles.contactButton}>성우 컨택 문의</Button>
-          </aside>
-        </section>
+        <VoiceProfile talent={talent} rating={reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length} />
 
         <nav className={styles.tabBar} aria-label="성우 상세 탭">
           {tabs.map((tab) => (
@@ -110,13 +93,17 @@ export function VoiceActorDetailPage() {
           {activeTab === '프로필' && (
             <div className={styles.profileGrid}>
               <section className={styles.tabPanel}>
-                <h2>대표 프로젝트</h2>
+                <div className={styles.sectionHead}>
+                  <h2>대표 프로젝트</h2>
+                  <button type="button" className={styles.viewAllLink} onClick={() => setActiveTab('포트폴리오')}>전체보기 <ArrowRight size={14} /></button>
+                </div>
                 <div className={styles.projectRow}>
                   {projects.slice(0, 3).map((project) => (
                     <PortfolioCard key={project.title} imageOnly title={project.title} languages={[talent.locale]} category={project.category} tags={[...project.tags]} image={project.image} audioSrc={project.audioSrc} onOpen={(cardOrigin) => openProject(project, cardOrigin)} />
                   ))}
                 </div>
               </section>
+              <div className={styles.detailsRow}>
               <section className={styles.tabPanel}>
                 <h2>주요경력</h2>
                 <ul className={styles.careerList}>
@@ -125,6 +112,8 @@ export function VoiceActorDetailPage() {
                   ))}
                 </ul>
               </section>
+              <ActivityFields tags={talent.tags} />
+              </div>
               <section className={styles.tabPanel}>
                 <div className={styles.sectionHead}>
                   <h2>고객사 리뷰 <span className={styles.countBadge}>{reviews.length}</span></h2>
@@ -147,7 +136,7 @@ export function VoiceActorDetailPage() {
 
           {activeTab === '경력·크레딧' && (
             <ul className={`${styles.tabPanel} ${styles.careerList}`}>
-              {[...career, ...career].slice(0, 8).map((item, index) => (
+              {career.map((item, index) => (
                 <li key={`${item.year}-${item.title}-${index}`}><span className={styles.careerYear}>{item.year}</span><span className={styles.careerTitle}>{item.title}</span><span className={styles.careerRole}>{item.role}</span></li>
               ))}
             </ul>
@@ -157,7 +146,9 @@ export function VoiceActorDetailPage() {
             <div>
               <div className={styles.reviewToolbar}>
                 <span>전체 <strong>{reviews.length}</strong></span>
-                <FilterDropdown label="정렬" options={[...reviewSortOptions]} selected={[reviewSort]} onSelect={(option) => setReviewSort(option as (typeof reviewSortOptions)[number])} />
+                <Select className={styles.reviewSort} aria-label="리뷰 정렬" value={reviewSort} onChange={(event) => setReviewSort(event.target.value as (typeof reviewSortOptions)[number])}>
+                  {reviewSortOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                </Select>
               </div>
               <div className={`${styles.tabPanel} ${styles.reviewGrid}`}>
                 {sortedReviews.map((review) => <TestimonialCard key={review.name} {...review} />)}

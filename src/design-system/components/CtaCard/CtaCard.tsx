@@ -9,7 +9,7 @@ export type CtaContactOption = {
   onClick?: () => void;
 };
 
-export type CtaCardProps = Omit<HTMLAttributes<HTMLDivElement>, 'onClick' | 'title'> & {
+export type CtaCardProps = Omit<HTMLAttributes<HTMLElement>, 'onClick' | 'title'> & {
   icon: ReactNode;
   eyebrow: string;
   title: string;
@@ -27,7 +27,7 @@ const ArrowIcon = () => (
 
 export function CtaCard({ icon, eyebrow, title, description, primaryLabel, onPrimaryClick, contactOptions = [], tone = 'default', className = '', ...props }: CtaCardProps) {
   return (
-    <div data-component="CtaCard" data-tone={tone} className={`${styles.card} ${tone === 'strong' ? styles.strong : ''} ${className}`} {...props}>
+    <article data-component="CtaCard" data-tone={tone} className={`${styles.card} ${tone === 'strong' ? styles.strong : ''} ${className}`} {...props}>
       <span className={styles.iconWrap}>{icon}</span>
       <p className={styles.eyebrow}>{eyebrow}</p>
       <h3 className={styles.title}>{title}</h3>
@@ -47,6 +47,6 @@ export function CtaCard({ icon, eyebrow, title, description, primaryLabel, onPri
           </div>
         </>
       )}
-    </div>
+    </article>
   );
 }

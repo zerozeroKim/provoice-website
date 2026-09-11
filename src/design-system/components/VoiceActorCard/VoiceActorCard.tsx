@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { VoiceTraitChip } from '../VoiceTraitChip';
 import styles from './VoiceActorCard.module.css';
 
-export type VoiceActorCardProps = Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> & {
+export type VoiceActorCardProps = Omit<HTMLAttributes<HTMLElement>, 'onClick'> & {
   name: string;
   nickname?: string;
   avatarSrc?: string;
@@ -55,15 +55,15 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
   const progress = duration > 0 ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0;
 
   return (
-    <div data-component="VoiceActorCard" className={`${styles.card} ${className}`} {...props}>
+    <article data-component="VoiceActorCard" className={`${styles.card} ${className}`} {...props}>
       <div className={styles.header}>
         <span className={styles.avatar}>
-          {avatarSrc ? <img src={avatarSrc} alt="" /> : <span className={styles.avatarFallback}><PersonIcon /></span>}
+          {avatarSrc ? <img src={avatarSrc} alt={`${name} 성우 프로필`} loading="lazy" /> : <span className={styles.avatarFallback}><PersonIcon /></span>}
         </span>
 
         <span className={styles.profileMain}>
           <span className={styles.nameLine}>
-            <span className={styles.name}>{name}</span>
+            <h3 className={styles.name}>{name}</h3>
             {verified && <span className={styles.verified} role="img" aria-label="프로보이스 인증 성우"><VerifiedIcon /></span>}
           </span>
           {(nickname || flag) && (
@@ -106,6 +106,6 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
           <p className={styles.downloadStat}><DownloadIcon />다운로드 {downloadCount}회</p>
         )}
       </div>
-    </div>
+    </article>
   );
 }

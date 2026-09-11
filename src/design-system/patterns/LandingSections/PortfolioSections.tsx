@@ -74,7 +74,7 @@ export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: 
   return (
     <>
       <section className={`${styles.portfolioSection} ${selectedPortfolio ? styles.portfolioIsOpen : ''}`} aria-label="전체 포트폴리오">
-        <SectionHeader className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="모든 프로젝트 살펴보기" description="장르, 언어별로 원하는 작업 사례를 찾아보세요." />
+        <SectionHeader headingLevel={1} className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="모든 프로젝트 살펴보기" description="장르, 언어별로 원하는 작업 사례를 찾아보세요." />
         <PortfolioSocialLinks />
         <div className={styles.portfolioPageControls}>
           <FilterDropdown label="언어" options={portfolioLanguageOptions} selected={languages} onSelect={selectLanguage} />

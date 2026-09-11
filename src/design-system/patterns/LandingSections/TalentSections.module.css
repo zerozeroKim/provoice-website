@@ -119,7 +119,7 @@
   box-shadow: 0 14px 30px rgba(29, 17, 53, 0.12);
 }
 
-.bottomBanner p {
+.bottomBannerCopy {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -130,8 +130,8 @@
   line-height: 1.6;
 }
 
-.bottomBanner p strong { color: var(--neutral-0); font-size: 1rem; }
-.bottomBanner p span { color: rgba(255, 255, 255, 0.64); }
+.bottomBannerCopy h3 { margin: 0; color: var(--neutral-0); font-size: 1rem; }
+.bottomBannerCopy p { margin: 0; color: rgba(255, 255, 255, 0.64); }
 
 .bannerButton {
   flex-shrink: 0;
@@ -348,9 +348,9 @@
   box-shadow: 0 8px 24px rgba(42, 55, 72, 0.045);
 }
 
-.talentWorkspace .bottomBanner p,
-.talentWorkspace .bottomBanner p span { color: var(--neutral-500); }
-.talentWorkspace .bottomBanner p strong { color: var(--neutral-900); }
+.talentWorkspace .bottomBannerCopy,
+.talentWorkspace .bottomBannerCopy p { color: var(--neutral-500); }
+.talentWorkspace .bottomBannerCopy h3 { color: var(--neutral-900); }
 
 @media (max-width: 1024px) {
   .talentGrid {

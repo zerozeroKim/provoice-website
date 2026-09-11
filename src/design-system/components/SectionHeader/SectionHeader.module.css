@@ -16,7 +16,7 @@
   text-transform: uppercase;
 }
 
-.header h2 {
+.header :is(h1, h2, h3) {
   margin: .55rem 0 0;
   color: var(--neutral-900);
   font-size: clamp(1.75rem, 2.05vw, 2.9rem);
@@ -35,5 +35,5 @@
 }
 
 @media (max-width: 700px) {
-  .header h2 { font-size: clamp(1.55rem, 7vw, 2rem); }
+  .header :is(h1, h2, h3) { font-size: clamp(1.55rem, 7vw, 2rem); }
 }

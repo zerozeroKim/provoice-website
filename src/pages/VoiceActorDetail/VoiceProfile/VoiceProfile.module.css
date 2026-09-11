@@ -1,0 +1,74 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 2rem;
+  padding: 2.5rem 2.75rem 0;
+  border: 1px solid #e6ddf3;
+  border-radius: 1.75rem;
+  background: #faf7ff;
+  box-shadow: 0 12px 40px rgb(92 47 154 / .04);
+}
+.hero::before, .hero::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: 24rem;
+  height: 35rem;
+  border: 1px solid rgb(176 144 220 / .18);
+  border-radius: 48% 52% 42% 58% / 60% 45% 55% 40%;
+  background: linear-gradient(125deg, rgb(255 255 255 / .6), rgb(226 210 248 / .25) 65%, rgb(240 230 253 / .12));
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / .8);
+  transform: rotate(38deg);
+}
+.hero::before { right: -15rem; top: -23rem; }
+.hero::after { right: -18rem; top: -20rem; opacity: .65; }
+.identity { display: flex; align-items: flex-start; gap: 2rem; min-width: 0; }
+.avatar { object-fit: cover; object-position: center; display: block; flex: none; place-items: center; width: 7rem; height: 7rem; margin-top: .5rem; border: 5px solid white; border-radius: 50%; background: var(--gradient-deep-purple); box-shadow: 0 0 0 2px #c5a6ff; color: white; font-size: 2.8rem; font-weight: 750; }
+.body { min-width: 0; width: 100%; max-width: 34rem; }
+.body h1 { margin: .75rem 0 1.25rem; color: var(--neutral-950); font-size: clamp(2rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
+.verified { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem .65rem; border: 1px solid #dac5ff; border-radius: .5rem; background: #ede2ff; color: #5926a5; font-size: .8rem; font-weight: 700; }
+.facts { display: grid; gap: 0; margin: 0; }
+.facts > div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 1rem; align-items: center; min-height: 2.85rem; padding: .5rem 0; border-bottom: 1px solid #ebe3f3; }
+.facts > div:last-child { border-bottom: 0; }
+.facts dt { color: var(--neutral-600); font-size: .85rem; font-weight: 600; }
+.facts dd { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin: 0; color: var(--neutral-900); font-size: .95rem; font-weight: 600; }
+.tone { padding: .3rem .7rem; border: 1px solid #ddcef5; border-radius: var(--radius-full); color: #5926a5; font-size: .8rem; background: white; }
+.empty { color: var(--neutral-500); font-weight: 400; }
+.contact { align-self: start; padding-top: 2.75rem; }
+.contactButton { background: var(--gradient-deep-purple); min-width: 12rem; }
+.footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; grid-column: 1 / -1; margin-top: 1.75rem; padding: 1.25rem 0; border-top: 1px solid #e6ddf3; }
+.note { color: var(--neutral-500); font-size: .7rem; }
+.stats { display: flex; flex-wrap: wrap; gap: 0; margin: 0; }
+.stats > div { display: flex; align-items: center; gap: .65rem; padding: 0 1.25rem; border-right: 1px solid #e1d7ed; }
+.stats > div:last-child { padding-right: 0; border: 0; }
+.stats dt { display: flex; align-items: center; gap: .4rem; color: var(--neutral-600); font-size: .85rem; }
+.stats svg { color: var(--purple-500); }
+.stats dd { margin: 0; color: var(--neutral-900); font-size: 1rem; font-weight: 750; }
+.stats dd span { font-size: .7rem; font-weight: 400; color: var(--neutral-500); }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 2rem 2rem 0; }
+  .body { max-width: none; }
+  .contact { padding: 1.5rem 0 0 9rem; }
+  .stats > div:first-child { padding-left: 0; }
+}
+@media (max-width: 480px) {
+  .hero { padding: 1.5rem 1.25rem 0; }
+  .identity { position: relative; display: block; }
+  .avatar { position: absolute; top: .25rem; left: 0; width: 3.5rem; height: 3.5rem; border-width: 3px; font-size: 1.5rem; }
+  .verified { margin-left: 4.5rem; font-size: .7rem; padding: .3rem .45rem; }
+  .body h1 { margin: .6rem 0 1.5rem 4.5rem; font-size: 1.8rem; }
+  .facts > div { grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; }
+  .contact { padding: 1.25rem 0 0; }
+  .contactButton { width: 100%; }
+  .footer { margin-top: 1.5rem; }
+  .stats { justify-content: space-between; width: 100%; }
+  .stats > div { padding: 0 .5rem; gap: .35rem; }
+  .stats dt { font-size: .75rem; }
+  .stats dd { font-size: .85rem; }
+  .note { order: 1; }
+}

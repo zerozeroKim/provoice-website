@@ -7,7 +7,7 @@ export function VoiceSearchPage() {
     <main className={styles.page}>
       <div className={styles.shell}>
         <GNB />
-        <TalentDirectorySection talents={talentProfiles} />
+        <TalentDirectorySection talents={talentProfiles} headingLevel={1} />
         <TalentFilterSection talents={talentProfiles} />
         <Footer />
       </div>

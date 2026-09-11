@@ -52,11 +52,20 @@ export function TemplatesPage() {
 
   return (
     <main className={styles.page}>
-      <nav className={styles.tabs} aria-label="GNB 항목별 템플릿">
+      <header className={styles.header}>
+        <p className={styles.eyebrow}>DESIGN SYSTEM</p>
+        <h1>페이지 템플릿</h1>
+        <p>PROVOICE 고객 화면을 구성하는 공용 섹션과 페이지 구조입니다.</p>
+      </header>
+      <nav className={styles.tabs} aria-label="GNB 항목별 템플릿" role="tablist">
         {tabs.map((tab) => (
           <button
             key={tab}
+            id={`template-tab-${tab}`}
             type="button"
+            role="tab"
+            aria-selected={activeTab === tab}
+            aria-controls={`template-panel-${tab}`}
             className={activeTab === tab ? styles.active : ''}
             onClick={() => { setActiveTab(tab); window.location.hash = `templates/${tab}`; }}
           >
@@ -66,38 +75,38 @@ export function TemplatesPage() {
       </nav>
 
       {activeTab === '홈' && (
-        <div className={styles.list}>
-          <TemplatePreview flush><HeroSection stats={heroStats} /></TemplatePreview>
+        <section id="template-panel-홈" className={styles.list} role="tabpanel" aria-labelledby="template-tab-홈">
+          <TemplatePreview flush><HeroSection stats={heroStats} headingLevel={2} /></TemplatePreview>
           <TemplatePreview><TestimonialSection testimonials={reviewCards} /></TemplatePreview>
           <TemplatePreview><GetStartedSection /></TemplatePreview>
-        </div>
+        </section>
       )}
 
       {activeTab === '성우검색' && (
-        <div className={styles.list}>
+        <section id="template-panel-성우검색" className={styles.list} role="tabpanel" aria-labelledby="template-tab-성우검색">
           <TemplatePreview flush><TalentDirectorySection talents={talentProfiles} /></TemplatePreview>
           <TemplatePreview><TalentFilterSection talents={talentProfiles} /></TemplatePreview>
-        </div>
+        </section>
       )}
 
       {activeTab === '서비스' && (
-        <div className={styles.list}>
+        <section id="template-panel-서비스" className={styles.list} role="tabpanel" aria-labelledby="template-tab-서비스">
           <TemplatePreview flush><ServiceSection services={serviceCards} /></TemplatePreview>
           <TemplatePreview><TranslationSection rows={translationRows} languages={supportLanguages} /></TemplatePreview>
-        </div>
+        </section>
       )}
 
       {activeTab === '포트폴리오' && (
-        <div className={styles.list}>
+        <section id="template-panel-포트폴리오" className={styles.list} role="tabpanel" aria-labelledby="template-tab-포트폴리오">
           <TemplatePreview flush><PortfolioSection tabs={portfolioTabs} cards={portfolioCards} /></TemplatePreview>
           <TemplatePreview><PortfolioPageSection tabs={portfolioTabs} cards={portfolioCards} /></TemplatePreview>
-        </div>
+        </section>
       )}
 
       {activeTab === 'PROVOICE × AI' && (
-        <div className={styles.list}>
-          <TemplatePreview flush><AISection /></TemplatePreview>
-        </div>
+        <section id="template-panel-PROVOICE × AI" className={styles.list} role="tabpanel" aria-labelledby="template-tab-PROVOICE × AI">
+          <TemplatePreview flush><AISection headingLevel={2} /></TemplatePreview>
+        </section>
       )}
     </main>
   );
