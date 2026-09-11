@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Bookmark, Check, Download, Heart, Pause, Play, Share2, X } from 'lucide-react';
+import { ArrowUpRight, Check, Pause, Play, Share2, X } from 'lucide-react';
 import type { PortfolioItem } from '../PortfolioCard';
 import styles from './PortfolioDetail.module.css';
 
@@ -7,9 +7,6 @@ export type PortfolioDetailProps = { item: PortfolioItem; origin: DOMRect; onClo
 
 export function PortfolioDetail({ item, origin, onClose }: PortfolioDetailProps) {
   const [playing, setPlaying] = useState(false);
-  const storageKey = `provoice-portfolio-${encodeURIComponent(item.title)}`;
-  const [saved, setSaved] = useState(() => localStorage.getItem(`${storageKey}-saved`) === 'true');
-  const [liked, setLiked] = useState(() => localStorage.getItem(`${storageKey}-liked`) === 'true');
   const [copied, setCopied] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const panelRef = useRef<HTMLElement>(null);
@@ -62,12 +59,6 @@ export function PortfolioDetail({ item, origin, onClose }: PortfolioDetailProps)
     onClose();
   };
 
-  const togglePreference = (kind: 'saved' | 'liked', value: boolean) => {
-    localStorage.setItem(`${storageKey}-${kind}`, String(value));
-    if (kind === 'saved') setSaved(value);
-    else setLiked(value);
-  };
-
   const share = async () => {
     const url = new URL(window.location.href);
     url.searchParams.set('portfolio', item.title);
@@ -84,16 +75,6 @@ export function PortfolioDetail({ item, origin, onClose }: PortfolioDetailProps)
     }
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
-  };
-
-  const downloadAudio = () => {
-    if (!item.audioSrc) return;
-    const anchor = document.createElement('a');
-    anchor.href = item.audioSrc;
-    anchor.download = `${item.title}.wav`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
   };
 
   const toggleAudio = () => {
@@ -125,10 +106,7 @@ export function PortfolioDetail({ item, origin, onClose }: PortfolioDetailProps)
             <p>프로젝트 목표와 콘텐츠의 감정선에 맞춰 캐스팅부터 번역, 녹음과 사운드 후반 작업까지 하나의 팀으로 완성한 다국어 제작 사례입니다.</p>
           </div>
           <div className={styles.actionGrid} aria-label="포트폴리오 작업">
-            <button type="button" className={saved ? styles.actionActive : ''} aria-pressed={saved} onClick={() => togglePreference('saved', !saved)}><Bookmark fill={saved ? 'currentColor' : 'none'} />{saved ? '저장됨' : '저장하기'}</button>
-            <button type="button" className={liked ? styles.actionActive : ''} aria-pressed={liked} onClick={() => togglePreference('liked', !liked)}><Heart fill={liked ? 'currentColor' : 'none'} />{liked ? '좋아요 취소' : '좋아요'}</button>
             <button type="button" onClick={share}>{copied ? <Check /> : <Share2 />}{copied ? '링크 복사됨' : '공유하기'}</button>
-            <button type="button" disabled={!item.audioSrc} onClick={downloadAudio} title={!item.audioSrc ? '다운로드할 음원이 준비되지 않았습니다' : undefined}><Download />{item.audioSrc ? '음원 다운로드' : '음원 준비 중'}</button>
           </div>
           {item.link && <a className={styles.projectLink} href={item.link} target="_blank" rel="noreferrer">프로젝트 원문 보기 <ArrowUpRight size={15} /></a>}
         </div>

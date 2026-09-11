@@ -82,7 +82,7 @@ export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: 
         </div>
         <div className={styles.portfolioImageGrid}>
           {filtered.map((card) => (
-            <PortfolioCard key={`${card.title}-${card.tone}`} imageOnly title={card.title} languages={card.languages} category={card.tone} tags={card.tags} highlight={card.highlight} image={card.image} onOpen={(cardOrigin) => openPortfolio(card, cardOrigin)} />
+            <PortfolioCard key={`${card.title}-${card.tone}`} imageOnly title={card.title} languages={card.languages} category={card.tone} tags={card.tags} highlight={card.highlight} client={card.client} image={card.image} onOpen={(cardOrigin) => openPortfolio(card, cardOrigin)} />
           ))}
         </div>
         {filtered.length === 0 && <p className={styles.portfolioEmpty}>검색 조건에 맞는 프로젝트가 없습니다.</p>}

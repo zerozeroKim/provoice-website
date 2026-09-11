@@ -11,6 +11,8 @@ export type PortfolioItem<T extends string = string> = {
   tags: string[];
   highlight?: string;
   image?: string;
+  /** 프로젝트를 의뢰한 고객사명. 갤러리형(imageOnly) 카드는 hover 시 제목과 함께 보여줍니다. */
+  client?: string;
   /** 프로젝트 상세 페이지 등 외부 링크. */
   link?: string;
   /** WAV 원본 파일 첨부 여부. */
@@ -26,6 +28,7 @@ export type PortfolioCardProps = {
   tags: string[];
   highlight?: string;
   image?: string;
+  client?: string;
   audioSrc?: string;
   /** 제목·태그 없이 이미지만 채워서 보여주는 갤러리형 타일입니다. */
   imageOnly?: boolean;
@@ -33,7 +36,7 @@ export type PortfolioCardProps = {
   className?: string;
 };
 
-export function PortfolioCard({ title, languages, category, tags, highlight, image, audioSrc, imageOnly = false, onOpen, className = '' }: PortfolioCardProps) {
+export function PortfolioCard({ title, languages, category, tags, highlight, image, client, audioSrc, imageOnly = false, onOpen, className = '' }: PortfolioCardProps) {
   const [activating, setActivating] = useState(false);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -69,6 +72,12 @@ export function PortfolioCard({ title, languages, category, tags, highlight, ima
           <audio ref={audioRef} src={audioSrc} preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} />
           <button type="button" className={styles.previewPlay} aria-label={playing ? `${title} 미리듣기 일시정지` : `${title} 미리듣기 재생`} aria-pressed={playing} onClick={toggleAudio}>{playing ? <Pause fill="currentColor" /> : <Play fill="currentColor" />}<span>{playing ? '재생 중' : '샘플 듣기'}</span></button>
         </>}
+        {imageOnly && (
+          <div className={styles.hoverInfo} aria-hidden="true">
+            <strong>{title}</strong>
+            {client && <span>{client}</span>}
+          </div>
+        )}
       </div>
       {imageOnly && <h3 className={styles.visuallyHidden}>{title}</h3>}
       {!imageOnly && (
