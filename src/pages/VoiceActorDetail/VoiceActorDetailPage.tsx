@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Pause, Play, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Button, FilterDropdown, Footer, GNB, PortfolioCard, PortfolioDetail, TestimonialCard, VoiceTraitChip, talentProfiles } from '@/design-system';
 import type { PortfolioItem, TalentProfile } from '@/design-system';
+import { createDemoAudio } from '@/utils/demoAudio';
 import styles from './VoiceActorDetailPage.module.css';
 
 const tabs = ['프로필', '포트폴리오', '경력·크레딧', '고객사 리뷰'] as const;
@@ -9,12 +10,12 @@ const reviewSortOptions = ['최신순', '별점 높은순'] as const;
 
 /** 실제 프로필 데이터가 없는 상태에서 IMDB 배우 페이지처럼 구성만 보여주기 위한 예시 데이터 풀. */
 const projectPool = [
-  { title: 'MMORPG 글로벌 더빙 프로젝트', category: '게임', image: 'linear-gradient(135deg, #2a2440, #6d3fc9)', link: 'https://provoice.co.kr/portfolio/mmorpg-global', wavAttached: true, tags: ['드라마틱', '진중한'] },
-  { title: '극장판 애니메이션 다국어 더빙', category: '애니메이션', image: 'linear-gradient(135deg, #2c1f3d, #9146c9)', link: undefined, wavAttached: true, tags: ['감성적인&따뜻한', '드라마틱'] },
-  { title: '인기 웹툰 시리즈 오디오드라마화', category: '웹툰', image: 'linear-gradient(135deg, #1f2b3d, #3f74c9)', link: 'https://provoice.co.kr/portfolio/webtoon-audiodrama', wavAttached: false, tags: ['재밌는', '밝은'] },
-  { title: '글로벌 브랜드 TV 광고 내레이션', category: '광고', image: 'linear-gradient(135deg, #3d231f, #c96b3f)', link: undefined, wavAttached: false, tags: ['자신감', '친근한'] },
-  { title: '모바일 게임 NPC 다국어 대사', category: '게임', image: 'linear-gradient(135deg, #1f3d33, #3fc98a)', link: 'https://provoice.co.kr/portfolio/mobile-npc', wavAttached: true, tags: ['귀여운', '재밌는'] },
-  { title: 'OTT 오리지널 시리즈 보이스 하이브리드', category: '더빙', image: 'linear-gradient(135deg, #2a1f3d, #7a3fc9)', link: undefined, wavAttached: true, tags: ['자연스러운', '진중한'] },
+  { title: 'MMORPG 글로벌 더빙 프로젝트', category: '게임', image: 'radial-gradient(circle at 78% 18%, rgb(126 92 255 / .72), transparent 36%), radial-gradient(circle at 8% 88%, rgb(219 69 255 / .32), transparent 42%), linear-gradient(135deg, #17122f 0%, #34246d 52%, #5e39c6 100%)', link: 'https://provoice.co.kr/portfolio/mmorpg-global', wavAttached: true, audioSrc: createDemoAudio(1), tags: ['드라마틱', '진중한'] },
+  { title: '극장판 애니메이션 다국어 더빙', category: '애니메이션', image: 'radial-gradient(circle at 82% 16%, rgb(244 111 255 / .62), transparent 35%), radial-gradient(circle at 12% 92%, rgb(101 72 255 / .4), transparent 44%), linear-gradient(140deg, #241333 0%, #5b267a 54%, #9c45d0 100%)', link: undefined, wavAttached: true, audioSrc: createDemoAudio(2), tags: ['감성적인', '차분한', '진중한'] },
+  { title: '인기 웹툰 시리즈 오디오드라마화', category: '웹툰', image: 'radial-gradient(circle at 82% 15%, rgb(83 203 255 / .55), transparent 36%), radial-gradient(circle at 12% 88%, rgb(120 75 255 / .42), transparent 42%), linear-gradient(135deg, #101d38 0%, #243f78 55%, #3d68bd 100%)', link: 'https://provoice.co.kr/portfolio/webtoon-audiodrama', wavAttached: true, audioSrc: createDemoAudio(3), tags: ['재밌는', '밝은'] },
+  { title: '글로벌 브랜드 TV 광고 내레이션', category: '광고', image: 'radial-gradient(circle at 80% 18%, rgb(255 133 160 / .58), transparent 36%), radial-gradient(circle at 8% 90%, rgb(132 72 255 / .28), transparent 44%), linear-gradient(135deg, #341629 0%, #71314d 54%, #b6576c 100%)', link: undefined, wavAttached: true, audioSrc: createDemoAudio(4), tags: ['자신감', '친근한'] },
+  { title: '모바일 게임 NPC 다국어 대사', category: '게임', image: 'radial-gradient(circle at 82% 15%, rgb(68 222 190 / .55), transparent 36%), radial-gradient(circle at 10% 88%, rgb(108 73 255 / .34), transparent 43%), linear-gradient(135deg, #112b32 0%, #1d5960 55%, #348f82 100%)', link: 'https://provoice.co.kr/portfolio/mobile-npc', wavAttached: true, audioSrc: createDemoAudio(5), tags: ['귀여운', '재밌는'] },
+  { title: 'OTT 오리지널 시리즈 보이스 하이브리드', category: '더빙', image: 'radial-gradient(circle at 82% 16%, rgb(198 82 255 / .68), transparent 37%), radial-gradient(circle at 8% 90%, rgb(54 116 255 / .34), transparent 43%), linear-gradient(135deg, #171329 0%, #3b2465 52%, #6f36ad 100%)', link: undefined, wavAttached: true, audioSrc: createDemoAudio(6), tags: ['자연스러운', '진중한'] },
 ] as const;
 
 const careerPool = [
@@ -43,7 +44,6 @@ const getRequestedName = () => decodeURIComponent(window.location.hash.split('/'
 
 export function VoiceActorDetailPage() {
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>('프로필');
-  const [playing, setPlaying] = useState(false);
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
   const [origin, setOrigin] = useState<DOMRect | null>(null);
   const [reviewSort, setReviewSort] = useState<(typeof reviewSortOptions)[number]>('최신순');
@@ -70,7 +70,7 @@ export function VoiceActorDetailPage() {
 
   const openProject = (project: (typeof projectPool)[number], cardOrigin: DOMRect) => {
     setOrigin(cardOrigin);
-    setSelectedProject({ category: project.category, title: project.title, languages: [talent.locale], tone: project.category, tags: [project.category], image: project.image, link: project.link, wavAttached: project.wavAttached });
+    setSelectedProject({ category: project.category, title: project.title, languages: [talent.locale], tone: project.category, tags: [...project.tags], image: project.image, link: project.link, wavAttached: project.wavAttached, audioSrc: project.audioSrc });
   };
 
   return (
@@ -79,30 +79,26 @@ export function VoiceActorDetailPage() {
       <div className={styles.shell}>
         <a className={styles.backLink} href="#voice-search"><ArrowLeft size={16} /> 성우검색으로</a>
 
-        <div className={styles.hero}>
-          <span className={styles.avatar} aria-hidden="true">{talent.name.slice(0, 1)}</span>
-          <div className={styles.heroBody}>
-            <div className={styles.nameRow}>
-              <h1>{talent.name}</h1>
-              {talent.verified && <span className={styles.verified}><ShieldCheck size={14} strokeWidth={2} /> 프로보이스 등록 성우</span>}
-            </div>
-            <p className={styles.stageName}>예명 · {talent.name} VO — {talent.locale}</p>
-            <ul className={styles.tags}>{talent.tags.map((tag) => <li key={tag}><VoiceTraitChip label={tag} /></li>)}</ul>
-
-            <div className={styles.player}>
-              <button type="button" className={styles.playButton} aria-pressed={playing} aria-label={playing ? '샘플 일시정지' : '샘플 재생'} onClick={() => setPlaying((value) => !value)}>
-                {playing ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" />}
-              </button>
-              <span className={styles.progressTrack}><span style={{ width: playing ? '38%' : '0%' }} /></span>
-              <span className={styles.duration}>{talent.duration}초 샘플</span>
+        <section className={styles.hero} aria-labelledby="voice-actor-name">
+          <div className={styles.profileMain}>
+            <span className={styles.avatar} aria-hidden="true">{talent.name.slice(0, 1)}</span>
+            <div className={styles.heroBody}>
+              <div className={styles.nameRow}>
+                <h1 id="voice-actor-name">{talent.name}</h1>
+                {talent.verified && <span className={styles.verified}><ShieldCheck size={14} strokeWidth={2} /> 프로보이스 등록 성우</span>}
+              </div>
+              <p className={styles.stageName}><strong>{talent.name} VO</strong><span aria-hidden="true">·</span>{talent.locale}</p>
+              <div className={styles.specialties}>
+                <span>전문 분야</span>
+                <ul className={styles.tags}>{talent.tags.map((tag) => <li key={tag}><VoiceTraitChip label={tag} /></li>)}</ul>
+              </div>
             </div>
           </div>
 
-          <div className={styles.contactBlock}>
+          <aside className={styles.contactBlock} aria-label="성우 섭외 문의">
             <Button className={styles.contactButton}>성우 컨택 문의</Button>
-            <p className={styles.contactNote}>컨택은 프로보이스 경유로만 가능합니다.</p>
-          </div>
-        </div>
+          </aside>
+        </section>
 
         <nav className={styles.tabBar} aria-label="성우 상세 탭">
           {tabs.map((tab) => (
@@ -117,7 +113,7 @@ export function VoiceActorDetailPage() {
                 <h2>대표 프로젝트</h2>
                 <div className={styles.projectRow}>
                   {projects.slice(0, 3).map((project) => (
-                    <PortfolioCard key={project.title} imageOnly title={project.title} languages={[talent.locale]} category={project.category} tags={[project.category]} image={project.image} onOpen={(cardOrigin) => openProject(project, cardOrigin)} />
+                    <PortfolioCard key={project.title} imageOnly title={project.title} languages={[talent.locale]} category={project.category} tags={[...project.tags]} image={project.image} audioSrc={project.audioSrc} onOpen={(cardOrigin) => openProject(project, cardOrigin)} />
                   ))}
                 </div>
               </section>
@@ -147,8 +143,8 @@ export function VoiceActorDetailPage() {
 
           {activeTab === '포트폴리오' && (
             <div className={styles.portfolioGrid}>
-              {[...projects, ...projects].slice(0, 8).map((project, index) => (
-                <PortfolioCard key={`${project.title}-${index}`} imageOnly title={project.title} languages={[talent.locale]} category={project.category} tags={[project.category]} image={project.image} onOpen={(cardOrigin) => openProject(project, cardOrigin)} />
+              {[...projects, ...projects].slice(0, 9).map((project, index) => (
+                <PortfolioCard key={`${project.title}-${index}`} imageOnly title={project.title} languages={[talent.locale]} category={project.category} tags={[...project.tags]} image={project.image} audioSrc={project.audioSrc} onOpen={(cardOrigin) => openProject(project, cardOrigin)} />
               ))}
             </div>
           )}

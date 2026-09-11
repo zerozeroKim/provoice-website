@@ -3,7 +3,7 @@
 
 .backLink {
   display: inline-flex;
-  align-items: center;
+  align-items: end;
   gap: .4rem;
   margin-bottom: 1.5rem;
   color: var(--neutral-500);
@@ -26,11 +26,15 @@
 .notFound a { color: var(--purple-500); font-weight: 700; text-decoration: none; }
 
 .hero {
-  display: flex;
-  gap: 1.75rem;
-  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
   border-bottom: 1px solid var(--neutral-100);
 }
+
+.profileMain { display: flex; min-width: 0; align-items: end; gap: 1.35rem; }
 
 .avatar {
   display: grid;
@@ -45,7 +49,7 @@
   font-weight: 800;
 }
 
-.heroBody { display: grid; gap: .6rem; min-width: 0; flex: 1; }
+.heroBody { display: grid; gap: .6rem; min-width: 0; flex: 1; padding-bottom: .1rem; }
 
 .nameRow { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
 .nameRow h1 { margin: 0; color: var(--neutral-950); font-size: 1.9rem; letter-spacing: -.03em; }
@@ -62,42 +66,16 @@
   font-weight: 700;
 }
 
-.stageName { margin: 0; color: var(--neutral-500); font-size: .88rem; }
+.stageName { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0; color: var(--neutral-500); font-size: .88rem; }
+.stageName strong { color: var(--neutral-700); font-weight: 700; }
+
+.specialties { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: .2rem; }
+.specialties > span { color: var(--neutral-500); font-size: .72rem; font-weight: 700; }
 
 .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
 
-.player {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  margin-top: .25rem;
-  padding: .6rem .9rem;
-  border: 1px solid var(--neutral-100);
-  border-radius: var(--radius-full);
-  background: var(--neutral-50);
-  max-width: 22rem;
-}
-
-.playButton {
-  display: grid;
-  flex: none;
-  width: 2.2rem;
-  height: 2.2rem;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: var(--gradient-deep-purple);
-  color: var(--neutral-0);
-  cursor: pointer;
-}
-
-.progressTrack { position: relative; flex: 1; height: 3px; border-radius: 999px; background: var(--neutral-200); overflow: hidden; }
-.progressTrack span { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: var(--purple-500); transition: width .2s ease; }
-.duration { flex: none; color: var(--neutral-500); font-size: .74rem; }
-
-.contactBlock { display: grid; flex: none; gap: .5rem; align-content: start; justify-items: end; text-align: right; }
-.contactButton { background: var(--gradient-deep-purple); }
-.contactNote { margin: 0; max-width: 11rem; color: var(--neutral-400); font-size: .68rem; line-height: 1.4; }
+.contactBlock { display: grid; width: 16rem; justify-items: end; }
+.contactButton { width: 12.5rem; background: var(--gradient-deep-purple); font-size: .86rem; }
 
 .tabBar {
   display: flex;
@@ -134,7 +112,7 @@
 .projectRow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .reviewRow, .reviewGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; }
 
-.portfolioGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.portfolioGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
 
 .careerList { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
 
@@ -199,9 +177,9 @@
 .reviewToolbar strong { color: var(--neutral-900); }
 
 @media (max-width: 720px) {
-  .hero { flex-direction: column; }
-  .contactBlock { justify-items: start; text-align: left; }
-  .contactNote { max-width: none; }
+  .hero { grid-template-columns: 1fr; }
+  .profileMain { align-items: flex-start; }
+  .contactBlock { width: auto; justify-items: start; }
   .projectRow, .portfolioGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .careerList li { grid-template-columns: 3rem 1fr; }
   .careerRole { grid-column: 2; text-align: left; }
