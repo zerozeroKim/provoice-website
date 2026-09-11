@@ -1,20 +1,27 @@
 import { useState, type FormEvent } from 'react';
 import { MessageCircle } from 'lucide-react';
 import { Button, GNB, TextField } from '@/design-system';
+import { login, MOCK_CREDENTIALS } from '@/lib/mockAuth';
 import styles from './LoginPage.module.css';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [errors, setErrors] = useState<{ email?: string; password?: string; form?: string }>({});
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors: typeof errors = {};
-    if (!email.trim()) nextErrors.email = '이메일을 입력해 주세요.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = '올바른 이메일 형식이 아닙니다.';
+    if (!email.trim()) nextErrors.email = '아이디를 입력해 주세요.';
     if (!password) nextErrors.password = '비밀번호를 입력해 주세요.';
-    else if (password.length < 8) nextErrors.password = '비밀번호는 8자 이상이어야 합니다.';
+    if (!nextErrors.email && !nextErrors.password) {
+      if (email.trim() === MOCK_CREDENTIALS.id && password === MOCK_CREDENTIALS.password) {
+        login();
+        window.location.hash = '#client';
+        return;
+      }
+      nextErrors.form = '아이디 또는 비밀번호가 일치하지 않습니다.';
+    }
     setErrors(nextErrors);
   };
 
@@ -27,10 +34,9 @@ export function LoginPage() {
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <TextField
-            label="이메일"
+            label="아이디"
             hideLabel
-            type="email"
-            placeholder="이메일을 입력해 주세요"
+            placeholder="아이디를 입력해 주세요"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             error={errors.email}
@@ -44,6 +50,7 @@ export function LoginPage() {
             onChange={(event) => setPassword(event.target.value)}
             error={errors.password}
           />
+          {errors.form && <p className={styles.formError}>{errors.form}</p>}
           <Button type="submit" size="lg" fullWidth className={styles.submit}>로그인</Button>
         </form>
 

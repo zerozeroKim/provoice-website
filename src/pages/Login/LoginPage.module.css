@@ -26,6 +26,8 @@
 
 .form { display: grid; gap: 1.4rem; }
 
+.formError { margin: -.6rem 0 0; color: var(--color-danger); font-size: .85rem; text-align: center; }
+
 .submit {
   margin-top: .5rem;
   min-height: 3.5rem;

@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type MouseEvent } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { isLoggedIn, logout, onAuthChange } from '@/lib/mockAuth';
 import styles from './GNB.module.css';
 
 const mainMenu = ['성우검색', '서비스', '포트폴리오', '작업문의', '블로그'] as const;
@@ -41,16 +42,23 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
   const [language, setLanguage] = useState<(typeof languageOptions)[number]>(languageOptions[0]);
   const [scrolled, setScrolled] = useState(false);
   const [current, setCurrent] = useState(getCurrentMenuItem);
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
   const menuId = useId();
   const serviceRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
   const stopDemoLink = (event: MouseEvent<HTMLAnchorElement>) => event.preventDefault();
+  const handleLogout = () => {
+    logout();
+    window.location.hash = '#client';
+  };
 
   useEffect(() => {
     const onHashChange = () => setCurrent(getCurrentMenuItem());
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
+
+  useEffect(() => onAuthChange(() => setLoggedIn(isLoggedIn())), []);
 
   useEffect(() => {
     const onScroll = (event: Event) => {
@@ -134,7 +142,11 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
                   )}
                 </div>
                 <span className={styles.utilityDivider} aria-hidden="true" />
-                <a href="#login">로그인</a>
+                {loggedIn ? (
+                  <button type="button" className={styles.logoutButton} onClick={handleLogout}>로그아웃</button>
+                ) : (
+                  <a href="#login">로그인</a>
+                )}
               </nav>
               <button className={styles.cta} type="button">의뢰 문의 <span>↗</span></button>
             </div>
@@ -172,7 +184,11 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
             })}
             <div className={styles.mobileUtility}>
               <a href="#register" tabIndex={open ? 0 : -1} onClick={stopDemoLink}>전문가등록</a>
-              <a href="#login" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>로그인</a>
+              {loggedIn ? (
+                <button type="button" tabIndex={open ? 0 : -1} onClick={() => { setOpen(false); handleLogout(); }}>로그아웃</button>
+              ) : (
+                <a href="#login" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>로그인</a>
+              )}
             </div>
             <button className={styles.mobileCta} type="button" tabIndex={open ? 0 : -1}>의뢰 문의 <span>↗</span></button>
           </nav>
