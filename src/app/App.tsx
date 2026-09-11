@@ -18,9 +18,15 @@ import { VoiceActorDetailPage } from '../pages/VoiceActorDetail/VoiceActorDetail
  * 고객용/개발용 분리는 호스트 이름이 아니라 빌드 타임 환경 변수(VITE_SITE_MODE)로 결정합니다.
  * Vercel 프로젝트별로 이 값을 다르게 설정하면, 같은 코드베이스에서 완전히 분리된 두 배포가 나옵니다.
  *   - provoice-website 프로젝트(고객용):  VITE_SITE_MODE=customer  → 디자인 시스템 문서 절대 노출 안 함
- *   - provoice-website-dev 프로젝트(개발용): 값 미설정(기본)        → 상단에 디자인 시스템 메타 내비 항상 노출
+ *   - dev 브랜치 프리뷰(개발용):          값 미설정(기본)          → 상단에 디자인 시스템 메타 내비 항상 노출
+ *
+ * dev 프리뷰는 팀이 직접 열어볼 땐 디자인 시스템 문서가 보여야 하지만, VersionSwitcher의 VER 2를
+ * 눌러 넘어온 고객에게는 보이면 안 됩니다. 같은 빌드를 두 방식으로 써야 하므로, 그 경우에만
+ * URL에 ?mode=customer 런타임 오버라이드를 붙여 구분합니다 (VersionSwitcher.tsx 참고).
  */
-const isCustomerHost = import.meta.env.VITE_SITE_MODE === 'customer';
+const isCustomerHost =
+  import.meta.env.VITE_SITE_MODE === 'customer' ||
+  new URLSearchParams(window.location.search).get('mode') === 'customer';
 
 const hashToPage: Record<string, string> = {
   '#client': 'client',
