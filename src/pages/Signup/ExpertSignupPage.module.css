@@ -1,0 +1,167 @@
+.page {
+  min-height: 100vh;
+  background: var(--neutral-50);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.card {
+  display: grid;
+  gap: 1.75rem;
+  width: min(100%, 42rem);
+  height: fit-content;
+  padding: clamp(2.5rem, 5vw, 3.5rem);
+  border: 1px solid var(--neutral-100);
+  border-radius: 1.75rem;
+  background: var(--neutral-0);
+  box-shadow: 0 32px 80px rgb(23 19 31 / .05);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--neutral-500);
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink:hover { color: var(--neutral-900); }
+
+.title { margin: 0; color: var(--neutral-950); font-size: 1.5rem; font-weight: 800; text-align: center; letter-spacing: -.02em; }
+
+.stepTitle { margin: -.5rem 0 0; color: var(--neutral-900); font-size: 1.05rem; font-weight: 800; }
+
+.form { display: grid; gap: 1.5rem; }
+
+.fieldLabel { display: block; margin-bottom: .6rem; color: var(--neutral-800); font-size: .85rem; font-weight: 700; }
+.fieldLabel i { margin-left: .15rem; color: var(--color-danger); font-style: normal; }
+.fieldLabel em { margin-left: .3rem; color: var(--neutral-300); font-size: .78rem; font-style: normal; font-weight: 500; }
+
+.fieldGap { margin-top: .6rem; }
+.fieldError { margin: .5rem 0 0; color: var(--color-danger); font-size: .78rem; }
+
+.fileDropzone {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: .9rem;
+  padding: .9rem 1.1rem;
+  border: 1.5px dashed var(--purple-200);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--purple-100) 12%, var(--neutral-0));
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.fileDropzone:hover { border-color: var(--purple-300); background: color-mix(in srgb, var(--purple-100) 22%, var(--neutral-0)); }
+
+.fileIcon {
+  display: grid;
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  border-radius: .8rem;
+  background: var(--neutral-0);
+  color: var(--purple-500);
+  box-shadow: 0 4px 12px rgb(89 0 255 / .1);
+}
+
+.fileNamePlaceholder { flex: 1; min-width: 0; overflow: hidden; color: var(--neutral-400); font-size: .9rem; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+.fileNameSet { flex: 1; min-width: 0; overflow: hidden; color: var(--neutral-900); font-size: .9rem; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+.fileCta { flex: none; color: var(--purple-500); font-size: .82rem; font-weight: 700; }
+
+.textarea {
+  width: 100%;
+  min-height: 6rem;
+  padding: .85rem 1.05rem;
+  border: 1px solid var(--neutral-100);
+  border-radius: .875rem;
+  background: var(--neutral-50);
+  color: var(--neutral-900);
+  font: inherit;
+  font-size: .92rem;
+  resize: vertical;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.textarea:focus { border-color: var(--purple-300); background: var(--neutral-0); outline: none; }
+.textarea::placeholder { color: var(--neutral-300); }
+
+.birthRow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; }
+
+.rateRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; margin-bottom: 1rem; }
+.rateField { display: grid; gap: .5rem; }
+.rateField > span { color: var(--neutral-500); font-size: .8rem; font-weight: 600; }
+
+.rateInput {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 0 1.05rem;
+  border: 1px solid var(--neutral-100);
+  border-radius: .875rem;
+  background: var(--neutral-50);
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.rateInput:focus-within { border-color: var(--purple-300); background: var(--neutral-0); }
+
+.rateInput input {
+  flex: 1;
+  min-width: 0;
+  height: 3.2rem;
+  border: 0;
+  background: none;
+  color: var(--neutral-900);
+  font: inherit;
+  font-size: .98rem;
+  font-weight: 600;
+}
+
+.rateInput input:focus { outline: none; }
+.rateInput span { flex: none; color: var(--neutral-400); font-size: .78rem; font-weight: 700; }
+
+.negotiable { margin-top: .2rem; }
+
+.stepFooter { display: flex; align-items: center; justify-content: space-between; margin-top: .25rem; }
+
+.nextButton, .submitButton {
+  min-height: 3.4rem;
+  padding: 0 2.25rem;
+  border: 0;
+  border-radius: 1rem;
+  background: linear-gradient(105deg, var(--magenta-300), var(--purple-500));
+  color: white;
+  font: inherit;
+  font-size: .96rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgb(89 0 255 / .18);
+}
+
+.prevButton {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--neutral-500);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.prevButton:hover { color: var(--neutral-900); }
+
+@media (max-width: 520px) {
+  .birthRow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rateRow { grid-template-columns: 1fr; }
+}

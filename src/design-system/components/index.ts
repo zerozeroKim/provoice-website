@@ -22,3 +22,5 @@ export * from './SectionHeader';
 export * from './VersionBanner';
 export * from './LoadMoreControl';
 export * from './FilterDropdown';
+export * from './ToggleGroup';
+export * from './Stepper';

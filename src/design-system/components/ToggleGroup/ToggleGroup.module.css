@@ -1,0 +1,24 @@
+.group { display: flex; flex-wrap: wrap; gap: .6rem; }
+
+.option, .active {
+  min-height: 2.9rem;
+  padding: 0 1.4rem;
+  border: 1.5px solid var(--neutral-100);
+  border-radius: var(--radius-full);
+  background: var(--neutral-0);
+  color: var(--neutral-600);
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, color .18s ease;
+}
+
+.option:hover { border-color: var(--purple-200); color: var(--purple-500); }
+
+.active {
+  border-color: transparent;
+  background: var(--gradient-deep-purple);
+  color: white;
+  box-shadow: 0 8px 20px rgb(89 0 255 / .2);
+}

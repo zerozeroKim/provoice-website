@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { MessageCircle } from 'lucide-react';
-import { Button, TextField } from '@/design-system';
+import { Button, GNB, TextField } from '@/design-system';
 import styles from './LoginPage.module.css';
 
 export function LoginPage() {
@@ -20,6 +20,8 @@ export function LoginPage() {
 
   return (
     <main className={styles.page}>
+      <GNB />
+      <div className={styles.content}>
       <div className={styles.card}>
         <a className={styles.logo} href="#client" aria-label="PROVOICE 홈"><img src="/assets/provoice-logo.png" alt="PROVOICE" /></a>
 
@@ -59,6 +61,7 @@ export function LoginPage() {
         </div>
 
         <a className={styles.signupButton} href="#signup">회원가입</a>
+      </div>
       </div>
     </main>
   );

@@ -10,6 +10,8 @@ import { VoiceSearchPage } from '../pages/VoiceSearch/VoiceSearchPage';
 import { AIPage } from '../pages/AI/AIPage';
 import { LoginPage } from '../pages/Login/LoginPage';
 import { SignupPage } from '../pages/Signup/SignupPage';
+import { ClientSignupPage } from '../pages/Signup/ClientSignupPage';
+import { ExpertSignupPage } from '../pages/Signup/ExpertSignupPage';
 import { VoiceActorDetailPage } from '../pages/VoiceActorDetail/VoiceActorDetailPage';
 
 /**
@@ -37,7 +39,40 @@ const getPage = () => {
   if (hash.startsWith('#components')) return 'components';
   if (hash.startsWith('#templates')) return 'templates';
   if (hash.startsWith('#voice-actor/')) return 'voice-actor';
+  if (hash === '#signup/client') return 'signup-client';
+  if (hash === '#signup/expert') return 'signup-expert';
   return hashToPage[hash] ?? 'client';
+};
+
+const pageMetadata: Record<string, { title: string; description: string; noIndex?: boolean }> = {
+  client: {
+    title: 'PROVOICE | 글로벌 성우 더빙·번역',
+    description: '전 세계 전문 성우 캐스팅부터 ISO 인증 번역, AI 하이브리드 더빙까지 제공하는 글로벌 보이스 프로덕션 PROVOICE입니다.',
+  },
+  portfolio: {
+    title: '포트폴리오 | PROVOICE',
+    description: 'PROVOICE가 제작한 글로벌 더빙, 번역, 보이스 프로덕션 프로젝트를 확인하세요.',
+  },
+  'voice-search': {
+    title: '글로벌 성우 검색 | PROVOICE',
+    description: '언어와 보이스 특성에 맞는 전문 성우를 검색하고 음성 샘플을 들어보세요.',
+  },
+  'voice-actor': {
+    title: '성우 프로필 | PROVOICE',
+    description: 'PROVOICE 전문 성우의 보이스 특성과 음성 샘플을 확인하세요.',
+  },
+  ai: {
+    title: 'PROVOICE × AI | 하이브리드 성우 더빙',
+    description: '계약된 전문 성우의 연기와 정식 라이선스 기반 AI 음성으로 더 많은 언어와 캐릭터를 효율적으로 제작하세요.',
+  },
+  login: { title: '로그인 | PROVOICE', description: 'PROVOICE 회원 로그인', noIndex: true },
+  signup: { title: '회원가입 | PROVOICE', description: 'PROVOICE 회원가입', noIndex: true },
+  'signup-client': { title: '의뢰인 회원가입 | PROVOICE', description: 'PROVOICE 의뢰인 회원가입', noIndex: true },
+  'signup-expert': { title: '전문가 회원가입 | PROVOICE', description: 'PROVOICE 성우·번역가 전문가 회원가입', noIndex: true },
+};
+
+const setMetaContent = (selector: string, content: string) => {
+  document.querySelector<HTMLMetaElement>(selector)?.setAttribute('content', content);
 };
 
 /** 고객용/개발용 양쪽에서 동일하게 쓰는, 메타 내비 없이 그 자체로 완결된 독립 페이지들. */
@@ -48,6 +83,8 @@ function renderStandalonePage(page: string) {
   if (page === 'ai') return <AIPage />;
   if (page === 'login') return <LoginPage />;
   if (page === 'signup') return <SignupPage />;
+  if (page === 'signup-client') return <ClientSignupPage />;
+  if (page === 'signup-expert') return <ExpertSignupPage />;
   return null;
 }
 
@@ -59,6 +96,22 @@ export function App() {
     window.addEventListener('hashchange', updatePage);
     return () => window.removeEventListener('hashchange', updatePage);
   }, []);
+
+  useEffect(() => {
+    const metadata = pageMetadata[page] ?? pageMetadata.client;
+    document.title = metadata.title;
+    setMetaContent('meta[name="description"]', metadata.description);
+    setMetaContent('meta[property="og:title"]', metadata.title);
+    setMetaContent('meta[property="og:description"]', metadata.description);
+
+    let robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    if (!robots) {
+      robots = document.createElement('meta');
+      robots.name = 'robots';
+      document.head.appendChild(robots);
+    }
+    robots.content = metadata.noIndex || !isCustomerHost ? 'noindex, nofollow' : 'index, follow';
+  }, [page]);
 
   if (isCustomerHost) {
     return renderStandalonePage(page) ?? <LayoutPage />;

@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { ActionCard, Button, Chip, FilterDropdown, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, TestimonialCard, TextField, VoiceActorCard } from '../../design-system';
+import { ActionCard, Button, Chip, FilterDropdown, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, Select, Stepper, TestimonialCard, TextField, ToggleGroup, VoiceActorCard } from '../../design-system';
 import styles from './ComponentsPage.module.css';
 
-const tabs = ['GNB', 'Footer', 'Button', 'Input', 'Chip', 'Filter Dropdown', 'Card', 'Section Header', 'Portfolio', 'Load More'];
+const tabs = ['GNB', 'Footer', 'Button', 'Input', 'Chip', 'Filter Dropdown', 'Toggle Group', 'Stepper', 'Select', 'Card', 'Section Header', 'Portfolio', 'Load More'];
 
 const testimonialCards = [
   {
@@ -56,6 +56,10 @@ export function ComponentsPage() {
   const [loadMoreVisible, setLoadMoreVisible] = useState(6);
   const [filterLanguage, setFilterLanguage] = useState<string[]>([]);
   const [filterTones, setFilterTones] = useState<string[]>([]);
+  const [memberType, setMemberType] = useState<'개인회원' | '기업회원'>('개인회원');
+  const [turnaround, setTurnaround] = useState<'1일' | '일반 2~3일' | ''>('');
+  const [stepperIndex, setStepperIndex] = useState(0);
+  const [selectValue, setSelectValue] = useState('');
 
   useEffect(() => {
     if (!previewOpen) return;
@@ -145,6 +149,43 @@ export function ComponentsPage() {
             </NamedSample>
             <NamedSample name="FilterDropdown / Multi select">
               <FilterDropdown label="톤" options={['밝은', '차분한', '진중한', '귀여운']} selected={filterTones} multiple onSelect={(option) => setFilterTones((current) => current.includes(option) ? current.filter((item) => item !== option) : [...current, option])} />
+            </NamedSample>
+          </div>
+        </section>
+      ) : activeTab === 'Toggle Group' ? (
+        <section className={styles.content}>
+          <div className={styles.title}><div><h2>Toggle Group</h2><p>둘 이상의 옵션 중 하나를 고르는 알약 모양 토글입니다. 회원가입 폼의 회원 유형·작업 기간 선택 등에 사용합니다.</p></div></div>
+          <div className={styles.buttonRow}>
+            <NamedSample name="ToggleGroup / 2 options">
+              <ToggleGroup options={['개인회원', '기업회원'] as const} value={memberType} onChange={setMemberType} ariaLabel="회원 유형" />
+            </NamedSample>
+            <NamedSample name="ToggleGroup / Unselected">
+              <ToggleGroup options={['1일', '일반 2~3일'] as const} value={turnaround} onChange={setTurnaround} ariaLabel="작업 기간" />
+            </NamedSample>
+          </div>
+        </section>
+      ) : activeTab === 'Stepper' ? (
+        <section className={styles.content}>
+          <div className={styles.title}><div><h2>Stepper</h2><p>여러 단계로 나뉜 폼의 진행 상태를 보여주는 스텝 인디케이터입니다. 전문가 회원가입 등 멀티스텝 폼에서 사용합니다.</p></div></div>
+          <article className={styles.example}>
+            <div className={styles.exampleHead}><strong>Steps</strong><span>클릭하여 단계 이동</span></div>
+            <NamedSample name="Stepper / 2 steps">
+              <button type="button" className={styles.fullButton} onClick={() => setStepperIndex((current) => (current + 1) % 2)}>
+                <Stepper steps={['기본 정보 입력 1', '기본 정보 입력 2']} currentIndex={stepperIndex} />
+              </button>
+            </NamedSample>
+          </article>
+        </section>
+      ) : activeTab === 'Select' ? (
+        <section className={styles.content}>
+          <div className={styles.title}><div><h2>Select</h2><p>네이티브 select를 TextField와 동일한 톤으로 감싼 드롭다운입니다. 생일·성별 등 정해진 값을 고르는 필드에 사용합니다.</p></div></div>
+          <div className={styles.buttonRow}>
+            <NamedSample name="Select / Default">
+              <Select aria-label="성별" value={selectValue} onChange={(event) => setSelectValue(event.target.value)}>
+                <option value="">성별</option>
+                <option value="남성">남성</option>
+                <option value="여성">여성</option>
+              </Select>
             </NamedSample>
           </div>
         </section>
