@@ -207,6 +207,7 @@
   border: 0;
   border-radius: var(--radius-full);
   color: white;
+  text-decoration: none;
   background: var(--gradient-deep-purple);
   background-size: 120% 100%;
   font-size: .85rem;

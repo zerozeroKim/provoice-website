@@ -6,7 +6,7 @@ import { VersionSwitcher } from '../VersionSwitcher';
 import styles from './GNB.module.css';
 
 const mainMenu = ['성우검색', '서비스', '포트폴리오', '작업문의', '블로그'] as const;
-const menuHref: Partial<Record<(typeof mainMenu)[number], string>> = { 성우검색: '#voice-search', 포트폴리오: '#portfolio' };
+const menuHref: Partial<Record<(typeof mainMenu)[number], string>> = { 성우검색: '#voice-search', 포트폴리오: '#portfolio', 작업문의: '#work-inquiry' };
 
 const serviceMenu = [
   { label: '애니메이션·게임·웹툰 더빙', href: undefined },
@@ -151,7 +151,7 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
                   <a href="#login">로그인</a>
                 )}
               </nav>
-              <button className={styles.cta} type="button">의뢰 문의 <span>↗</span></button>
+              <a className={styles.cta} href="#work-inquiry">의뢰 문의 <span>↗</span></a>
             </div>
           </>
         )}
@@ -193,7 +193,7 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
                 <a href="#login" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>로그인</a>
               )}
             </div>
-            <button className={styles.mobileCta} type="button" tabIndex={open ? 0 : -1}>의뢰 문의 <span>↗</span></button>
+            <a className={styles.mobileCta} href="#work-inquiry" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>의뢰 문의 <span>↗</span></a>
           </nav>
         )}
       </div>
