@@ -109,7 +109,7 @@ export function VoiceActorDetailPage() {
         <div className={styles.tabBody}>
           {activeTab === '프로필' && (
             <div className={styles.profileGrid}>
-              <section>
+              <section className={styles.tabPanel}>
                 <h2>대표 프로젝트</h2>
                 <div className={styles.projectRow}>
                   {projects.slice(0, 3).map((project) => (
@@ -117,19 +117,15 @@ export function VoiceActorDetailPage() {
                   ))}
                 </div>
               </section>
-              <section>
-                <h2>스킬 태그</h2>
-                <ul className={styles.tags}>{talent.tags.map((tag) => <li key={tag}><VoiceTraitChip label={tag} /></li>)}</ul>
-              </section>
-              <section>
+              <section className={styles.tabPanel}>
                 <h2>주요경력</h2>
                 <ul className={styles.careerList}>
                   {career.slice(0, 3).map((item) => (
-                    <li key={`${item.year}-${item.title}`}><span className={styles.careerYear}>{item.year}</span><span>{item.title}</span><span className={styles.careerRole}>{item.role}</span></li>
+                    <li key={`${item.year}-${item.title}`}><span className={styles.careerYear}>{item.year}</span><span className={styles.careerTitle}>{item.title}</span><span className={styles.careerRole}>{item.role}</span></li>
                   ))}
                 </ul>
               </section>
-              <section>
+              <section className={styles.tabPanel}>
                 <div className={styles.sectionHead}>
                   <h2>고객사 리뷰 <span className={styles.countBadge}>{reviews.length}</span></h2>
                   <button type="button" className={styles.viewAllLink} onClick={() => setActiveTab('고객사 리뷰')}>전체보기 <ArrowRight size={14} /></button>
@@ -142,7 +138,7 @@ export function VoiceActorDetailPage() {
           )}
 
           {activeTab === '포트폴리오' && (
-            <div className={styles.portfolioGrid}>
+            <div className={`${styles.tabPanel} ${styles.portfolioGrid}`}>
               {[...projects, ...projects].slice(0, 9).map((project, index) => (
                 <PortfolioCard key={`${project.title}-${index}`} imageOnly title={project.title} languages={[talent.locale]} category={project.category} tags={[...project.tags]} image={project.image} audioSrc={project.audioSrc} onOpen={(cardOrigin) => openProject(project, cardOrigin)} />
               ))}
@@ -150,9 +146,9 @@ export function VoiceActorDetailPage() {
           )}
 
           {activeTab === '경력·크레딧' && (
-            <ul className={styles.careerList}>
+            <ul className={`${styles.tabPanel} ${styles.careerList}`}>
               {[...career, ...career].slice(0, 8).map((item, index) => (
-                <li key={`${item.year}-${item.title}-${index}`}><span className={styles.careerYear}>{item.year}</span><span>{item.title}</span><span className={styles.careerRole}>{item.role}</span></li>
+                <li key={`${item.year}-${item.title}-${index}`}><span className={styles.careerYear}>{item.year}</span><span className={styles.careerTitle}>{item.title}</span><span className={styles.careerRole}>{item.role}</span></li>
               ))}
             </ul>
           )}
@@ -163,7 +159,7 @@ export function VoiceActorDetailPage() {
                 <span>전체 <strong>{reviews.length}</strong></span>
                 <FilterDropdown label="정렬" options={[...reviewSortOptions]} selected={[reviewSort]} onSelect={(option) => setReviewSort(option as (typeof reviewSortOptions)[number])} />
               </div>
-              <div className={styles.reviewGrid}>
+              <div className={`${styles.tabPanel} ${styles.reviewGrid}`}>
                 {sortedReviews.map((review) => <TestimonialCard key={review.name} {...review} />)}
               </div>
             </div>

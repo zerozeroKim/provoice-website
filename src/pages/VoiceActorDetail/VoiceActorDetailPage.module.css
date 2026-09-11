@@ -30,23 +30,26 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 2rem;
-  padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
-  border-bottom: 1px solid var(--neutral-100);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border: 1px solid var(--neutral-100);
+  border-radius: 1.75rem;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--purple-100) 45%, white) 0%, white 60%);
 }
 
-.profileMain { display: flex; min-width: 0; align-items: end; gap: 1.35rem; }
+.profileMain { display: flex; min-width: 0; align-items: center; gap: 1.5rem; }
 
 .avatar {
   display: grid;
   flex: none;
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
   place-items: center;
   border-radius: 50%;
   background: var(--gradient-deep-purple);
   color: var(--neutral-0);
-  font-size: 2rem;
+  font-size: 2.35rem;
   font-weight: 800;
+  box-shadow: 0 14px 32px rgb(89 0 255 / .22), 0 0 0 4px white, 0 0 0 6px color-mix(in srgb, var(--purple-300) 55%, transparent);
 }
 
 .heroBody { display: grid; gap: .6rem; min-width: 0; flex: 1; padding-bottom: .1rem; }
@@ -103,11 +106,33 @@
 
 .tabBody { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
 
-.profileGrid { display: grid; gap: 0; }
-.profileGrid > section { padding-block: 1.85rem; }
-.profileGrid > section:first-child { padding-top: 0; }
-.profileGrid > section:last-child { padding-bottom: 0; }
-.profileGrid h2 { margin: 0 0 1.1rem; color: var(--neutral-900); font-size: 1rem; letter-spacing: -.01em; }
+.profileGrid { display: grid; gap: 1.25rem; }
+
+.tabPanel {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid var(--neutral-100);
+  border-radius: 1.5rem;
+  background: var(--neutral-0);
+  box-shadow: 0 20px 48px rgb(23 19 31 / .04);
+}
+
+.profileGrid h2, .sectionHead h2 {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin: 0 0 1.1rem;
+  color: var(--neutral-900);
+  font-size: 1rem;
+  letter-spacing: -.01em;
+}
+
+.profileGrid h2::before, .sectionHead h2::before {
+  content: '';
+  width: .3rem;
+  height: 1rem;
+  border-radius: var(--radius-full);
+  background: var(--gradient-deep-purple);
+}
 
 .projectRow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .reviewRow, .reviewGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; }
@@ -127,8 +152,22 @@
   font-size: .92rem;
 }
 
+.careerList li:last-child { border-bottom: 0; padding-bottom: 0; }
+.careerList li:first-child { padding-top: 0; }
+
 .careerYear { color: var(--neutral-400); font-size: .8rem; font-variant-numeric: tabular-nums; }
-.careerRole { color: var(--purple-500); font-size: .78rem; font-weight: 700; text-align: right; }
+.careerTitle { color: var(--neutral-900); font-weight: 600; }
+
+.careerRole {
+  padding: .35rem .8rem;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--purple-100) 45%, white);
+  color: var(--purple-600);
+  font-size: .74rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
 
 .sectionHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
 .sectionHead h2 { margin: 0; }
