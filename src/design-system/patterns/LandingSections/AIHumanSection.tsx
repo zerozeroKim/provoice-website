@@ -70,6 +70,7 @@ export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
 
         <div className={styles.comparison}>
           <article className={styles.card}>
+            <span className={styles.kicker}>기존 방식</span>
             <div className={styles.cardHead}>
               <div><h3>성우 단독 제작</h3><p>모든 대사를 전문 성우가 녹음</p></div>
               <i>A</i>
@@ -81,7 +82,10 @@ export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
             </div>
           </article>
 
+          <span className={styles.vsBadge} aria-hidden="true">VS</span>
+
           <article className={`${styles.card} ${styles.hybrid}`}>
+            <span className={`${styles.kicker} ${styles.kickerHybrid}`}>AI 적용 시</span>
             <div className={styles.cardHead}>
               <div><h3>성우 + AI 하이브리드</h3><p>메인은 성우, 서브 캐릭터는 AI</p></div>
               <i>B</i>

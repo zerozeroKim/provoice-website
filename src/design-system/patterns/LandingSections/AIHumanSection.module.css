@@ -127,21 +127,59 @@
 }
 
 .comparison {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
+.vsBadge {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid var(--purple-100);
+  border-radius: 50%;
+  background: var(--neutral-0);
+  box-shadow: 0 12px 28px rgb(89 0 255 / .18);
+  color: var(--purple-500);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+  transform: translate(-50%, -50%);
+}
+
+.kicker {
+  justify-self: start;
+  padding: .3rem .7rem;
+  border-radius: var(--radius-full);
+  background: var(--neutral-100);
+  color: var(--neutral-500);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.kickerHybrid {
+  background: color-mix(in srgb, var(--purple-100) 45%, white);
+  color: var(--purple-600);
+}
+
 .card {
   display: grid;
-  align-content: space-between;
-  gap: 1.5rem;
+  align-content: start;
+  gap: 1rem;
   padding: 1.5rem 1.75rem;
   border: 1px solid var(--neutral-100);
   border-radius: 1.5rem;
   background: var(--neutral-0);
   box-shadow: 0 20px 48px rgb(23 19 31 / .05);
-  transition: box-shadow .2s ease, transform .2s ease;
+  filter: saturate(.85);
+  transition: box-shadow .2s ease, transform .2s ease, filter .2s ease;
 }
 
 .card:hover {
@@ -152,6 +190,7 @@
 .hybrid {
   border-color: color-mix(in srgb, var(--purple-200) 60%, white);
   box-shadow: 0 24px 56px rgb(89 0 255 / .1);
+  filter: saturate(1);
 }
 
 .hybrid:hover {
@@ -263,6 +302,7 @@
 
 @media (max-width: 900px) {
   .comparison, .stats { grid-template-columns: 1fr; }
+  .vsBadge { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
