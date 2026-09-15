@@ -19,19 +19,18 @@
   width: 21rem;
   height: 29rem;
   top: 9rem;
-  left: calc(50% - 48rem);
+  left: calc(50% - 68rem);
   transform: rotate(-32deg);
 }
 .page::after {
   width: 25rem;
   height: 33rem;
-  right: calc(50% - 49rem);
+  right: calc(50% - 73rem);
   bottom: 7rem;
   transform: rotate(38deg);
 }
-@media (max-width: 720px) {
-  .page::before { left: -15rem; opacity: .6; }
-  .page::after { right: -18rem; opacity: .6; }
+@media (max-width: 1500px) {
+  .page::before, .page::after { display: none; }
 }
 .shell { width: min(100%, 78rem); margin: 0 auto; padding: 2rem 1.5rem 5rem; }
 

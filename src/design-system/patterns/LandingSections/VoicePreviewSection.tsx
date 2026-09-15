@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { Play, Square } from 'lucide-react';
 import { Button, Chip, SectionHeader, Select } from '../../components';
 import styles from './VoicePreviewSection.module.css';
@@ -19,6 +19,7 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
   const [voiceIndex, setVoiceIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [supported, setSupported] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.speechSynthesis) {
@@ -41,6 +42,9 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
   }, []);
 
   const selectPreset = (index: number) => {
+    if (supported) window.speechSynthesis.cancel();
+    setPlaying(false);
+    setProgress(0);
     setActivePreset(index);
     setText(presets[index].text);
   };
@@ -59,7 +63,9 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
       utterance.voice = voice;
       utterance.lang = voice.lang;
     }
-    utterance.onend = () => setPlaying(false);
+    setProgress(0);
+    utterance.onboundary = (event) => setProgress(Math.min(100, (event.charIndex / text.length) * 100));
+    utterance.onend = () => { setPlaying(false); setProgress(100); };
     utterance.onerror = () => setPlaying(false);
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
@@ -68,11 +74,6 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
 
   return (
     <section className={styles.section} aria-label="AI 보이스 미리듣기">
-      <div className={styles.backdrop} aria-hidden="true">
-        <span className={styles.blob1} />
-        <span className={styles.blob2} />
-        <span className={styles.blob3} />
-      </div>
       <div className={styles.inner}>
         <SectionHeader
           headingLevel={headingLevel}
@@ -93,7 +94,7 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
               className={styles.textarea}
               value={text}
               maxLength={MAX_LENGTH}
-              onChange={(event) => setText(event.target.value)}
+              onChange={(event) => { window.speechSynthesis?.cancel(); setPlaying(false); setProgress(0); setActivePreset(-1); setText(event.target.value); }}
               aria-label="읽어드릴 문장"
             />
             <div className={styles.meta}>
@@ -101,24 +102,26 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
               <span>브라우저 내장 음성 엔진 사용</span>
             </div>
             <div className={styles.playRow}>
-              <Select className={styles.voiceSelect} aria-label="음성 선택" value={voiceIndex} onChange={(event) => setVoiceIndex(Number(event.target.value))} disabled={voices.length === 0}>
+              <Select className={styles.voiceSelect} aria-label="음성 선택" value={voiceIndex} onChange={(event) => { window.speechSynthesis.cancel(); setPlaying(false); setProgress(0); setVoiceIndex(Number(event.target.value)); }} disabled={voices.length === 0}>
                 {voices.length === 0 && <option>사용 가능한 음성이 없습니다</option>}
                 {voices.map((voice, index) => <option key={`${voice.name}-${voice.lang}`} value={index}>{voice.name} ({voice.lang})</option>)}
               </Select>
-              <Button leadingIcon={playing ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} onClick={togglePlay} disabled={!supported || voices.length === 0}>
+              <Button leadingIcon={playing ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} onClick={togglePlay} disabled={!supported || voices.length === 0 || !text.trim()}>
                 {playing ? '중지' : '미리듣기'}
               </Button>
             </div>
           </div>
 
-          <div className={styles.visualizer}>
+          <div className={styles.visualizer} data-playing={playing}>
+            <div className={styles.monitorHeader}><span>VOICE STUDIO</span><span className={styles.monitorState}><i />{playing ? '재생 중' : '미리듣기'}</span></div>
             <div className={styles.waveBox} aria-hidden="true">
               <div className={playing ? styles.waveActive : styles.wave}>
-                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ animationDelay: `${index * 0.045}s` }} />)}
+                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${18 + Math.sin(index * 1.8) ** 2 * 52 + Math.sin(index * .35) ** 2 * 28}px`, animationDelay: `${-index * .17}s`, animationDuration: `${.65 + (index % 5) * .16}s` } as CSSProperties} />)}
               </div>
             </div>
+            <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
             <div className={styles.visualizerFooter}>
-              <p className={styles.status}>{supported ? (playing ? '재생 중 — 목소리를 들어보세요' : '대기 중 — 미리듣기를 눌러보세요') : '이 브라우저에서는 음성 미리듣기를 지원하지 않습니다'}</p>
+              <p className={styles.status} role="status">{supported ? (playing ? '재생 중 — 목소리를 들어보세요' : '대기 중 — 미리듣기를 눌러보세요') : '이 브라우저에서는 음성 미리듣기를 지원하지 않습니다'}</p>
               <hr className={styles.divider} />
               <p className={styles.disclaimer}>기기에 설치된 음성 엔진을 사용하므로 브라우저·운영체제에 따라 목소리가 다르게 들릴 수 있으며, 실제 성우 캐스팅 품질과는 별개입니다.</p>
             </div>

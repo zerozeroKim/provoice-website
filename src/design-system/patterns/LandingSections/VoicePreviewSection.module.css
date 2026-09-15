@@ -4,70 +4,7 @@
   width: 100%;
   padding: clamp(3.5rem, 8vh, 5.5rem) clamp(1.25rem, 5vw, 6rem);
   overflow: hidden;
-  background: var(--neutral-0);
-}
-
-.backdrop {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 5rem, #000 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 5rem, #000 80%, transparent 100%);
-}
-
-.backdrop span {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: .45;
-}
-
-.blob1 {
-  top: 6rem;
-  left: 6%;
-  width: 22rem;
-  height: 22rem;
-  background: radial-gradient(circle, var(--purple-300), transparent 70%);
-  animation: voice-blob-drift-1 17s ease-in-out infinite;
-}
-
-.blob2 {
-  top: 8rem;
-  right: 8%;
-  width: 26rem;
-  height: 26rem;
-  background: radial-gradient(circle, var(--magenta-200), transparent 70%);
-  animation: voice-blob-drift-2 21s ease-in-out infinite;
-}
-
-.blob3 {
-  top: 16rem;
-  left: 42%;
-  width: 18rem;
-  height: 18rem;
-  background: radial-gradient(circle, var(--purple-200), transparent 70%);
-  animation: voice-blob-drift-3 19s ease-in-out infinite;
-}
-
-@keyframes voice-blob-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(2rem, 3rem) scale(1.15); }
-}
-
-@keyframes voice-blob-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-3rem, 2.5rem) scale(.9); }
-}
-
-@keyframes voice-blob-drift-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(1.5rem, -2rem) scale(1.1); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .backdrop span { animation: none; }
+  background: #fafbfc;
 }
 
 .inner {
@@ -83,6 +20,7 @@
   gap: 0;
   margin-top: 2.5rem;
   border: 1px solid var(--neutral-100);
+  overflow: hidden;
   border-radius: 1.5rem;
   background: var(--neutral-0);
   box-shadow: 0 24px 60px rgb(23 19 31 / .05);
@@ -136,6 +74,7 @@
   flex-direction: column;
   gap: 1rem;
   padding: clamp(1.75rem, 3vw, 2.5rem);
+  background: #f5f4f9;
 }
 
 .visualizerFooter {
@@ -147,10 +86,11 @@
   display: flex;
   flex: 1;
   align-items: center;
-  min-height: 8.5rem;
+  min-height: 10rem;
   padding: 0 1.5rem;
+  overflow: hidden;
   border-radius: 1.25rem;
-  background: color-mix(in srgb, var(--purple-100) 22%, white);
+  background: repeating-linear-gradient(90deg, transparent 0 31px, rgb(108 91 143 / .055) 31px 32px), repeating-linear-gradient(0deg, transparent 0 31px, rgb(108 91 143 / .055) 31px 32px);
 }
 
 .wave, .waveActive {
@@ -162,17 +102,19 @@
 
 .wave span, .waveActive span {
   flex: 1;
-  height: .5rem;
+  height: var(--bar-height);
   border-radius: var(--radius-full);
-  background: linear-gradient(180deg, var(--purple-300), var(--magenta-300));
-  opacity: .55;
+  background: var(--purple-400);
+  opacity: .4;
+  transform: scaleY(.35);
+  animation: voice-idle 4s ease-in-out infinite;
 }
 
 .waveActive span { animation: voice-wave 1s ease-in-out infinite; }
 
 @keyframes voice-wave {
-  0%, 100% { transform: scaleY(.4); opacity: .55; }
-  50% { transform: scaleY(1.6); opacity: 1; }
+  0%, 100% { transform: scaleY(.25); opacity: .55; }
+  50% { transform: scaleY(1); opacity: 1; }
 }
 
 .status { margin: 0; color: var(--neutral-500); font-size: .86rem; font-weight: 600; }
@@ -191,3 +133,13 @@
   .panel { grid-template-columns: 1fr; }
   .controls { border-right: 0; border-bottom: 1px solid var(--neutral-100); }
 }
+
+.monitorHeader { display: flex; align-items: center; justify-content: space-between; color: var(--neutral-500); font-size: .7rem; letter-spacing: .12em; font-weight: 700; }
+.monitorState { display: inline-flex; align-items: center; gap: .45rem; letter-spacing: 0; padding: .3rem .6rem; background: white; border-radius: var(--radius-full); }
+.monitorState i { width: 6px; height: 6px; border-radius: 50%; background: var(--neutral-400); }
+.visualizer[data-playing='true'] .monitorState i { background: var(--purple-500); box-shadow: 0 0 0 3px rgb(126 67 255 / .12); }
+.progressTrack { height: 3px; overflow: hidden; border-radius: 2px; background: var(--neutral-100); }
+.progressTrack span { display: block; height: 100%; background: var(--purple-500); transition: width .3s ease; }
+@keyframes voice-idle { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(.45); } }
+@media (prefers-reduced-motion: reduce) { .wave span, .waveActive span { animation: none; } .progressTrack span { transition: none; } }
+@media (max-width: 480px) { .controls, .visualizer { padding: 1.25rem; } .meta { flex-wrap: wrap; gap: .5rem; } .playRow { flex-wrap: wrap; } .wave, .waveActive { gap: .2rem; } }
