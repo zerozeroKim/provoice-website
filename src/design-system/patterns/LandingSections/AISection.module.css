@@ -34,26 +34,21 @@
   animation: reveal .8s cubic-bezier(.22, 1, .36, 1) both;
 }
 
+.header.header {
+  padding-bottom: 0;
+}
+
 .eyebrowRow {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: .75rem;
-  margin-bottom: 1.6rem;
-}
-
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: .65rem;
   color: var(--purple-500);
-  font-size: .76rem;
   font-weight: 800;
-  letter-spacing: .16em;
 }
 
-.eyebrow span {
+.eyebrowDash {
   width: 1.5rem;
   height: 2px;
   background: linear-gradient(90deg, var(--magenta-300), var(--purple-400));
@@ -70,6 +65,8 @@
   color: var(--neutral-500);
   font-size: .76rem;
   font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .engineBadge i {
@@ -81,8 +78,8 @@
   font-style: normal;
 }
 
-.copy :is(h1, h2) {
-  margin: 0;
+.header.header :is(h1, h2, h3) {
+  margin: .55rem 0 0;
   color: var(--neutral-950);
   font-size: clamp(2.5rem, 3.05vw, 3.85rem);
   font-weight: 750;
@@ -91,7 +88,7 @@
   word-break: keep-all;
 }
 
-.copy :is(h1, h2) em {
+.header.header :is(h1, h2, h3) em {
   background: linear-gradient(101deg, var(--magenta-300), var(--purple-400));
   background-clip: text;
   -webkit-background-clip: text;
@@ -99,8 +96,9 @@
   font-style: normal;
 }
 
-.copy > p {
-  margin: 1.65rem 0 0;
+.header.header p {
+  max-width: 42rem;
+  margin: 1.65rem auto 0;
   color: var(--neutral-700);
   font-size: clamp(.95rem, 1.05vw, 1.12rem);
   line-height: 1.82;
@@ -162,5 +160,5 @@
 
 @media (max-width: 640px) {
   .aiHero { padding: 2.5rem 1rem; }
-  .copy :is(h1, h2) { font-size: 2.25rem; }
+  .header.header :is(h1, h2, h3) { font-size: 2.25rem; }
 }
