@@ -1,12 +1,12 @@
 import { useEffect, useState, type CSSProperties } from 'react';
-import { Play, Square } from 'lucide-react';
+import { Gamepad2, Megaphone, Smile, Play, Square } from 'lucide-react';
 import { Button, Chip, SectionHeader, Select } from '../../components';
 import styles from './VoicePreviewSection.module.css';
 
 const presets = [
-  { label: '게임 안내음성', text: '환영합니다, 모험가여. 새로운 여정이 지금 시작됩니다.' },
-  { label: '광고 내레이션', text: '지금 이 순간, 특별한 혜택을 놓치지 마세요.' },
-  { label: '캐릭터 대사', text: '이 정도 시련쯤이야, 얼마든지 넘어서 주지.' },
+  { icon: Gamepad2, label: '게임 안내음성', text: '환영합니다, 모험가여. 새로운 여정이 지금 시작됩니다.' },
+  { icon: Megaphone, label: '광고 내레이션', text: '지금 이 순간, 특별한 혜택을 놓치지 마세요.' },
+  { icon: Smile, label: '캐릭터 대사', text: '이 정도 시련쯤이야, 얼마든지 넘어서 주지.' },
 ] as const;
 
 const MAX_LENGTH = 180;
@@ -89,10 +89,10 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
 
         <div className={styles.panel}>
           <div className={styles.controls}>
-            <span className={styles.label}>읽어드릴 문장</span>
-            <div className={styles.presetRow}>
+            <div className={styles.controlHeader}><span className={styles.label}>읽어드릴 문장</span><span className={styles.stepHint}>01 · 문장과 목소리 선택</span></div>
+            <div className={styles.presetRow} role="group" aria-label="예시 문장 선택">
               {presets.map((preset, index) => (
-                <Chip key={preset.label} selected={index === activePreset} onClick={() => selectPreset(index)}>{preset.label}</Chip>
+                <Chip className={styles.presetChip} leadingIcon={<preset.icon size={15} />} key={preset.label} selected={index === activePreset} onClick={() => selectPreset(index)}>{preset.label}</Chip>
               ))}
             </div>
             <textarea
@@ -111,22 +111,24 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
                 {voices.length === 0 && <option>사용 가능한 음성이 없습니다</option>}
                 {voices.map((voice, index) => <option key={`${voice.name}-${voice.lang}`} value={index}>{voice.name} ({voice.lang})</option>)}
               </Select>
-              <Button leadingIcon={playing ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} onClick={togglePlay} disabled={!supported || voices.length === 0 || !text.trim()}>
+              <Button className={styles.playButton} leadingIcon={playing ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} onClick={togglePlay} disabled={!supported || voices.length === 0 || !text.trim()}>
                 {playing ? '중지' : '미리듣기'}
               </Button>
             </div>
           </div>
 
-          <div className={styles.visualizer} data-playing={playing}>
-            <div className={styles.monitorHeader}><span>VOICE STUDIO</span><span className={styles.monitorState}><i />{playing ? '재생 중' : '미리듣기'}</span></div>
+          <div className={styles.visualizer}>
+            <div className={styles.monitorHeader}>VOICE STUDIO</div>
             <div className={styles.waveBox} aria-hidden="true">
+              <span className={styles.previewLabel}>{activePreset >= 0 ? presets[activePreset].label : '직접 입력한 문장'}</span>
               <div className={playing ? styles.waveActive : styles.wave}>
-                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${18 + Math.sin(index * 1.8) ** 2 * 52 + Math.sin(index * .35) ** 2 * 28}px`, animationDelay: `${-index * .17}s`, animationDuration: `${.65 + (index % 5) * .16}s` } as CSSProperties} />)}
+                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${18 + Math.sin(index * 1.8) ** 2 * 52 + Math.sin(index * .35) ** 2 * 28}px`, animationDelay: `${-index * .17}s`, animationDuration: playing ? `${.65 + (index % 5) * .16}s` : '4s' } as CSSProperties} />)}
               </div>
             </div>
+            <p key={text} className={styles.scriptPreview}>{text.trim() || '왼쪽에 문장을 입력해보세요'}</p>
             <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
             <div className={styles.visualizerFooter}>
-              <p className={styles.status} role="status">{supported ? (playing ? '재생 중 — 목소리를 들어보세요' : '대기 중 — 미리듣기를 눌러보세요') : '이 브라우저에서는 음성 미리듣기를 지원하지 않습니다'}</p>
+              <p className={styles.status} role="status">{supported ? (playing ? '재생 중 — 목소리를 들어보세요' : progress === 100 ? '다른 문장으로도 비교해보세요' : '미리듣기를 누르면 선택한 문장을 읽어드려요') : '이 브라우저에서는 음성 미리듣기를 지원하지 않습니다'}</p>
               <hr className={styles.divider} />
               <p className={styles.disclaimer}>기기에 설치된 음성 엔진을 사용하므로 브라우저·운영체제에 따라 목소리가 다르게 들릴 수 있으며, 실제 성우 캐스팅 품질과는 별개입니다.</p>
             </div>

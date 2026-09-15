@@ -30,7 +30,6 @@
   width: 22rem;
   height: 22rem;
   background: radial-gradient(circle, var(--purple-300), transparent 70%);
-  animation: voice-blob-drift-1 17s ease-in-out infinite;
 }
 
 .blob2 {
@@ -39,7 +38,6 @@
   width: 26rem;
   height: 26rem;
   background: radial-gradient(circle, var(--magenta-200), transparent 70%);
-  animation: voice-blob-drift-2 21s ease-in-out infinite;
 }
 
 .blob3 {
@@ -48,26 +46,6 @@
   width: 18rem;
   height: 18rem;
   background: radial-gradient(circle, var(--purple-200), transparent 70%);
-  animation: voice-blob-drift-3 19s ease-in-out infinite;
-}
-
-@keyframes voice-blob-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(2rem, 3rem) scale(1.15); }
-}
-
-@keyframes voice-blob-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-3rem, 2.5rem) scale(.9); }
-}
-
-@keyframes voice-blob-drift-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(1.5rem, -2rem) scale(1.1); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .backdrop span { animation: none; }
 }
 
 .inner {
@@ -79,7 +57,7 @@
 
 .panel {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0;
   margin-top: 2.5rem;
   border: 1px solid var(--neutral-100);
@@ -99,7 +77,11 @@
 
 .label { color: var(--neutral-500); font-size: .9rem; font-weight: 700; }
 
-.presetRow { display: flex; flex-wrap: wrap; gap: .5rem; }
+.presetRow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: .5rem; }
+.presetRow .presetChip { width: 100%; min-width: 0; min-height: 2.75rem; padding: .55rem .5rem; line-height: 1.2; gap: .35rem; }
+.presetRow .presetChip:hover { transform: none; }
+.controlHeader { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 1.9rem; }
+.stepHint { color: var(--neutral-400); font-size: .72rem; white-space: nowrap; }
 
 .textarea {
   width: 100%;
@@ -127,10 +109,11 @@
   font-size: .85rem;
 }
 
-.playRow { display: flex; gap: .75rem; margin-top: .5rem; }
+.playRow { display: flex; align-items: stretch; gap: .75rem; margin-top: .5rem; }
 
 .voiceSelect { flex: 1; min-width: 0; }
-.playRow select.voiceSelect { padding-right: 3rem; }
+.playRow select.voiceSelect { padding-right: 2rem; height: 3.1rem; }
+.playRow .playButton { flex: 0 0 7.5rem; height: 3.1rem; min-height: 3.1rem; }
 
 .visualizer {
   display: flex;
@@ -149,7 +132,8 @@
   display: flex;
   flex: 1;
   align-items: center;
-  min-height: 10rem;
+  position: relative;
+  min-height: 9rem;
   padding: 0 1.5rem;
   overflow: hidden;
   border-radius: 1.25rem;
@@ -198,11 +182,18 @@
 }
 
 .monitorHeader { display: flex; align-items: center; justify-content: space-between; color: var(--neutral-600); font-size: .78rem; letter-spacing: .1em; font-weight: 700; }
-.monitorState { display: inline-flex; align-items: center; gap: .45rem; letter-spacing: 0; padding: .3rem .6rem; background: white; border-radius: var(--radius-full); font-size: .82rem; }
-.monitorState i { width: 6px; height: 6px; border-radius: 50%; background: var(--neutral-400); }
-.visualizer[data-playing='true'] .monitorState i { background: var(--purple-500); box-shadow: 0 0 0 3px rgb(126 67 255 / .12); }
 .progressTrack { height: 3px; overflow: hidden; border-radius: 2px; background: var(--neutral-100); }
 .progressTrack span { display: block; height: 100%; background: var(--purple-500); transition: width .3s ease; }
 @keyframes voice-idle { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(.45); } }
 @media (prefers-reduced-motion: reduce) { .wave span, .waveActive span { animation: none; } .progressTrack span { transition: none; } }
 @media (max-width: 480px) { .controls, .visualizer { padding: 1.25rem; } .meta { flex-wrap: wrap; gap: .5rem; } .playRow { flex-wrap: wrap; } .wave, .waveActive { gap: .2rem; } }
+
+.previewLabel { position: absolute; top: .75rem; left: 1rem; color: var(--neutral-500); font-size: .75rem; }
+.scriptPreview { min-height: 3.2rem; margin: 0; color: var(--neutral-700); font-size: .92rem; line-height: 1.65; text-align: center; overflow-wrap: anywhere; animation: script-enter .22s ease-out; }
+@keyframes script-enter { from { opacity: .25; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@media (min-width: 901px) and (max-width: 1150px), (max-width: 480px) {
+  .presetRow { grid-template-columns: 1fr; gap: .4rem; }
+  .presetRow .presetChip { justify-content: flex-start; padding-inline: .9rem; min-height: 2.5rem; }
+  .controlHeader { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .scriptPreview { animation: none; } }
