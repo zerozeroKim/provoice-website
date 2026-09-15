@@ -240,11 +240,27 @@
 
 .trackActive span { background: linear-gradient(90deg, var(--purple-400), var(--magenta-300)); }
 
-.trackPlaying span { animation: track-flow 1s linear infinite; }
+.waveRow {
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+  height: 3rem;
+  padding: 1.5rem 0;
+}
 
-@keyframes track-flow {
-  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
-  to { -webkit-mask-position: -28px 0; mask-position: -28px 0; }
+.waveRow span {
+  flex: 1;
+  height: var(--bar-height);
+  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, var(--purple-400), var(--magenta-300));
+  animation: aihuman-wave 1s ease-in-out infinite;
+}
+
+@keyframes aihuman-wave {
+  0%, 100% { transform: scaleY(.45); opacity: .65; }
+  30% { transform: scaleY(1); opacity: 1; }
+  65% { transform: scaleY(.55); opacity: .82; }
+  82% { transform: scaleY(.85); opacity: .92; }
 }
 
 .playRow { display: flex; align-items: center; gap: .8rem; }
@@ -306,6 +322,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .trackPlaying span { animation: none; }
+  .waveRow span { animation: none; }
   .card, .stat, .playRow button { transition: none; }
 }

@@ -1,7 +1,9 @@
-import { useRef, useState, type PointerEvent } from 'react';
+import { useRef, useState, type CSSProperties, type PointerEvent } from 'react';
 import { Pause, Play } from 'lucide-react';
 import { SectionHeader } from '../../components';
 import styles from './AIHumanSection.module.css';
+
+const WAVE_BAR_COUNT = 28;
 
 const stats = [
   { value: '3주 → 5일', label: '일정이 빠듯한 프로젝트도 여유 있게 끝냅니다 (예시 · 프로젝트 규모에 따라 상이)' },
@@ -90,7 +92,15 @@ export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
               <div><h3>성우 + AI 하이브리드</h3><p>메인은 성우, 서브 캐릭터는 AI</p></div>
               <i>B</i>
             </div>
-            <div className={`${styles.track} ${styles.trackActive} ${playing ? styles.trackPlaying : ''}`} aria-hidden="true"><span /></div>
+            {playing ? (
+              <div className={styles.waveRow} aria-hidden="true">
+                {Array.from({ length: WAVE_BAR_COUNT }).map((_, index) => (
+                  <span key={index} style={{ '--bar-height': `${10 + ((Math.sin(index * 2.1 + .6) + 1) / 2) ** 1.4 * 34}px`, animationDelay: `${-index * .15}s` } as CSSProperties} />
+                ))}
+              </div>
+            ) : (
+              <div className={`${styles.track} ${styles.trackActive}`} aria-hidden="true"><span /></div>
+            )}
             <div className={styles.playRow}>
               <button type="button" onClick={toggleAIPreview} aria-pressed={playing} aria-label={playing ? 'AI 서브캐릭터 대사 정지' : 'AI 서브캐릭터 대사 미리듣기'}>
                 {playing ? <Pause fill="currentColor" size={14} /> : <Play fill="currentColor" size={14} />}
