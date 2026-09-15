@@ -1,4 +1,5 @@
-import { Play } from 'lucide-react';
+import { useState } from 'react';
+import { Pause, Play } from 'lucide-react';
 import { SectionHeader } from '../../components';
 import styles from './AIHumanSection.module.css';
 
@@ -8,7 +9,31 @@ const stats = [
   { value: '메인 = 성우', label: '핵심 연기는 언제나 사람의 몫입니다' },
 ] as const;
 
+const AI_SUB_CHARACTER_LINE = '이 대사는 서브 캐릭터를 위해 AI가 생성한 목소리입니다. 톤과 속도는 프로젝트에 맞게 조정할 수 있어요.';
+
 export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
+  const [playing, setPlaying] = useState(false);
+
+  const toggleAIPreview = () => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    if (playing) {
+      window.speechSynthesis.cancel();
+      setPlaying(false);
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(AI_SUB_CHARACTER_LINE);
+    const voice = window.speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith('ko'));
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    }
+    utterance.onend = () => setPlaying(false);
+    utterance.onerror = () => setPlaying(false);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setPlaying(true);
+  };
+
   return (
     <section className={styles.section} aria-label="AI × Human 제작 방식 비교">
       <div className={styles.inner}>
@@ -38,10 +63,12 @@ export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
               <div><h3>성우 + AI 하이브리드</h3><p>메인은 성우, 서브 캐릭터는 AI</p></div>
               <i>B</i>
             </div>
-            <div className={`${styles.track} ${styles.trackActive}`} aria-hidden="true"><span /></div>
+            <div className={`${styles.track} ${styles.trackActive} ${playing ? styles.trackPlaying : ''}`} aria-hidden="true"><span /></div>
             <div className={styles.playRow}>
-              <button type="button" aria-label="AI 서브캐릭터 대사 미리듣기"><Play fill="currentColor" size={14} /></button>
-              <span>AI 서브캐릭터 대사 미리듣기</span>
+              <button type="button" onClick={toggleAIPreview} aria-pressed={playing} aria-label={playing ? 'AI 서브캐릭터 대사 정지' : 'AI 서브캐릭터 대사 미리듣기'}>
+                {playing ? <Pause fill="currentColor" size={14} /> : <Play fill="currentColor" size={14} />}
+              </button>
+              <span>{playing ? '재생 중 — AI 서브캐릭터 목소리' : 'AI 서브캐릭터 대사 미리듣기'}</span>
             </div>
           </article>
         </div>
