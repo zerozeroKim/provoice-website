@@ -134,7 +134,7 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
             <div className={styles.waveBox} aria-hidden="true">
               <span className={styles.previewLabel}>{activePreset >= 0 ? presets[activePreset].label : '직접 입력한 문장'}</span>
               <div className={playing ? styles.waveActive : styles.wave}>
-                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${6 + ((Math.sin(index * 2.17 + .7) + 1) / 2) ** 1.8 * 150}px`, animationDelay: `${-index * .17}s`, animationDuration: playing ? `${.65 + (index % 5) * .16}s` : '4s' } as CSSProperties} />)}
+                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${18 + ((Math.sin(index * 2.17 + .7) + 1) / 2) ** 1.4 * 92}px`, animationDelay: `${-index * .17}s`, animationDuration: playing ? `${.75 + (index % 5) * .16}s` : '4s' } as CSSProperties} />)}
               </div>
             </div>
             <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>

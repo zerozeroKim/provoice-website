@@ -17,17 +17,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .65rem;
   color: var(--purple-500);
   font-weight: 800;
   letter-spacing: .16em;
-}
-
-.header span::before {
-  width: 1.5rem;
-  height: 2px;
-  background: linear-gradient(90deg, var(--magenta-300), var(--purple-400));
-  content: '';
 }
 
 .comparison {

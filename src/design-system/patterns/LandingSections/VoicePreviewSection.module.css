@@ -160,10 +160,10 @@
 .waveActive span { animation: voice-wave 1s ease-in-out infinite; }
 
 @keyframes voice-wave {
-  0%, 100% { transform: scaleY(.08); opacity: .45; }
+  0%, 100% { transform: scaleY(.4); opacity: .6; }
   30% { transform: scaleY(1); opacity: 1; }
-  65% { transform: scaleY(.35); opacity: .7; }
-  82% { transform: scaleY(.85); opacity: .9; }
+  65% { transform: scaleY(.55); opacity: .8; }
+  82% { transform: scaleY(.85); opacity: .92; }
 }
 
 .status { margin: 0; color: var(--neutral-700); font-size: .94rem; font-weight: 600; }
