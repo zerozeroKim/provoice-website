@@ -1,10 +1,114 @@
 .section {
+  position: relative;
+  z-index: 1;
   width: 100%;
   padding: clamp(3.5rem, 8vh, 5.5rem) clamp(1.25rem, 5vw, 6rem);
+  overflow: hidden;
   background: color-mix(in srgb, var(--purple-100) 12%, var(--neutral-0));
 }
 
+.backdrop {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 45%, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 45%, transparent 78%);
+}
+
+.backdrop span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: .4;
+}
+
+.blob1 {
+  top: -4rem;
+  left: 4%;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, var(--purple-300), transparent 70%);
+  animation: aihuman-blob-drift-1 18s ease-in-out infinite;
+}
+
+.blob2 {
+  top: -6rem;
+  right: 6%;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, var(--magenta-200), transparent 70%);
+  animation: aihuman-blob-drift-2 22s ease-in-out infinite;
+}
+
+.blob3 {
+  top: 10rem;
+  left: 46%;
+  width: 18rem;
+  height: 18rem;
+  background: radial-gradient(circle, var(--purple-200), transparent 70%);
+  animation: aihuman-blob-drift-3 20s ease-in-out infinite;
+}
+
+@keyframes aihuman-blob-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(2rem, 2.5rem) scale(1.12); }
+}
+
+@keyframes aihuman-blob-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-2.5rem, 2rem) scale(.9); }
+}
+
+@keyframes aihuman-blob-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(1.5rem, -1.5rem) scale(1.1); }
+}
+
+.pointerGlow {
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  left: var(--glow-x, 50%);
+  top: var(--glow-y, 20%);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgb(179 118 255 / .18), rgb(236 161 255 / .09) 40%, transparent 70%);
+  opacity: 0;
+  transition: left .7s ease-out, top .7s ease-out, opacity .6s ease;
+}
+
+.section:hover .pointerGlow { opacity: 1; }
+
+.burst {
+  position: absolute;
+  left: 68%;
+  top: 42%;
+  width: 40rem;
+  height: 26rem;
+  border-radius: 50%;
+  border: 1px solid rgb(172 107 255 / .22);
+  background: radial-gradient(ellipse, transparent 40%, rgb(195 139 255 / .16) 62%, transparent 72%);
+  animation: aihuman-burst 1.3s ease-out both;
+}
+
+@keyframes aihuman-burst {
+  from { opacity: .8; transform: translate(-50%, -50%) scale(.55); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .pointerGlow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop span { animation: none; }
+  .burst { display: none; }
+}
+
 .inner {
+  position: relative;
+  z-index: 1;
   width: min(100%, 1200px);
   margin: 0 auto;
 }

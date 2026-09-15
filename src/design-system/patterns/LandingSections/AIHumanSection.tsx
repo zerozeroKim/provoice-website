@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState, type PointerEvent } from 'react';
 import { Pause, Play } from 'lucide-react';
 import { SectionHeader } from '../../components';
 import styles from './AIHumanSection.module.css';
@@ -12,7 +12,16 @@ const stats = [
 const AI_SUB_CHARACTER_LINE = '이 대사는 서브 캐릭터를 위해 AI가 생성한 목소리입니다. 톤과 속도는 프로젝트에 맞게 조정할 수 있어요.';
 
 export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
+  const sectionRef = useRef<HTMLElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [burst, setBurst] = useState(0);
+
+  const moveGlow = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty('--glow-x', `${event.clientX - bounds.left}px`);
+    event.currentTarget.style.setProperty('--glow-y', `${event.clientY - bounds.top}px`);
+  };
 
   const toggleAIPreview = () => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
@@ -21,6 +30,7 @@ export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
       setPlaying(false);
       return;
     }
+    setBurst((value) => value + 1);
     const utterance = new SpeechSynthesisUtterance(AI_SUB_CHARACTER_LINE);
     const voice = window.speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith('ko'));
     if (voice) {
@@ -35,7 +45,20 @@ export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
   };
 
   return (
-    <section className={styles.section} aria-label="AI × Human 제작 방식 비교">
+    <section
+      ref={sectionRef}
+      className={styles.section}
+      onPointerMove={moveGlow}
+      onPointerLeave={() => { sectionRef.current?.style.removeProperty('--glow-x'); sectionRef.current?.style.removeProperty('--glow-y'); }}
+      aria-label="AI × Human 제작 방식 비교"
+    >
+      <div className={styles.backdrop} aria-hidden="true">
+        <span className={styles.blob1} />
+        <span className={styles.blob2} />
+        <span className={styles.blob3} />
+        <div className={styles.pointerGlow} />
+        {burst > 0 && <div key={burst} className={styles.burst} />}
+      </div>
       <div className={styles.inner}>
         <SectionHeader
           className={styles.header}
