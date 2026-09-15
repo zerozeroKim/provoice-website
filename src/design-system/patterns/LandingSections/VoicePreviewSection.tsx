@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type ElementType } from 'react';
+import { useEffect, useState } from 'react';
 import { Play, Square } from 'lucide-react';
-import { Select } from '../../components';
+import { Button, Chip, SectionHeader, Select } from '../../components';
 import styles from './VoicePreviewSection.module.css';
 
 const presets = [
@@ -13,7 +13,6 @@ const MAX_LENGTH = 180;
 const BAR_COUNT = 32;
 
 export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
-  const Heading = `h${headingLevel}` as ElementType;
   const [activePreset, setActivePreset] = useState(0);
   const [text, setText] = useState<string>(presets[0].text);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -68,16 +67,19 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
   return (
     <section className={styles.section} aria-label="AI 보이스 미리듣기">
       <div className={styles.inner}>
-        <div className={styles.eyebrow}><span />AI VOICE PREVIEW</div>
-        <Heading className={styles.title}>성우 캐스팅 전, 톤을 먼저 확인해보세요</Heading>
-        <p className={styles.description}>문장을 입력하면 브라우저에 내장된 음성 엔진이 즉시 읽어드립니다. 원하는 톤과 스타일을 캐스팅 전에 가늠해보는 용도입니다.</p>
+        <SectionHeader
+          headingLevel={headingLevel}
+          eyebrow="AI VOICE PREVIEW"
+          title="성우 캐스팅 전, 톤을 먼저 확인해보세요"
+          description="문장을 입력하면 브라우저에 내장된 음성 엔진이 즉시 읽어드립니다. 원하는 톤과 스타일을 캐스팅 전에 가늠해보는 용도입니다."
+        />
 
         <div className={styles.panel}>
           <div className={styles.controls}>
             <span className={styles.label}>읽어드릴 문장</span>
             <div className={styles.presetRow}>
               {presets.map((preset, index) => (
-                <button key={preset.label} type="button" className={index === activePreset ? styles.presetActive : styles.preset} aria-pressed={index === activePreset} onClick={() => selectPreset(index)}>{preset.label}</button>
+                <Chip key={preset.label} selected={index === activePreset} onClick={() => selectPreset(index)}>{preset.label}</Chip>
               ))}
             </div>
             <textarea
@@ -96,10 +98,9 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
                 {voices.length === 0 && <option>사용 가능한 음성이 없습니다</option>}
                 {voices.map((voice, index) => <option key={`${voice.name}-${voice.lang}`} value={index}>{voice.name} ({voice.lang})</option>)}
               </Select>
-              <button type="button" className={styles.playButton} onClick={togglePlay} disabled={!supported || voices.length === 0}>
-                {playing ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+              <Button leadingIcon={playing ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} onClick={togglePlay} disabled={!supported || voices.length === 0}>
                 {playing ? '중지' : '미리듣기'}
-              </button>
+              </Button>
             </div>
           </div>
 
