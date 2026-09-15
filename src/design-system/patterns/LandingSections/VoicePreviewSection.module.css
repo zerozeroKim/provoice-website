@@ -61,6 +61,7 @@
 .playRow { display: flex; gap: .75rem; margin-top: .5rem; }
 
 .voiceSelect { flex: 1; min-width: 0; }
+.playRow select.voiceSelect { padding-right: 3rem; }
 
 .visualizer {
   display: flex;
