@@ -27,8 +27,10 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
     }
     const loadVoices = () => {
       const all = window.speechSynthesis.getVoices();
-      const korean = all.filter((voice) => voice.lang.toLowerCase().startsWith('ko'));
-      setVoices(korean.length > 0 ? korean : all);
+      const byName = (a: SpeechSynthesisVoice, b: SpeechSynthesisVoice) => a.name.localeCompare(b.name);
+      const korean = all.filter((voice) => voice.lang.toLowerCase().startsWith('ko')).sort(byName);
+      const others = all.filter((voice) => !voice.lang.toLowerCase().startsWith('ko')).sort(byName);
+      setVoices([...korean, ...others]);
     };
     loadVoices();
     window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
@@ -110,9 +112,11 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
                 {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ animationDelay: `${index * 0.045}s` }} />)}
               </div>
             </div>
-            <p className={styles.status}>{supported ? (playing ? '재생 중 — 목소리를 들어보세요' : '대기 중 — 미리듣기를 눌러보세요') : '이 브라우저에서는 음성 미리듣기를 지원하지 않습니다'}</p>
-            <hr className={styles.divider} />
-            <p className={styles.disclaimer}>기기에 설치된 음성 엔진을 사용하므로 브라우저·운영체제에 따라 목소리가 다르게 들릴 수 있으며, 실제 성우 캐스팅 품질과는 별개입니다.</p>
+            <div className={styles.visualizerFooter}>
+              <p className={styles.status}>{supported ? (playing ? '재생 중 — 목소리를 들어보세요' : '대기 중 — 미리듣기를 눌러보세요') : '이 브라우저에서는 음성 미리듣기를 지원하지 않습니다'}</p>
+              <hr className={styles.divider} />
+              <p className={styles.disclaimer}>기기에 설치된 음성 엔진을 사용하므로 브라우저·운영체제에 따라 목소리가 다르게 들릴 수 있으며, 실제 성우 캐스팅 품질과는 별개입니다.</p>
+            </div>
           </div>
         </div>
       </div>
