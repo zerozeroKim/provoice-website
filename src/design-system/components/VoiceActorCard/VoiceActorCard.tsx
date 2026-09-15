@@ -8,7 +8,6 @@ export type VoiceActorCardProps = Omit<HTMLAttributes<HTMLElement>, 'onClick'> &
   avatarSrc?: string;
   flag?: ReactNode;
   flagLabel?: string;
-  verified?: boolean;
   best?: boolean;
   tags?: string[];
   duration: number;
@@ -32,9 +31,6 @@ const formatTime = (seconds: number) => {
   return `${m}:${String(s).padStart(2, '0')}`;
 };
 
-const VerifiedIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor" /><path d="M6 10.3 8.6 13 14 7.3" stroke="var(--neutral-0)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-);
 const PersonIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8.5" r="3.25" stroke="currentColor" strokeWidth="1.75" /><path d="M5 19c1.2-3.2 4-5 7-5s5.8 1.8 7 5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" /></svg>
 );
@@ -51,7 +47,7 @@ const DownloadIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0 3.5-3.5M12 15l-3.5-3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" /><path d="M5 18.5h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" /></svg>
 );
 
-export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, verified = false, best = false, tags = [], duration, currentTime = 0, playing = false, onPlayToggle, locked = false, onUnlock, canDownload = false, onDownload, downloadCount, className = '', ...props }: VoiceActorCardProps) {
+export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, best = false, tags = [], duration, currentTime = 0, playing = false, onPlayToggle, locked = false, onUnlock, canDownload = false, onDownload, downloadCount, className = '', ...props }: VoiceActorCardProps) {
   const progress = duration > 0 ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0;
 
   return (
@@ -64,7 +60,6 @@ export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, ver
         <span className={styles.profileMain}>
           <span className={styles.nameLine}>
             <h3 className={styles.name}>{name}</h3>
-            {verified && <span className={styles.verified} role="img" aria-label="프로보이스 인증 성우"><VerifiedIcon /></span>}
           </span>
           {(nickname || flag) && (
             <span className={styles.metaLine}>

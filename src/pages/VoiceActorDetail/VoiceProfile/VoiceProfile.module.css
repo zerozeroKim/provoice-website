@@ -30,8 +30,7 @@
 .identity { display: flex; align-items: flex-start; gap: 2rem; min-width: 0; }
 .avatar { object-fit: cover; object-position: center; display: block; flex: none; place-items: center; width: 7rem; height: 7rem; margin-top: .5rem; border: 5px solid white; border-radius: 50%; background: var(--gradient-deep-purple); box-shadow: 0 0 0 2px #c5a6ff; color: white; font-size: 2.8rem; font-weight: 750; }
 .body { min-width: 0; width: 100%; max-width: 34rem; }
-.body h1 { margin: .75rem 0 1.25rem; color: var(--neutral-950); font-size: clamp(2rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
-.verified { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem .65rem; border: 1px solid #dac5ff; border-radius: .5rem; background: #ede2ff; color: #5926a5; font-size: .8rem; font-weight: 700; }
+.body h1 { margin: 0 0 1.25rem; color: var(--neutral-950); font-size: clamp(2rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
 .facts { display: grid; gap: 0; margin: 0; }
 .facts > div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 1rem; align-items: center; min-height: 2.85rem; padding: .5rem 0; border-bottom: 1px solid #ebe3f3; }
 .facts > div:last-child { border-bottom: 0; }
@@ -60,8 +59,7 @@
   .hero { padding: 1.5rem 1.25rem 0; }
   .identity { position: relative; display: block; }
   .avatar { position: absolute; top: .25rem; left: 0; width: 3.5rem; height: 3.5rem; border-width: 3px; font-size: 1.5rem; }
-  .verified { margin-left: 4.5rem; font-size: .7rem; padding: .3rem .45rem; }
-  .body h1 { margin: .6rem 0 1.5rem 4.5rem; font-size: 1.8rem; }
+  .body h1 { margin: 0 0 1.5rem 4.5rem; font-size: 1.8rem; }
   .facts > div { grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; }
   .contact { padding: 1.25rem 0 0; }
   .contactButton { width: 100%; }

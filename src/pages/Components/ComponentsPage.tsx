@@ -203,9 +203,9 @@ export function ComponentsPage() {
           <article className={styles.example}>
             <div className={styles.exampleHead}><strong>성우 카드</strong><span>Voice actor · Default / Best / Locked</span></div>
             <div className={styles.voiceActorCardGrid}>
-              <VoiceActorCard name="김지훈" nickname="KO / EN" verified tags={['내레이션', '광고']} duration={32} currentTime={9} />
-              <VoiceActorCard name="Mika S." nickname="JP / EN" verified best tags={['캐릭터', '게임', 'NPC']} duration={28} currentTime={12} />
-              <VoiceActorCard name="Ahmed L." nickname="AR / EN" verified tags={['내레이션', '다큐']} duration={35} locked />
+              <VoiceActorCard name="김지훈" nickname="KO / EN" tags={['내레이션', '광고']} duration={32} currentTime={9} />
+              <VoiceActorCard name="Mika S." nickname="JP / EN" best tags={['캐릭터', '게임', 'NPC']} duration={28} currentTime={12} />
+              <VoiceActorCard name="Ahmed L." nickname="AR / EN" tags={['내레이션', '다큐']} duration={35} locked />
             </div>
           </article>
           <article className={styles.example}>

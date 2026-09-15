@@ -1,4 +1,4 @@
-import { ArrowRight, BriefcaseBusiness, Heart, ShieldCheck, Star } from 'lucide-react';
+import { ArrowRight, BriefcaseBusiness, Heart, Star } from 'lucide-react';
 import { Button, VoiceTraitChip, type TalentProfile } from '@/design-system';
 import styles from './VoiceProfile.module.css';
 
@@ -10,7 +10,6 @@ export function VoiceProfile({ talent, rating }: { talent: TalentProfile; rating
       <div className={styles.identity}>
         <img className={styles.avatar} src={talent.avatarSrc} alt={`${talent.name} 프로필 예시 사진`} width={112} height={112} />
         <div className={styles.body}>
-          {talent.verified && <span className={styles.verified}><ShieldCheck size={15} /> 프로보이스 등록 성우</span>}
           <h1 id="voice-actor-name">{talent.name}</h1>
           <dl className={styles.facts}>
             <div><dt>성별</dt><dd>{talent.gender ?? '미등록'}</dd></div>

@@ -87,15 +87,15 @@ export const reviewCards: TestimonialCardProps[] = [
 ];
 
 const curatedTalentProfiles: Omit<TalentProfile, 'avatarSrc'>[] = [
-  { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, verified: true, gender: '남성', tones: ['자신감', '친근한'], favorites: 482, completedProjects: 61 },
-  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, verified: true, gender: '여성', tones: ['귀여운', '재밌는'], favorites: 513, completedProjects: 45 },
-  { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, verified: true, gender: '여성', tones: ['귀여운', '친근한'], favorites: 391, completedProjects: 72 },
-  { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, verified: true, gender: '남성', tones: ['진중한', '차분한'], favorites: 276, completedProjects: 38 },
-  { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, verified: true, gender: '여성', tones: ['밝은', '재밌는'], favorites: 341, completedProjects: 50 },
-  { name: 'Yuna M.', locale: 'JP / EN', tags: ['캐릭터', '게임'], duration: 31, verified: true, gender: '여성', tones: ['자신감', '차분한'], favorites: 299, completedProjects: 42 },
-  { name: 'Rin T.', locale: 'JP', tags: ['캐릭터', '키즈', '더빙'], duration: 39, verified: true, gender: '여성', tones: ['귀여운', '밝은'], favorites: 261, completedProjects: 35 },
-  { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, verified: true, gender: '여성', tones: ['감성적인&따뜻한', '차분한'], favorites: 411, completedProjects: 58 },
-  { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, verified: true, gender: '여성', tones: ['진중한', '드라마틱'], favorites: 356, completedProjects: 47 },
+  { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, gender: '남성', tones: ['자신감', '친근한'], favorites: 482, completedProjects: 61 },
+  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, gender: '여성', tones: ['귀여운', '재밌는'], favorites: 513, completedProjects: 45 },
+  { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, gender: '여성', tones: ['귀여운', '친근한'], favorites: 391, completedProjects: 72 },
+  { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, gender: '남성', tones: ['진중한', '차분한'], favorites: 276, completedProjects: 38 },
+  { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, gender: '여성', tones: ['밝은', '재밌는'], favorites: 341, completedProjects: 50 },
+  { name: 'Yuna M.', locale: 'JP / EN', tags: ['캐릭터', '게임'], duration: 31, gender: '여성', tones: ['자신감', '차분한'], favorites: 299, completedProjects: 42 },
+  { name: 'Rin T.', locale: 'JP', tags: ['캐릭터', '키즈', '더빙'], duration: 39, gender: '여성', tones: ['귀여운', '밝은'], favorites: 261, completedProjects: 35 },
+  { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, gender: '여성', tones: ['감성적인&따뜻한', '차분한'], favorites: 411, completedProjects: 58 },
+  { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, gender: '여성', tones: ['진중한', '드라마틱'], favorites: 356, completedProjects: 47 },
 ];
 
 const talentLocalePool = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
@@ -118,7 +118,6 @@ function fillTalentProfiles(existingCount: number, target: number): Omit<TalentP
       favorites: 120 + seed * 7,
       completedProjects: 20 + seed % 130,
       duration: 20 + (seed % 40),
-      verified: seed % 5 !== 0,
     };
   });
 }
