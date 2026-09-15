@@ -133,7 +133,7 @@
   flex: 1;
   align-items: center;
   position: relative;
-  min-height: 9rem;
+  min-height: 14rem;
   padding: 0 1.5rem;
   overflow: hidden;
   border-radius: 1.25rem;
@@ -153,15 +153,17 @@
   border-radius: var(--radius-full);
   background: var(--purple-400);
   opacity: .4;
-  transform: scaleY(.35);
+  transform: scaleY(.8);
   animation: voice-idle 4s ease-in-out infinite;
 }
 
 .waveActive span { animation: voice-wave 1s ease-in-out infinite; }
 
 @keyframes voice-wave {
-  0%, 100% { transform: scaleY(.25); opacity: .55; }
-  50% { transform: scaleY(1); opacity: 1; }
+  0%, 100% { transform: scaleY(.08); opacity: .45; }
+  30% { transform: scaleY(1); opacity: 1; }
+  65% { transform: scaleY(.35); opacity: .7; }
+  82% { transform: scaleY(.85); opacity: .9; }
 }
 
 .status { margin: 0; color: var(--neutral-700); font-size: .94rem; font-weight: 600; }
@@ -184,16 +186,43 @@
 .monitorHeader { display: flex; align-items: center; justify-content: space-between; color: var(--neutral-600); font-size: .78rem; letter-spacing: .1em; font-weight: 700; }
 .progressTrack { height: 3px; overflow: hidden; border-radius: 2px; background: var(--neutral-100); }
 .progressTrack span { display: block; height: 100%; background: var(--purple-500); transition: width .3s ease; }
-@keyframes voice-idle { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(.45); } }
+@keyframes voice-idle { 0%, 100% { transform: scaleY(.65); } 50% { transform: scaleY(1); } }
 @media (prefers-reduced-motion: reduce) { .wave span, .waveActive span { animation: none; } .progressTrack span { transition: none; } }
 @media (max-width: 480px) { .controls, .visualizer { padding: 1.25rem; } .meta { flex-wrap: wrap; gap: .5rem; } .playRow { flex-wrap: wrap; } .wave, .waveActive { gap: .2rem; } }
 
 .previewLabel { position: absolute; top: .75rem; left: 1rem; color: var(--neutral-500); font-size: .75rem; }
-.scriptPreview { min-height: 3.2rem; margin: 0; color: var(--neutral-700); font-size: .92rem; line-height: 1.65; text-align: center; overflow-wrap: anywhere; animation: script-enter .22s ease-out; }
-@keyframes script-enter { from { opacity: .25; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 @media (min-width: 901px) and (max-width: 1150px), (max-width: 480px) {
   .presetRow { grid-template-columns: 1fr; gap: .4rem; }
   .presetRow .presetChip { justify-content: flex-start; padding-inline: .9rem; min-height: 2.5rem; }
   .controlHeader { flex-wrap: wrap; }
 }
-@media (prefers-reduced-motion: reduce) { .scriptPreview { animation: none; } }
+
+.pointerGlow {
+  position: absolute;
+  width: 38rem;
+  height: 38rem;
+  left: var(--glow-x, 50%);
+  top: var(--glow-y, 55%);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgb(179 118 255 / .2), rgb(236 161 255 / .1) 40%, transparent 70%);
+  opacity: 0;
+  transition: left .7s ease-out, top .7s ease-out, opacity .6s ease;
+}
+.section:hover .pointerGlow { opacity: 1; }
+.burst {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: 48rem;
+  height: 30rem;
+  border-radius: 50%;
+  border: 1px solid rgb(172 107 255 / .22);
+  background: radial-gradient(ellipse, transparent 40%, rgb(195 139 255 / .16) 62%, transparent 72%);
+  animation: preview-burst 1.3s ease-out both;
+}
+@keyframes preview-burst {
+  from { opacity: .8; transform: translate(-50%, -50%) scale(.55); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
+}
+@media (hover: none), (prefers-reduced-motion: reduce) { .pointerGlow { display: none; } }
+@media (prefers-reduced-motion: reduce) { .burst { display: none; } }

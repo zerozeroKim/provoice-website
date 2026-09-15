@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react';
 import { Gamepad2, Megaphone, Smile, Play, Square } from 'lucide-react';
 import { Button, Chip, SectionHeader, Select } from '../../components';
 import styles from './VoicePreviewSection.module.css';
@@ -13,6 +13,14 @@ const MAX_LENGTH = 180;
 const BAR_COUNT = 32;
 
 export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [burst, setBurst] = useState(0);
+  const moveGlow = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty('--glow-x', `${event.clientX - bounds.left}px`);
+    event.currentTarget.style.setProperty('--glow-y', `${event.clientY - bounds.top}px`);
+  };
   const [activePreset, setActivePreset] = useState(0);
   const [text, setText] = useState<string>(presets[0].text);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -45,6 +53,7 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
     if (supported) window.speechSynthesis.cancel();
     setPlaying(false);
     setProgress(0);
+    setBurst(value => value + 1);
     setActivePreset(index);
     setText(presets[index].text);
   };
@@ -57,6 +66,7 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
       return;
     }
     if (!text.trim()) return;
+    setBurst(value => value + 1);
     const utterance = new SpeechSynthesisUtterance(text);
     const voice = voices[voiceIndex];
     if (voice) {
@@ -73,11 +83,13 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
   };
 
   return (
-    <section className={styles.section} aria-label="AI 보이스 미리듣기">
+    <section ref={sectionRef} className={styles.section} onPointerMove={moveGlow} onPointerLeave={() => { sectionRef.current?.style.removeProperty('--glow-x'); sectionRef.current?.style.removeProperty('--glow-y'); }} aria-label="AI 보이스 미리듣기">
       <div className={styles.backdrop} aria-hidden="true">
         <span className={styles.blob1} />
         <span className={styles.blob2} />
         <span className={styles.blob3} />
+        <div className={styles.pointerGlow} />
+        {burst > 0 && <div key={burst} className={styles.burst} />}
       </div>
       <div className={styles.inner}>
         <SectionHeader
@@ -122,10 +134,9 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
             <div className={styles.waveBox} aria-hidden="true">
               <span className={styles.previewLabel}>{activePreset >= 0 ? presets[activePreset].label : '직접 입력한 문장'}</span>
               <div className={playing ? styles.waveActive : styles.wave}>
-                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${18 + Math.sin(index * 1.8) ** 2 * 52 + Math.sin(index * .35) ** 2 * 28}px`, animationDelay: `${-index * .17}s`, animationDuration: playing ? `${.65 + (index % 5) * .16}s` : '4s' } as CSSProperties} />)}
+                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${6 + ((Math.sin(index * 2.17 + .7) + 1) / 2) ** 1.8 * 150}px`, animationDelay: `${-index * .17}s`, animationDuration: playing ? `${.65 + (index % 5) * .16}s` : '4s' } as CSSProperties} />)}
               </div>
             </div>
-            <p key={text} className={styles.scriptPreview}>{text.trim() || '왼쪽에 문장을 입력해보세요'}</p>
             <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
             <div className={styles.visualizerFooter}>
               <p className={styles.status} role="status">{supported ? (playing ? '재생 중 — 목소리를 들어보세요' : progress === 100 ? '다른 문장으로도 비교해보세요' : '미리듣기를 누르면 선택한 문장을 읽어드려요') : '이 브라우저에서는 음성 미리듣기를 지원하지 않습니다'}</p>
