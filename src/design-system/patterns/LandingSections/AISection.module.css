@@ -88,6 +88,7 @@
   font-weight: 750;
   line-height: 1.16;
   letter-spacing: -.06em;
+  word-break: keep-all;
 }
 
 .copy :is(h1, h2) em {
@@ -104,6 +105,8 @@
   font-size: clamp(.95rem, 1.05vw, 1.12rem);
   line-height: 1.82;
   letter-spacing: var(--tracking-tight);
+  word-break: keep-all;
+  text-wrap: pretty;
 }
 
 .noteBox {
@@ -142,6 +145,8 @@
   font-size: .88rem;
   line-height: 1.75;
   text-align: left;
+  word-break: keep-all;
+  text-wrap: pretty;
 }
 
 .noteBox p strong { color: var(--neutral-900); font-weight: 700; }
