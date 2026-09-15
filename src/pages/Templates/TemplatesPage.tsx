@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import {
+  AIHumanSection,
   AISection,
   GetStartedSection,
   HeroSection,
@@ -10,6 +11,8 @@ import {
   TalentFilterSection,
   TestimonialSection,
   TranslationSection,
+  VoiceAIDataSection,
+  VoicePreviewSection,
 } from '../../design-system';
 import {
   heroStats,
@@ -106,6 +109,9 @@ export function TemplatesPage() {
       {activeTab === 'PROVOICE × AI' && (
         <section id="template-panel-PROVOICE × AI" className={styles.list} role="tabpanel" aria-labelledby="template-tab-PROVOICE × AI">
           <TemplatePreview flush><AISection headingLevel={2} /></TemplatePreview>
+          <TemplatePreview flush><VoicePreviewSection headingLevel={2} /></TemplatePreview>
+          <TemplatePreview flush><AIHumanSection headingLevel={2} /></TemplatePreview>
+          <TemplatePreview flush><VoiceAIDataSection headingLevel={2} /></TemplatePreview>
         </section>
       )}
     </main>

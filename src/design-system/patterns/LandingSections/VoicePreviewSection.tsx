@@ -68,6 +68,11 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
 
   return (
     <section className={styles.section} aria-label="AI 보이스 미리듣기">
+      <div className={styles.backdrop} aria-hidden="true">
+        <span className={styles.blob1} />
+        <span className={styles.blob2} />
+        <span className={styles.blob3} />
+      </div>
       <div className={styles.inner}>
         <SectionHeader
           headingLevel={headingLevel}
