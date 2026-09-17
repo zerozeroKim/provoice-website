@@ -15,6 +15,7 @@ import { ExpertSignupPage } from '../pages/Signup/ExpertSignupPage';
 import { VoiceActorDetailPage } from '../pages/VoiceActorDetail/VoiceActorDetailPage';
 import { WorkInquiryPage } from '../pages/WorkInquiry/WorkInquiryPage';
 import { AdminPage } from '../pages/Admin/AdminPage';
+import { MyProfilePage } from '../pages/MyPage/MyProfilePage';
 
 /**
  * 고객용/개발용 분리는 호스트 이름이 아니라 빌드 타임 환경 변수(VITE_SITE_MODE)로 결정합니다.
@@ -39,6 +40,7 @@ const hashToPage: Record<string, string> = {
   '#signup': 'signup',
   '#work-inquiry': 'work-inquiry',
   '#admin': 'admin',
+  '#mypage': 'mypage',
   '#colors': 'colors',
   '#layout': 'layout',
   '#typography': 'typography',
@@ -81,6 +83,7 @@ const pageMetadata: Record<string, { title: string; description: string; noIndex
   'signup-expert': { title: '전문가 회원가입 | PROVOICE', description: 'PROVOICE 성우·번역가 전문가 회원가입', noIndex: true },
   'work-inquiry': { title: '작업 문의 | PROVOICE', description: 'PROVOICE에 더빙·번역 작업을 문의하세요.' },
   admin: { title: '관리자 | PROVOICE', description: 'PROVOICE 내부 관리자 페이지', noIndex: true },
+  mypage: { title: '마이페이지 | PROVOICE', description: '내 성우 프로필을 관리하세요.', noIndex: true },
 };
 
 const setMetaContent = (selector: string, content: string) => {
@@ -99,6 +102,7 @@ function renderStandalonePage(page: string) {
   if (page === 'signup-expert') return <ExpertSignupPage />;
   if (page === 'work-inquiry') return <WorkInquiryPage />;
   if (page === 'admin') return <AdminPage />;
+  if (page === 'mypage') return <MyProfilePage />;
   return null;
 }
 

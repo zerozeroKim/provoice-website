@@ -146,7 +146,11 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
                 </div>
                 <span className={styles.utilityDivider} aria-hidden="true" />
                 {loggedIn ? (
-                  <button type="button" className={styles.logoutButton} onClick={handleLogout}>로그아웃</button>
+                  <>
+                    <a href="#mypage">마이페이지</a>
+                    <span className={styles.utilityDivider} aria-hidden="true" />
+                    <button type="button" className={styles.logoutButton} onClick={handleLogout}>로그아웃</button>
+                  </>
                 ) : (
                   <a href="#login">로그인</a>
                 )}
@@ -188,7 +192,10 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
             <div className={styles.mobileUtility}>
               <a href="#register" tabIndex={open ? 0 : -1} onClick={stopDemoLink}>전문가등록</a>
               {loggedIn ? (
-                <button type="button" tabIndex={open ? 0 : -1} onClick={() => { setOpen(false); handleLogout(); }}>로그아웃</button>
+                <>
+                  <a href="#mypage" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>마이페이지</a>
+                  <button type="button" tabIndex={open ? 0 : -1} onClick={() => { setOpen(false); handleLogout(); }}>로그아웃</button>
+                </>
               ) : (
                 <a href="#login" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>로그인</a>
               )}
