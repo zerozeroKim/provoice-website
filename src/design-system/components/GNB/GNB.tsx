@@ -6,7 +6,7 @@ import { VersionSwitcher } from '../VersionSwitcher';
 import styles from './GNB.module.css';
 
 const mainMenu = ['성우검색', '서비스', '포트폴리오', '작업문의', '블로그'] as const;
-const menuHref: Partial<Record<(typeof mainMenu)[number], string>> = { 성우검색: '#voice-search', 포트폴리오: '#portfolio', 작업문의: '#work-inquiry' };
+const menuHref: Partial<Record<(typeof mainMenu)[number], string>> = { 성우검색: '#voice-search', 포트폴리오: '#portfolio', 작업문의: '#work-inquiry', 블로그: '#admin' };
 
 const serviceMenu = [
   { label: '애니메이션·게임·웹툰 더빙', href: undefined },
