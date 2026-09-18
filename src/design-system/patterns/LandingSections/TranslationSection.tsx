@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Award, BadgeCheck, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Award, BadgeCheck } from 'lucide-react';
 import { SectionHeader } from '../../components';
 import styles from './TranslationSection.module.css';
 import type { TranslationRow } from './types';
@@ -18,18 +18,20 @@ export function TranslationSection({ rows, languages }: { rows: TranslationRow[]
         <div className={styles.decor} aria-hidden="true">
           <span className={styles.decorBlob1} />
           <span className={styles.decorBlob2} />
-          <ShieldCheck className={styles.decorSeal} strokeWidth={1} />
         </div>
         <div className={styles.translationMain}>
-          <div className={styles.infoGrid}>
-            <article className={`${styles.infoCard} ${styles.infoCardPrimary}`}>
-              <div className={styles.cardIcon}><BadgeCheck /></div>
-              <div><span className={styles.cardOverline}>QUALITY STANDARD</span><h3>ISO 17100 인증</h3><p>번역·검수·최종 품질관리까지 국제 표준에 맞춰 운영합니다.</p></div>
-            </article>
-            <article className={styles.infoCard}>
-              <div className={styles.cardIcon}><Award /></div>
-              <div><span className={styles.cardOverline}>GOVERNMENT CERTIFIED</span><h3>수출바우처 공식 수행기관</h3><p>정부 지정 수출바우처 사업의 공식 수행기관으로 선정되어 안정적인 서비스를 제공합니다.</p></div>
-            </article>
+          <div className={styles.certMedallionRow}>
+            <div className={styles.certMedallion}>
+              <div className={styles.medallionRing}><BadgeCheck strokeWidth={1.75} /></div>
+              <strong>ISO 17100</strong>
+              <span>국제 표준 번역 인증</span>
+            </div>
+            <div className={styles.medallionLink} aria-hidden="true"><span /><span /><span /></div>
+            <div className={styles.certMedallion}>
+              <div className={styles.medallionRing}><Award strokeWidth={1.75} /></div>
+              <strong>수출바우처</strong>
+              <span>정부 지정 공식 수행기관</span>
+            </div>
           </div>
           <div className={styles.languageBlock}>
             <div className={styles.languageHeading}><div><span>AVAILABLE LANGUAGES</span><h3>주요 지원 언어</h3></div></div>
