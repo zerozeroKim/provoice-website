@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, BadgeCheck, Languages, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Award, BadgeCheck } from 'lucide-react';
 import { SectionHeader } from '../../components';
 import styles from './TranslationSection.module.css';
 import type { TranslationRow } from './types';
@@ -19,22 +19,11 @@ export function TranslationSection({ rows, languages }: { rows: TranslationRow[]
           <div className={styles.infoGrid}>
             <article className={`${styles.infoCard} ${styles.infoCardPrimary}`}>
               <div className={styles.cardIcon}><BadgeCheck /></div>
-              <div>
-                <span className={styles.cardOverline}>CERTIFIED</span>
-                <div className={styles.certBadgeRow}>
-                  <span className={styles.certBadge}>ISO 17100</span>
-                  <span className={styles.certBadge}>수출바우처 공식 수행기관</span>
-                </div>
-                <p>번역·검수·최종 품질관리까지 국제 표준에 맞춰 운영합니다.</p>
-              </div>
+              <div><span className={styles.cardOverline}>QUALITY STANDARD</span><h3>ISO 17100 인증</h3><p>번역·검수·최종 품질관리까지 국제 표준에 맞춰 운영합니다.</p></div>
             </article>
             <article className={styles.infoCard}>
-              <div className={styles.cardIcon}><Languages /></div>
-              <div><span className={styles.cardOverline}>GLOBAL NETWORK</span><h3>30개국 언어 지원</h3><p>현지 언어와 문화에 익숙한 원어민 전문가가 참여합니다.</p></div>
-            </article>
-            <article className={styles.infoCard}>
-              <div className={styles.cardIcon}><Sparkles /></div>
-              <div><span className={styles.cardOverline}>SMART WORKFLOW</span><h3>AI × Human 검수</h3><p>속도는 높이고, 표현의 자연스러움은 사람이 지킵니다.</p></div>
+              <div className={styles.cardIcon}><Award /></div>
+              <div><span className={styles.cardOverline}>GOVERNMENT CERTIFIED</span><h3>수출바우처 공식 수행기관</h3><p>정부 지정 수출바우처 사업의 공식 수행기관으로 선정되어 안정적인 서비스를 제공합니다.</p></div>
             </article>
           </div>
           <div className={styles.languageBlock}>
