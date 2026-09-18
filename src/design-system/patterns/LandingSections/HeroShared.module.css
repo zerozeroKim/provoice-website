@@ -50,7 +50,7 @@
 }
 
 @media (min-width: 1200px) {
-  .title { font-size: 3.4rem; }
+  .title { font-size: clamp(3.4rem, 2.4vw, 5rem); }
 }
 
 .gradientText {
