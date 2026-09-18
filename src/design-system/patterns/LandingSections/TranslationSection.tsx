@@ -19,7 +19,7 @@ export function TranslationSection({ rows, languages }: { rows: TranslationRow[]
           <div className={styles.infoGrid}>
             <article className={`${styles.infoCard} ${styles.infoCardPrimary}`}>
               <div className={styles.cardIcon}><BadgeCheck /></div>
-              <div><span className={styles.cardOverline}>QUALITY STANDARD</span><h3>ISO 17100 인증</h3><p>번역·검수·최종 품질관리까지 국제 표준에 맞춰 운영합니다.</p></div>
+              <div><span className={styles.cardOverline}>QUALITY STANDARD</span><h3>ISO 17100 인증 <span className={styles.certBadge}>수출바우처 수행기관</span></h3><p>번역·검수·최종 품질관리까지 국제 표준에 맞춰 운영합니다.</p></div>
             </article>
             <article className={styles.infoCard}>
               <div className={styles.cardIcon}><Languages /></div>

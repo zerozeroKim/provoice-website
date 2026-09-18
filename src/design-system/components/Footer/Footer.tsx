@@ -22,7 +22,7 @@ export function Footer({ version }: { version?: string }) {
           <nav className={styles.linkColumn} aria-label="회사"><h2>COMPANY</h2>{companyLinks.map((label) => <a href="#company" onClick={stopDemoLink} key={label}>{label}</a>)}</nav>
           <div className={styles.linkColumn}><h2>CONTACT</h2><a href="https://www.instagram.com/provoice_kr/" target="_blank" rel="noreferrer">@provoice_kr</a><a href="https://provoice.co.kr" target="_blank" rel="noreferrer">provoice.co.kr</a></div>
         </div>
-        <div className={styles.bottomRow}><p>© 2026 (주)프로보이스. All rights reserved.</p><div className={styles.footerMeta}><p>ISO 17100 · 수출바우처 공식 수행기관 · 데이터바우처 공급기업</p>{version && <span className={styles.version}>VERSION {version}</span>}</div></div>
+        <div className={styles.bottomRow}><p>© 2026 (주)프로보이스. All rights reserved.</p><div className={styles.footerMeta}><div className={styles.certBadges}><span className={styles.certBadge}>ISO 17100</span><span className={styles.certBadge}>수출바우처 공식 수행기관</span></div>{version && <span className={styles.version}>VERSION {version}</span>}</div></div>
       </div>
     </footer>
   );
