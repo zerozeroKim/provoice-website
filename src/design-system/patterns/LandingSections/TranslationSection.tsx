@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Award, BadgeCheck } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Award, BadgeCheck, ShieldCheck } from 'lucide-react';
 import { SectionHeader } from '../../components';
 import styles from './TranslationSection.module.css';
 import type { TranslationRow } from './types';
@@ -15,6 +15,11 @@ export function TranslationSection({ rows, languages }: { rows: TranslationRow[]
         />
       </div>
       <div className={styles.translationBody}>
+        <div className={styles.decor} aria-hidden="true">
+          <span className={styles.decorBlob1} />
+          <span className={styles.decorBlob2} />
+          <ShieldCheck className={styles.decorSeal} strokeWidth={1} />
+        </div>
         <div className={styles.translationMain}>
           <div className={styles.infoGrid}>
             <article className={`${styles.infoCard} ${styles.infoCardPrimary}`}>
