@@ -11,6 +11,7 @@ import {
   TalentFilterSection,
   TestimonialSection,
   TranslationSection,
+  TranslationShowcaseSection,
   VoiceAIDataSection,
   VoicePreviewSection,
 } from '../../design-system';
@@ -96,6 +97,7 @@ export function TemplatesPage() {
         <section id="template-panel-서비스" className={styles.list} role="tabpanel" aria-labelledby="template-tab-서비스">
           <TemplatePreview flush><ServiceSection services={serviceCards} /></TemplatePreview>
           <TemplatePreview><TranslationSection rows={translationRows} languages={supportLanguages} /></TemplatePreview>
+          <TemplatePreview><TranslationShowcaseSection /></TemplatePreview>
         </section>
       )}
 

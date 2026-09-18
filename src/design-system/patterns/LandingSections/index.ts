@@ -8,5 +8,6 @@ export * from './TalentSections';
 export * from './ServiceSection';
 export * from './PortfolioSections';
 export * from './TranslationSection';
+export * from './TranslationShowcaseSection';
 export * from './GetStartedSection';
 export * from './landingContent';
