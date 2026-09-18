@@ -1,8 +1,8 @@
 .backdrop { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 1rem; background: rgb(15 23 42 / .55); animation: modal-backdrop-in .18s ease-out; }
-.modal { width: min(100%, 30rem); overflow: hidden; border-radius: var(--radius-lg); background: white; box-shadow: var(--shadow-md); animation: modal-pop-in .28s cubic-bezier(.2, .9, .25, 1.1); }
-.header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--color-neutral-100); }
+.modal { display: flex; flex-direction: column; width: min(100%, 30rem); max-height: 90vh; overflow: hidden; border-radius: var(--radius-lg); background: white; box-shadow: var(--shadow-md); animation: modal-pop-in .28s cubic-bezier(.2, .9, .25, 1.1); }
+.header { display: flex; flex: none; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--color-neutral-100); }
 .header h2 { font-size: 1.125rem; }
-.body { padding: 1.25rem; }
+.body { padding: 1.25rem; overflow-y: auto; }
 
 @keyframes modal-backdrop-in { from { opacity: 0; } }
 @keyframes modal-pop-in { from { opacity: 0; transform: scale(.86) translateY(14px); } to { opacity: 1; transform: scale(1) translateY(0); } }
