@@ -22,18 +22,17 @@ export function TranslationSection({ rows, languages }: { rows: TranslationRow[]
           <span className={styles.decorBlob2} />
         </div>
         <div className={styles.translationMain}>
-          <div className={styles.certMedallionRow}>
-            <div className={styles.certMedallion}>
-              <div className={styles.medallionRing}><BadgeCheck strokeWidth={1.75} /></div>
+          <div className={styles.certRow}>
+            <article className={styles.certCard}>
+              <span className={styles.certIcon}><BadgeCheck strokeWidth={1.75} /></span>
               <strong>ISO 17100</strong>
-              <span>국제 표준 번역 인증</span>
-            </div>
-            <div className={styles.medallionLink} aria-hidden="true"><span /><span /><span /></div>
-            <div className={styles.certMedallion}>
-              <div className={styles.medallionRing}><Award strokeWidth={1.75} /></div>
+              <span className={styles.certCaption}>국제 표준 번역 인증</span>
+            </article>
+            <article className={styles.certCard}>
+              <span className={styles.certIcon}><Award strokeWidth={1.75} /></span>
               <strong>수출바우처</strong>
-              <span>정부 지정 공식 수행기관</span>
-            </div>
+              <span className={styles.certCaption}>정부 지정 공식 수행기관</span>
+            </article>
           </div>
           <div className={styles.languageBlock}>
             <div className={styles.languageHeading}><div><span>AVAILABLE LANGUAGES</span><h3>주요 지원 언어</h3></div></div>

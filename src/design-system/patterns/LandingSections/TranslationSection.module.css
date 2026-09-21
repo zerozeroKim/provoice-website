@@ -54,57 +54,46 @@
 
 .translationMain { position: relative; min-width: 0; display: grid; align-content: start; gap: 1.5rem; }
 
-.certMedallionRow {
+.certRow {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 1.25rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--neutral-100);
 }
 
-.certMedallion { display: grid; justify-items: center; gap: .75rem; text-align: center; }
-
-.medallionRing {
-  position: relative;
+.certCard {
   display: grid;
+  justify-items: center;
+  gap: .6rem;
+  width: 16rem;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid rgba(128, 56, 255, .14);
+  border-radius: 1.25rem;
+  background: var(--neutral-0);
+  box-shadow: 0 8px 22px rgba(73, 34, 153, .06);
+  text-align: center;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.certCard:hover { box-shadow: 0 14px 30px rgba(73, 34, 153, .12); transform: translateY(-2px); }
+
+.certIcon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
   place-items: center;
-  width: 7.25rem;
-  height: 7.25rem;
   border-radius: 50%;
-  background: linear-gradient(145deg, #ffffff, #f2ecff);
+  background: color-mix(in srgb, var(--purple-100) 45%, white);
   color: var(--purple-500);
-  box-shadow: 0 14px 30px rgba(89, 0, 255, .16), inset 0 0 0 1px rgb(255 255 255 / .7);
 }
-.medallionRing::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border: 2px dashed var(--purple-200);
-  border-radius: inherit;
-  opacity: .8;
-}
-.medallionRing::after {
-  content: '';
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(128, 56, 255, .22);
-  border-radius: inherit;
-}
-.medallionRing svg { position: relative; z-index: 1; width: 2.9rem; height: 2.9rem; }
+.certIcon svg { width: 1.6rem; height: 1.6rem; }
 
-.certMedallion strong { color: var(--neutral-900); font-size: 1.55rem; font-weight: 800; letter-spacing: -.03em; }
-.certMedallion span { max-width: 11rem; color: var(--neutral-500); font-size: 1rem; line-height: 1.45; }
-
-.medallionLink { display: flex; flex-direction: column; align-items: center; gap: .4rem; align-self: center; }
-.medallionLink span { width: 5px; height: 5px; border-radius: 50%; background: var(--purple-200); }
+.certCard strong { color: var(--neutral-900); font-size: 1.2rem; font-weight: 800; letter-spacing: -.025em; }
+.certCaption { color: var(--neutral-500); font-size: .88rem; line-height: 1.45; }
 
 @media (max-width: 480px) {
-  .certMedallionRow { gap: 1.5rem; }
-  .medallionRing { width: 5.5rem; height: 5.5rem; }
-  .medallionRing svg { width: 2.2rem; height: 2.2rem; }
-  .certMedallion strong { font-size: 1.25rem; }
-  .certMedallion span { max-width: 8rem; font-size: .88rem; }
+  .certRow { flex-wrap: wrap; gap: 1rem; }
+  .certCard { width: 100%; padding: 1.5rem 1.25rem; }
 }
 
 .languageBlock {
@@ -160,12 +149,10 @@
   min-width: 0;
   display: grid;
   gap: 0;
-  padding: clamp(1.5rem, 2.5vw, 2.25rem);
-  border: 1px solid rgba(128, 56, 255, .16);
-  border-radius: 1.5rem;
-  background: linear-gradient(145deg, #fbf9ff, #f7f2ff);
+  padding-top: 2rem;
+  margin-top: -.5rem;
+  border-top: 1px solid var(--neutral-100);
   color: var(--neutral-900);
-  box-shadow: 0 12px 30px rgba(73, 34, 153, .075);
 }
 
 .tableHead {
@@ -225,7 +212,7 @@
 
   .translationBody { gap: 1.5rem; padding: 1rem; }
 
-  .certMedallionRow { flex-wrap: wrap; }
+  .certRow { flex-wrap: wrap; }
 
   .serviceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
