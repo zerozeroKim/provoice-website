@@ -17,10 +17,6 @@ export function TranslationSection({ rows, languages }: { rows: TranslationRow[]
         />
       </div>
       <div className={styles.translationBody}>
-        <div className={styles.decor} aria-hidden="true">
-          <span className={styles.decorBlob1} />
-          <span className={styles.decorBlob2} />
-        </div>
         <div className={styles.translationMain}>
           <div className={styles.certRow}>
             <article className={styles.certCard}>
