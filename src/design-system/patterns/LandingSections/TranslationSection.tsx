@@ -1,7 +1,9 @@
-import { ArrowRight, ArrowUpRight, Award, BadgeCheck } from 'lucide-react';
+import { ArrowUpRight, Award, BadgeCheck, BookOpen, FileText, Gamepad2, Play, UserCheck } from 'lucide-react';
 import { SectionHeader } from '../../components';
 import styles from './TranslationSection.module.css';
 import type { TranslationRow } from './types';
+
+const rowIcons = [<Play />, <BookOpen />, <Gamepad2 />, <FileText />, <UserCheck />];
 
 export function TranslationSection({ rows, languages }: { rows: TranslationRow[]; languages: string[] }) {
   return (
@@ -40,14 +42,15 @@ export function TranslationSection({ rows, languages }: { rows: TranslationRow[]
         </div>
         <div className={styles.translationTable}>
           <div className={styles.tableHead}><div><span>SERVICE SCOPE</span><h3>번역 서비스 구성</h3></div><span>전 과정 원스톱</span></div>
-          {rows.map((row, index) => (
-            <div key={row.label} className={styles.tableRow}>
-              <span className={styles.tableIndex}>{String(index + 1).padStart(2, '0')}</span>
-              <span>{row.label}</span>
-              <span>{row.value}</span>
-              <ArrowRight size={16} />
-            </div>
-          ))}
+          <div className={styles.serviceGrid}>
+            {rows.map((row, index) => (
+              <article key={row.label} className={styles.serviceCard}>
+                <span className={styles.serviceIcon}>{rowIcons[index % rowIcons.length]}</span>
+                <strong>{row.label}</strong>
+                <span className={styles.serviceTag}>{row.value}</span>
+              </article>
+            ))}
+          </div>
           <button type="button" className={styles.translationCta}>번역 프로젝트 문의하기 <ArrowUpRight size={18} /></button>
         </div>
       </div>
