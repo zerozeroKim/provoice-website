@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ChevronDown, ChevronRight, Pause, Pencil, Play, Search, Star, Trash2, UserCircle2, Volume2 } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronRight, Pause, Pencil, Play, Search, Star, Trash2, UserCircle2, Volume2 } from 'lucide-react';
 import { Button, Chip, Pagination, Select, TextField } from '@/design-system';
 import { adminLanguageRows, adminSampleRows, adminTranslatorRows, adminVoiceActorRows, type RosterRow } from './adminData';
 import styles from './AdminPage.module.css';
@@ -307,6 +307,8 @@ export function AdminPage() {
           ))}
         </nav>
         <div className={styles.topUtility}>
+          <a className={styles.exitLink} href="#client"><ArrowLeft size={15} /> 사이트로 나가기</a>
+          <span className={styles.utilityDivider} aria-hidden="true" />
           <span className={styles.account}><UserCircle2 size={20} strokeWidth={1.5} /> admin@provoice.co.kr</span>
           <button type="button" className={styles.langSwitch}>🇰🇷 <ChevronDown size={13} /></button>
         </div>
