@@ -1,7 +1,7 @@
 .card {
   position: relative;
-  min-height: 19rem;
-  padding: 1.65rem;
+  min-height: 20rem;
+  padding: 1.85rem;
   border-color: var(--neutral-100);
   background: var(--neutral-0);
   box-shadow: 0 14px 38px rgb(53 35 91 / .07);
@@ -23,10 +23,10 @@
   border-bottom: 1px solid var(--neutral-100);
 }
 
-.profile { display: flex; min-width: 0; flex-direction: column; gap: .14rem; }
-.profile .label { margin-bottom: .55rem; color: var(--neutral-300); font-size: .6rem; font-weight: 700; line-height: 1; letter-spacing: .16em; }
-.profile h3 { margin: 0; color: var(--neutral-900); font-size: var(--text-body); font-weight: 700; letter-spacing: var(--tracking-tight); }
-.profile span { color: var(--neutral-500); font-size: var(--text-caption); line-height: var(--leading-body); }
+.profile { display: flex; min-width: 0; flex-direction: column; gap: .22rem; }
+.profile .label { margin-bottom: .55rem; color: var(--neutral-300); font-size: .68rem; font-weight: 700; line-height: 1; letter-spacing: .16em; }
+.profile h3 { margin: 0; color: var(--neutral-900); font-size: 1.15rem; font-weight: 700; letter-spacing: var(--tracking-tight); }
+.profile span { color: var(--neutral-500); font-size: .92rem; line-height: var(--leading-body); }
 
 .rating { display: flex; flex: none; gap: .2rem; padding-bottom: .15rem; color: var(--neutral-300); }
 .rating svg { width: .95rem; height: .95rem; stroke-width: 1.8; }
@@ -40,7 +40,7 @@
   margin: 0;
   padding-top: .15rem;
   color: var(--neutral-900);
-  font-size: var(--text-body-sm);
+  font-size: 1.02rem;
   font-weight: 450;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-body);
