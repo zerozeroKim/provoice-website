@@ -3,7 +3,7 @@
   flex-direction: column;
   position: relative;
   min-height: 20rem;
-  padding: 1.85rem;
+  padding: 1.85rem 1.85rem 0;
   border-color: var(--neutral-100);
   background: var(--neutral-0);
   box-shadow: 0 14px 38px rgb(53 35 91 / .07);
@@ -35,7 +35,7 @@
 .rating svg { width: .95rem; height: .95rem; stroke-width: 1.8; }
 .rating svg[data-active='true'] { color: var(--purple-400); fill: currentColor; }
 
-.quoteBody { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: .65rem; padding-block: 1rem; }
+.quoteBody { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: .65rem; padding: 1.85rem 0; }
 .quoteIcon { display: inline-flex; width: fit-content; align-items: center; justify-content: center; color: var(--purple-300); }
 .quoteIcon svg { width: 1.35rem; height: 1.35rem; fill: currentColor; stroke-width: 1.4; }
 
