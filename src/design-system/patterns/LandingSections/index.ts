@@ -6,6 +6,7 @@ export * from './AIHumanSection';
 export * from './VoiceAIDataSection';
 export * from './TalentSections';
 export * from './ServiceSection';
+export * from './OtherServicesSection';
 export * from './PortfolioSections';
 export * from './TranslationSection';
 export * from './TranslationShowcaseSection';

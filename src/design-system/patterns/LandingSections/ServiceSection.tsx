@@ -1,10 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Modal, SectionHeader, ServiceCard } from '../../components';
 import styles from './ServiceSection.module.css';
 import type { ServiceItem } from './types';
 
+const SERVICE_QUERY_KEY = 'service';
+
 export function ServiceSection({ services }: { services: ServiceItem[] }) {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+
+  useEffect(() => {
+    const requestedSlug = new URLSearchParams(window.location.search).get(SERVICE_QUERY_KEY);
+    if (!requestedSlug) return;
+    const match = services.find((service) => service.slug === requestedSlug);
+    if (!match) return;
+    setSelectedService(match);
+    window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+  }, [services]);
+
+  const goToService = (service: ServiceItem) => {
+    if (service.href) { window.location.hash = service.href; return; }
+    setSelectedService(service);
+  };
+
   return (
     <>
       <section className={styles.serviceSection} aria-label="서비스 소개">
@@ -16,7 +33,7 @@ export function ServiceSection({ services }: { services: ServiceItem[] }) {
             description="캐스팅부터 번역, 사운드까지 — 콘텐츠 하나를 세계 여러 시장에 내보낼 수 있도록 설계된 서비스를 제공합니다."
           />
           <div className={styles.serviceGrid}>
-            {services.map((service) => <ServiceCard key={service.title} {...service} onOpen={() => setSelectedService(service)} />)}
+            {services.map((service) => <ServiceCard key={service.title} {...service} onOpen={() => goToService(service)} />)}
           </div>
         </div>
       </section>
@@ -26,6 +43,16 @@ export function ServiceSection({ services }: { services: ServiceItem[] }) {
             {selectedService.imageSrc && <img src={selectedService.imageSrc} alt={selectedService.imageAlt ?? ''} />}
             <p>{selectedService.description}</p>
             <Button fullWidth onClick={() => setSelectedService(null)}>프로젝트 문의하기</Button>
+            <div className={styles.otherServices}>
+              <span className={styles.otherServicesLabel}>다른 서비스 보기</span>
+              <div className={styles.otherServiceList}>
+                {services.filter((service) => service.title !== selectedService.title).map((service) => (
+                  <button key={service.title} type="button" className={styles.otherServiceChip} onClick={() => goToService(service)}>
+                    {service.title}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </Modal>

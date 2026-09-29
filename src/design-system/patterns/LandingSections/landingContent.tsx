@@ -143,10 +143,10 @@ export const heroStats: HeroStat[] = [
 ];
 
 export const serviceCards: ServiceItem[] = [
-  { imageSrc: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=82', imageAlt: '녹음실 마이크', title: '애니메이션·게임·웹툰 더빙', description: '캐릭터 맞춤형 성우 캐스팅부터 게임 내 행동과 감정선까지 살려 자연스러운 더빙을 제공해드립니다.' },
-  { imageSrc: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=82', imageAlt: '콘텐츠를 제작하는 팀', title: '기업 홍보·유튜브 콘텐츠', description: '브랜드를 위한 원어민 내레이션과 다국어 마케팅 영상 제작까지 한 번에 맞춰 깔끔한 메시지 전달을 지원합니다.' },
-  { imageSrc: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=82', imageAlt: '번역과 현지화 작업 자료', title: '번역 (ISO 17100)', description: '게이머·매니아부터 일반 사용자까지 모두 자연스럽게 이해할 수 있는 번역과 현지화 품질을 보장합니다.' },
-  { imageSrc: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=82', imageAlt: 'AI 기술 이미지', title: 'AI × Human 하이브리드 더빙', description: '대사가 많은 서브 캐릭터 등에 AI를 더해 효율을 높이고, 중요한 장면은 사람의 감성을 살린 더빙으로 마무리합니다.', badge: '부가 옵션', link: 'PROVOICE × AI 자세히 보기 →' },
+  { imageSrc: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=82', imageAlt: '녹음실 마이크', title: '애니메이션·게임·웹툰 더빙', description: '캐릭터 맞춤형 성우 캐스팅부터 게임 내 행동과 감정선까지 살려 자연스러운 더빙을 제공해드립니다.', slug: 'dubbing' },
+  { imageSrc: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=82', imageAlt: '콘텐츠를 제작하는 팀', title: '기업 홍보·유튜브 콘텐츠', description: '브랜드를 위한 원어민 내레이션과 다국어 마케팅 영상 제작까지 한 번에 맞춰 깔끔한 메시지 전달을 지원합니다.', slug: 'corporate' },
+  { imageSrc: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=82', imageAlt: '번역과 현지화 작업 자료', title: '번역 (ISO 17100)', description: '게이머·매니아부터 일반 사용자까지 모두 자연스럽게 이해할 수 있는 번역과 현지화 품질을 보장합니다.', slug: 'translation' },
+  { imageSrc: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=82', imageAlt: 'AI 기술 이미지', title: 'AI × Human 하이브리드 더빙', description: '대사가 많은 서브 캐릭터 등에 AI를 더해 효율을 높이고, 중요한 장면은 사람의 감성을 살린 더빙으로 마무리합니다.', badge: '부가 옵션', link: 'PROVOICE × AI 자세히 보기 →', href: '#ai', slug: 'ai' },
 ];
 
 export const supportLanguages = ['영어', '일본어', '중국어', '스페인어', '아랍어', '베트남어', '인도네시아어', '+ 22개국'];
