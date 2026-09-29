@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react';
-import { Gamepad2, Megaphone, Smile, Play, Square } from 'lucide-react';
-import { Button, Chip, SectionHeader, Select } from '../../components';
+import { AudioLines, Gamepad2, Megaphone, Smile, Play, Square } from 'lucide-react';
+import { Chip, SectionHeader, Select } from '../../components';
 import styles from './VoicePreviewSection.module.css';
 
 const presets = [
@@ -123,19 +123,18 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
                 {voices.length === 0 && <option>사용 가능한 음성이 없습니다</option>}
                 {voices.map((voice, index) => <option key={`${voice.name}-${voice.lang}`} value={index}>{voice.name} ({voice.lang})</option>)}
               </Select>
-              <Button className={styles.playButton} leadingIcon={playing ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} onClick={togglePlay} disabled={!supported || voices.length === 0 || !text.trim()}>
-                {playing ? '중지' : '미리듣기'}
-              </Button>
             </div>
           </div>
 
           <div className={styles.visualizer}>
-            <div className={styles.monitorHeader}>VOICE STUDIO</div>
-            <div className={styles.waveBox} aria-hidden="true">
-              <span className={styles.previewLabel}>{activePreset >= 0 ? presets[activePreset].label : '직접 입력한 문장'}</span>
-              <div className={playing ? styles.waveActive : styles.wave}>
+            <div className={styles.monitorHeader}><span className={styles.monitorLabel}><AudioLines size={14} /> VOICE STUDIO</span><span className={styles.previewLabel}>{activePreset >= 0 ? presets[activePreset].label : '직접 입력한 문장'}</span></div>
+            <div className={styles.waveBox}>
+              <div className={playing ? styles.waveActive : styles.wave} aria-hidden="true">
                 {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${18 + ((Math.sin(index * 2.17 + .7) + 1) / 2) ** 1.4 * 92}px`, animationDelay: `${-index * .17}s`, animationDuration: playing ? `${.75 + (index % 5) * .16}s` : '4s' } as CSSProperties} />)}
               </div>
+              <button type="button" className={styles.centerPlay} onClick={togglePlay} disabled={!supported || voices.length === 0 || !text.trim()} aria-label={playing ? '미리듣기 중지' : '미리듣기 재생'}>
+                {playing ? <Square size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
+              </button>
             </div>
             <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
             <div className={styles.visualizerFooter}>

@@ -113,7 +113,6 @@
 
 .voiceSelect { flex: 1; min-width: 0; }
 .playRow select.voiceSelect { padding-right: 2rem; height: 3.1rem; }
-.playRow .playButton { flex: 0 0 7.5rem; height: 3.1rem; min-height: 3.1rem; }
 
 .visualizer {
   display: flex;
@@ -133,17 +132,22 @@
   flex: 1;
   align-items: center;
   position: relative;
-  min-height: 14rem;
-  padding: 0 1.5rem;
+  min-height: 12rem;
+  padding: 0 2rem;
   overflow: hidden;
+  border: 1px solid rgba(128, 56, 255, .12);
   border-radius: 1.25rem;
-  background: repeating-linear-gradient(90deg, transparent 0 31px, rgb(108 91 143 / .055) 31px 32px), repeating-linear-gradient(0deg, transparent 0 31px, rgb(108 91 143 / .055) 31px 32px);
+  background:
+    radial-gradient(120% 140% at 16% 0%, rgb(186 81 240 / .16), transparent 55%),
+    radial-gradient(120% 140% at 88% 100%, rgb(128 56 255 / .14), transparent 55%),
+    var(--neutral-0);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .6);
 }
 
 .wave, .waveActive {
   display: flex;
   align-items: center;
-  gap: .35rem;
+  gap: .3rem;
   width: 100%;
 }
 
@@ -151,13 +155,13 @@
   flex: 1;
   height: var(--bar-height);
   border-radius: var(--radius-full);
-  background: var(--purple-400);
-  opacity: .4;
+  background: linear-gradient(180deg, #ba51f0, var(--purple-400));
+  opacity: .32;
   transform: scaleY(.8);
   animation: voice-idle 4s ease-in-out infinite;
 }
 
-.waveActive span { animation: voice-wave 1s ease-in-out infinite; }
+.waveActive span { opacity: .85; animation: voice-wave 1s ease-in-out infinite; box-shadow: 0 0 14px rgb(128 56 255 / .35); }
 
 @keyframes voice-wave {
   0%, 100% { transform: scaleY(.4); opacity: .6; }
@@ -183,14 +187,50 @@
   .controls { border-right: 0; border-bottom: 1px solid var(--neutral-100); }
 }
 
-.monitorHeader { display: flex; align-items: center; justify-content: space-between; color: var(--neutral-600); font-size: .78rem; letter-spacing: .1em; font-weight: 700; }
-.progressTrack { height: 3px; overflow: hidden; border-radius: 2px; background: var(--neutral-100); }
-.progressTrack span { display: block; height: 100%; background: var(--purple-500); transition: width .3s ease; }
+.monitorHeader { display: flex; align-items: center; justify-content: space-between; gap: .75rem; color: var(--neutral-600); font-size: .78rem; letter-spacing: .1em; font-weight: 700; }
+.monitorLabel { display: inline-flex; align-items: center; gap: .4rem; color: var(--purple-500); }
+.monitorLabel svg { width: .9rem; height: .9rem; }
+.progressTrack { height: 4px; overflow: hidden; border-radius: var(--radius-full); background: var(--neutral-100); }
+.progressTrack span { display: block; height: 100%; background: linear-gradient(90deg, var(--purple-400), #ba51f0); border-radius: var(--radius-full); transition: width .3s ease; }
 @keyframes voice-idle { 0%, 100% { transform: scaleY(.65); } 50% { transform: scaleY(1); } }
 @media (prefers-reduced-motion: reduce) { .wave span, .waveActive span { animation: none; } .progressTrack span { transition: none; } }
 @media (max-width: 480px) { .controls, .visualizer { padding: 1.25rem; } .meta { flex-wrap: wrap; gap: .5rem; } .playRow { flex-wrap: wrap; } .wave, .waveActive { gap: .2rem; } }
 
-.previewLabel { position: absolute; top: .75rem; left: 1rem; color: var(--neutral-500); font-size: .75rem; }
+.previewLabel {
+  padding: .2rem .65rem;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--purple-100) 45%, white);
+  color: var(--purple-500);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.centerPlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  width: 3.6rem;
+  height: 3.6rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / .5);
+  border-radius: 50%;
+  background: color-mix(in srgb, white 55%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 12px 28px rgb(89 0 255 / .16);
+  color: var(--purple-500);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.centerPlay:hover:not(:disabled) { box-shadow: 0 16px 34px rgb(89 0 255 / .22); transform: translate(-50%, -50%) scale(1.06); }
+.centerPlay:disabled { opacity: .5; cursor: default; }
+.centerPlay svg { margin-left: 1px; }
 @media (min-width: 901px) and (max-width: 1150px), (max-width: 480px) {
   .presetRow { grid-template-columns: 1fr; gap: .4rem; }
   .presetRow .presetChip { justify-content: flex-start; padding-inline: .9rem; min-height: 2.5rem; }
