@@ -6,7 +6,7 @@
   overflow: hidden;
   background:
     radial-gradient(circle at 34% 108%, rgb(112 71 235 / .18), transparent 44%),
-    radial-gradient(circle at 68% 108%, rgb(217 95 232 / .12), transparent 40%),
+    radial-gradient(circle at 68% 108%, rgb(186 81 240 / .12), transparent 40%),
     var(--neutral-0);
 }
 
@@ -51,7 +51,7 @@
 .eyebrowDash {
   width: 1.5rem;
   height: 2px;
-  background: linear-gradient(90deg, var(--magenta-300), var(--purple-400));
+  background: linear-gradient(90deg, #ba51f0, var(--purple-400));
 }
 
 .engineBadge {
@@ -73,8 +73,8 @@
   width: .4rem;
   height: .4rem;
   border-radius: 50%;
-  background: var(--magenta-300);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--magenta-300) 22%, transparent);
+  background: #ba51f0;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #ba51f0 22%, transparent);
   font-style: normal;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .header.header :is(h1, h2, h3) em {
-  background: linear-gradient(101deg, var(--magenta-300), var(--purple-400));
+  background: linear-gradient(101deg, #ba51f0, var(--purple-400));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -118,7 +118,7 @@
   border-radius: 1.25rem;
   background:
     linear-gradient(color-mix(in srgb, var(--purple-100) 14%, white), color-mix(in srgb, var(--purple-100) 14%, white)) padding-box,
-    linear-gradient(120deg, var(--purple-200), var(--magenta-200)) border-box;
+    linear-gradient(120deg, var(--purple-200), #e17eff) border-box;
   box-shadow: 0 18px 44px rgb(89 0 255 / .08);
   text-align: left;
 }

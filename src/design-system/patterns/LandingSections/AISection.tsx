@@ -7,7 +7,7 @@ export function AISection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
   return (
     <section className={styles.aiHero} aria-label="PROVOICE × AI">
       <div className={styles.aiWave} aria-hidden="true">
-        <GradientWaves horizonColor="#ffffff" waveColor="#7047eb" crestColor="#d95fe8" speed={0.4} amplitude={2.4} waveScale={0.55} waveRatio={0.9} swell={30} turbulence={18} tilt={1.15} zoom={1.05} height={4.2} fogDepth={23} detail="medium" brightness={1.06} opacity={0.86} mouseInteraction parallaxStrength={0.5} grain grainIntensity={0.018} />
+        <GradientWaves horizonColor="#ffffff" waveColor="#7047eb" crestColor="#ba51f0" speed={0.4} amplitude={2.4} waveScale={0.55} waveRatio={0.9} swell={30} turbulence={18} tilt={1.15} zoom={1.05} height={4.2} fogDepth={23} detail="medium" brightness={1.06} opacity={0.86} mouseInteraction parallaxStrength={0.5} grain grainIntensity={0.018} />
       </div>
       <div className={styles.inner}>
         <div className={styles.copy}>

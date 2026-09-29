@@ -37,7 +37,7 @@
   right: 8%;
   width: 26rem;
   height: 26rem;
-  background: radial-gradient(circle, var(--magenta-200), transparent 70%);
+  background: radial-gradient(circle, #e17eff, transparent 70%);
 }
 
 .blob3 {
