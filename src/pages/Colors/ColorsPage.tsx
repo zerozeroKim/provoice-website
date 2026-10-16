@@ -1,7 +1,7 @@
 import styles from './ColorsPage.module.css';
 
 const purple = [
-  { name: 'purple-500', value: 'var(--purple-500)' }, { name: 'purple-400', value: 'var(--purple-400)' },
+  { name: 'purple-600', value: 'var(--purple-600)' }, { name: 'purple-500', value: 'var(--purple-500)' }, { name: 'purple-400', value: 'var(--purple-400)' },
   { name: 'purple-300', value: 'var(--purple-300)' }, { name: 'purple-200', value: 'var(--purple-200)' }, { name: 'purple-100', value: 'var(--purple-100)' },
 ];
 
