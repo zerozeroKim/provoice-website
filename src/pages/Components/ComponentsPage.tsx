@@ -22,7 +22,7 @@ const testimonialCards = [
   },
 ];
 
-const portfolioTabs = ['애니메이션', '게임', '웹툰', '광고', 'OTT', '유튜브', '오디오북'];
+const portfolioTabs = ['애니메이션', '게임', '광고', '웹툰', 'OTT', '유튜브', '오디오북'];
 const portfolioCards = [
   { category: '광고', title: '광고 성우 더빙 프로젝트', type: '더빙', tone: '광고', languages: ['JP', 'EN'], tags: ['광고', '나레이션'], image: 'linear-gradient(135deg, #d7d7d7 0%, #bfc2cb 25%, #8ea1b3 100%)' },
   { category: '애니메이션', title: '시리즈 메인 캐릭터 성우', type: '더빙', tone: '애니메이션', languages: ['EN'], tags: ['애니메이션', '캐릭터'], image: 'linear-gradient(135deg, #d9d9d9 0%, #b9c7d4 40%, #7ca1bf 100%)' },

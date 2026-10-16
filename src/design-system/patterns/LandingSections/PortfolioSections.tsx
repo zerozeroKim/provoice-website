@@ -53,9 +53,27 @@ export function PortfolioSection<T extends string>({ tabs, cards, initialCount =
   );
 }
 
-const portfolioLanguageLabels: Record<string, string> = { KO: '한국어', EN: '영어', JP: '일본어', ZH: '중국어', ES: '스페인어', AR: '아랍어', FR: '프랑스어', DE: '독일어', RU: '러시아어', PT: '포르투갈어', IT: '이탈리아어', TR: '터키어', VI: '베트남어', ID: '인도네시아어', TH: '태국어' };
-const portfolioLanguageOptions = Object.values(portfolioLanguageLabels);
-const portfolioLanguageCodeByLabel = Object.fromEntries(Object.entries(portfolioLanguageLabels).map(([code, label]) => [label, code]));
+/**
+ * admin에서 언어 그룹을 추가·수정할 수 있어야 하는 요구사항의 프런트엔드 쪽 반영입니다.
+ * '기타'는 아래 4개 언어 외 전부를 묶어서 보여주며, 실제 추가/수정은 백엔드·admin 연동이 붙어야 동작합니다.
+ */
+const portfolioLanguageGroups = [
+  { label: '한국어', codes: ['KO'] },
+  { label: '영어', codes: ['EN'] },
+  { label: '중국어', codes: ['ZH'] },
+  { label: '일본어', codes: ['JP'] },
+  { label: '기타', codes: null },
+] as const;
+const portfolioLanguageOptions = portfolioLanguageGroups.map((group) => group.label);
+const namedLanguageCodes: string[] = portfolioLanguageGroups.flatMap((group) => group.codes ?? []);
+const matchesLanguageGroup = (cardLanguages: string[], groupLabel: string | null) => {
+  if (!groupLabel) return true;
+  const group = portfolioLanguageGroups.find((item) => item.label === groupLabel);
+  if (!group) return true;
+  return group.codes
+    ? cardLanguages.some((code) => (group.codes as readonly string[]).includes(code))
+    : cardLanguages.some((code) => !namedLanguageCodes.includes(code));
+};
 
 export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: readonly T[]; cards: PortfolioItem<Exclude<T, '전체'>>[] }) {
   const [active, setActive] = useState<T>(tabs[0]);
@@ -63,8 +81,7 @@ export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: 
   const [selectedPortfolio, setSelectedPortfolio] = useState<PortfolioItem<Exclude<T, '전체'>> | null>(null);
   const [origin, setOrigin] = useState<DOMRect | null>(null);
   const byCategory = active === '전체' ? cards : cards.filter((card) => card.category === active);
-  const selectedLanguageCode = languages[0] ? portfolioLanguageCodeByLabel[languages[0]] : null;
-  const filtered = selectedLanguageCode ? byCategory.filter((card) => card.languages.includes(selectedLanguageCode)) : byCategory;
+  const filtered = byCategory.filter((card) => matchesLanguageGroup(card.languages, languages[0] ?? null));
   const handleFilter = (value: T) => setActive(value);
   const selectLanguage = (option: string) => setLanguages((current) => current.includes(option) ? [] : [option]);
   const openPortfolio = (card: PortfolioItem<Exclude<T, '전체'>>, cardOrigin: DOMRect) => {

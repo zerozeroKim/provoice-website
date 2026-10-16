@@ -1,14 +1,14 @@
 import type { HeroStat, PortfolioItem, ServiceItem, TalentProfile, TranslationRow } from './types';
 import type { TestimonialCardProps } from '../../components';
 
-export const portfolioTabs = ['전체', '게임', '애니메이션', '웹툰', '광고', '기업'] as const;
-type PortfolioCategory = Exclude<(typeof portfolioTabs)[number], '전체'>;
+export const portfolioTabs = ['애니메이션', '게임', '광고', '웹툰', 'OTT', '유튜브', '오디오북'] as const;
+type PortfolioCategory = (typeof portfolioTabs)[number];
 
 const curatedPortfolioCards: PortfolioItem<PortfolioCategory>[] = [
   { category: '게임', title: 'MMORPG 글로벌 더빙 프로젝트', languages: ['JP', 'EN'], tone: 'GAME', tags: ['더빙', '번역'], client: '레드문게임즈', image: 'linear-gradient(rgb(12 10 25 / .18), rgb(12 10 25 / .38)), url("https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '애니메이션', title: '극장판 애니메이션 다국어 더빙', languages: ['EN'], tone: 'ANIMATION', tags: ['더빙', 'AI 하이브리드'], highlight: 'AI 하이브리드', client: '블룸애니메이션', image: 'linear-gradient(rgb(12 10 25 / .16), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '웹툰', title: '인기 웹툰 시리즈 번역·자막', languages: ['ZH', 'EN'], tone: '웹툰', tags: ['번역', '자막'], client: '코믹플로우', image: 'linear-gradient(rgb(12 10 25 / .12), rgb(12 10 25 / .3)), url("https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=82") center / cover' },
-  { category: '기업', title: '글로벌 브랜딩 홍보영상 내레이션', languages: ['ES'], tone: 'CORPORATE', tags: ['더빙', '자막'], client: '글로벌브릿지', image: 'linear-gradient(rgb(12 10 25 / .15), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '유튜브', title: '글로벌 브랜딩 홍보영상 내레이션', languages: ['ES'], tone: '유튜브', tags: ['내레이션', '유튜브'], client: '글로벌브릿지', image: 'linear-gradient(rgb(12 10 25 / .15), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '게임', title: '모바일 게임 NPC 다국어 대사', languages: ['AR'], tone: 'GAME', tags: ['더빙', '번역'], client: '노바인터랙티브', image: 'linear-gradient(rgb(12 10 25 / .18), rgb(12 10 25 / .42)), url("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '애니메이션', title: 'IP 캐릭터 서버보이스 하이브리드 제작', languages: ['KO', 'EN'], tone: 'ANIMATION', tags: ['더빙', 'AI 하이브리드'], highlight: 'AI 하이브리드', client: '스타라이트픽처스', image: 'linear-gradient(rgb(12 10 25 / .12), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '광고', title: '브랜드 TV 광고 오디오 제작', languages: ['JP'], tone: '광고', tags: ['광고', '나레이션'], client: '브라이트애드컴퍼니', image: 'linear-gradient(rgb(12 10 25 / .16), rgb(12 10 25 / .38)), url("https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=1200&q=82") center / cover' },
@@ -16,8 +16,10 @@ const curatedPortfolioCards: PortfolioItem<PortfolioCategory>[] = [
   { category: '게임', title: '오픈월드 RPG 캐릭터 보이스 제작', languages: ['EN', 'FR'], tone: 'GAME', tags: ['더빙', '캐릭터'], client: '스카이하이게임즈', image: 'linear-gradient(rgb(12 10 25 / .18), rgb(12 10 25 / .4)), url("https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '애니메이션', title: 'TV 애니메이션 시즌2 다국어 더빙', languages: ['JP', 'KO', 'EN'], tone: 'ANIMATION', tags: ['더빙', '번역'], client: '문라이트스튜디오', image: 'linear-gradient(rgb(12 10 25 / .16), rgb(12 10 25 / .36)), url("https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '광고', title: '글로벌 스포츠 브랜드 캠페인', languages: ['DE', 'EN'], tone: '광고', tags: ['광고', '내레이션'], client: '프레임미디어', image: 'linear-gradient(rgb(12 10 25 / .14), rgb(12 10 25 / .34)), url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=82") center / cover' },
-  { category: '기업', title: '기업 채용 브랜딩 영상 내레이션', languages: ['KO'], tone: 'CORPORATE', tags: ['내레이션', '자막'], client: '넥스트웨이브코퍼레이션', image: 'linear-gradient(rgb(12 10 25 / .15), rgb(12 10 25 / .35)), url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '유튜브', title: '기업 채용 브랜딩 영상 내레이션', languages: ['KO'], tone: '유튜브', tags: ['내레이션', '유튜브'], client: '넥스트웨이브코퍼레이션', image: 'linear-gradient(rgb(12 10 25 / .15), rgb(12 10 25 / .35)), url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=82") center / cover' },
   { category: '웹툰', title: '로맨스 웹툰 오디오드라마화', languages: ['KO', 'TH'], tone: '웹툰', tags: ['더빙', '오디오드라마'], client: '스토리캔버스', image: 'linear-gradient(rgb(12 10 25 / .12), rgb(12 10 25 / .32)), url("https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: 'OTT', title: 'OTT 오리지널 시리즈 보이스 하이브리드', languages: ['KO', 'EN'], tone: 'OTT', tags: ['더빙', 'AI 하이브리드'], highlight: 'AI 하이브리드', client: '문라이트스튜디오', image: 'linear-gradient(rgb(12 10 25 / .18), rgb(12 10 25 / .4)), url("https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=82") center / cover' },
+  { category: '오디오북', title: '교육용 오디오북 전편 낭독 제작', languages: ['KO', 'EN'], tone: '오디오북', tags: ['오디오북', '내레이션'], client: '사운드북컴퍼니', image: 'linear-gradient(rgb(12 10 25 / .14), rgb(12 10 25 / .32)), url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=82") center / cover' },
 ];
 
 const portfolioImagePool = [
@@ -36,13 +38,15 @@ const portfolioImagePool = [
   'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1200&q=82',
 ];
 
-const portfolioCategoryTone: Record<PortfolioCategory, string> = { 게임: 'GAME', 애니메이션: 'ANIMATION', 웹툰: '웹툰', 광고: '광고', 기업: 'CORPORATE' };
+const portfolioCategoryTone: Record<PortfolioCategory, string> = { 게임: 'GAME', 애니메이션: 'ANIMATION', 웹툰: '웹툰', 광고: '광고', OTT: 'OTT', 유튜브: '유튜브', 오디오북: '오디오북' };
 const portfolioCategoryTags: Record<PortfolioCategory, string[]> = {
   게임: ['더빙', '번역', '캐릭터'],
   애니메이션: ['더빙', '번역', 'AI 하이브리드'],
   웹툰: ['번역', '자막', '더빙'],
   광고: ['광고', '나레이션'],
-  기업: ['내레이션', '자막', '더빙'],
+  OTT: ['더빙', 'AI 하이브리드'],
+  유튜브: ['내레이션', '유튜브'],
+  오디오북: ['오디오북', '내레이션'],
 };
 const portfolioLanguagePool = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
 const portfolioClientPool: Record<PortfolioCategory, string[]> = {
@@ -50,7 +54,9 @@ const portfolioClientPool: Record<PortfolioCategory, string[]> = {
   애니메이션: ['블룸애니메이션', '스타라이트픽처스', '문라이트스튜디오', '드림프레임'],
   웹툰: ['코믹플로우', '인디고웹툰', '스토리캔버스', '판타지웹툰컴퍼니'],
   광고: ['브라이트애드컴퍼니', '프레임미디어', '오르빗캠페인', '클릭웨이브애드'],
-  기업: ['글로벌브릿지', '넥스트웨이브코퍼레이션', '유니콘파트너스', '브릿지앤코'],
+  OTT: ['문라이트스튜디오', '넥스트프레임픽처스', '스트림웨이브', '오로라콘텐츠'],
+  유튜브: ['글로벌브릿지', '넥스트웨이브코퍼레이션', '유니콘파트너스', '브릿지앤코'],
+  오디오북: ['사운드북컴퍼니', '보이스라이브러리', '오디오플롯', '낭독서재'],
 };
 
 /** 갤러리를 가득 채우기 위한 가라 데이터 — 카테고리마다 목표 개수까지 채웁니다. */
@@ -73,9 +79,7 @@ function fillPortfolioCategory(category: PortfolioCategory, existingCount: numbe
   });
 }
 
-const portfolioCategories = portfolioTabs.filter((tab): tab is PortfolioCategory => tab !== '전체');
-
-export const portfolioCards: PortfolioItem<PortfolioCategory>[] = portfolioCategories.flatMap((category) => {
+export const portfolioCards: PortfolioItem<PortfolioCategory>[] = portfolioTabs.flatMap((category) => {
   const existing = curatedPortfolioCards.filter((card) => card.category === category);
   return [...existing, ...fillPortfolioCategory(category, existing.length, 10)];
 });
