@@ -61,7 +61,10 @@ export function VoiceActorCard({ name, avatarSrc, flagEmoji, best = false, tags 
           {best && <span className={styles.best}>BEST</span>}
         </span>
 
-        <h3 className={styles.name}>{name}</h3>
+        <h3 className={styles.name}>
+          {flagEmoji && <span className={styles.nameFlag} aria-hidden="true">{flagEmoji}</span>}
+          {name}
+        </h3>
       </div>
 
       <ul className={styles.traits}>
