@@ -87,19 +87,21 @@ export const reviewCards: TestimonialCardProps[] = [
 ];
 
 const curatedTalentProfiles: Omit<TalentProfile, 'avatarSrc'>[] = [
-  { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, gender: '남성', tones: ['자신감', '친근한'], favorites: 482, completedProjects: 61 },
-  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, gender: '여성', tones: ['귀여운', '재밌는'], favorites: 513, completedProjects: 45 },
-  { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, gender: '여성', tones: ['귀여운', '친근한'], favorites: 391, completedProjects: 72 },
-  { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, gender: '남성', tones: ['진중한', '차분한'], favorites: 276, completedProjects: 38 },
-  { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, gender: '여성', tones: ['밝은', '재밌는'], favorites: 341, completedProjects: 50 },
-  { name: 'Yuna M.', locale: 'JP / EN', tags: ['캐릭터', '게임'], duration: 31, gender: '여성', tones: ['자신감', '차분한'], favorites: 299, completedProjects: 42 },
-  { name: 'Rin T.', locale: 'JP', tags: ['캐릭터', '키즈', '더빙'], duration: 39, gender: '여성', tones: ['귀여운', '밝은'], favorites: 261, completedProjects: 35 },
-  { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, gender: '여성', tones: ['감성적인&따뜻한', '차분한'], favorites: 411, completedProjects: 58 },
-  { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, gender: '여성', tones: ['진중한', '드라마틱'], favorites: 356, completedProjects: 47 },
+  { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, gender: '남성', tones: ['자신감', '친근한'], ageRange: '중년', specialty: '차분한 내레이션 톤 전환' },
+  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, gender: '여성', tones: ['귀여운', '재밌는'], ageRange: '청년', specialty: '코믹 애드립 연기' },
+  { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, gender: '여성', tones: ['귀여운', '친근한'], ageRange: '청년', specialty: '동요·동화 구연' },
+  { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, gender: '남성', tones: ['진중한', '차분한'], ageRange: '중년', specialty: '다큐멘터리 내레이션' },
+  { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, gender: '여성', tones: ['밝은', '재밌는'], ageRange: '청년', specialty: '애니메이션 감정 연기' },
+  { name: 'Yuna M.', locale: 'JP / EN', tags: ['캐릭터', '게임'], duration: 31, gender: '여성', tones: ['자신감', '차분한'], ageRange: '청년', specialty: '액션 게임 전투 보이스' },
+  { name: 'Rin T.', locale: 'JP', tags: ['캐릭터', '키즈', '더빙'], duration: 39, gender: '여성', tones: ['귀여운', '밝은'], ageRange: '아이', specialty: '하이톤 캐릭터 보이스' },
+  { name: 'Hana N.', locale: 'JP / KO', tags: ['캐릭터', '연기'], duration: 34, gender: '여성', tones: ['감성적인&따뜻한', '차분한'], ageRange: '중년', specialty: '감정 몰입 연기' },
+  { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, gender: '여성', tones: ['진중한', '드라마틱'], ageRange: '청년', specialty: '드라마틱 서사 연기' },
 ];
 
 const talentLocalePool = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
 const talentTagPool = ['내레이션', '광고', '캐릭터', '게임', 'NPC', '키즈', '더빙', '연기', '다큐', '애니메이션'];
+const talentAgeRangePool = ['아이', '청년', '중년', '노년'];
+const talentSpecialtyPool = ['다양한 사투리 구사', '즉흥 애드립', '성대모사', '노래·보컬', '내레이션 톤 전환', '감정 몰입 연기'];
 
 /** 페이지네이션 데모를 위한 가라 데이터 — 목표 개수까지 채웁니다. */
 function fillTalentProfiles(existingCount: number, target: number): Omit<TalentProfile, 'avatarSrc'>[] {
@@ -115,8 +117,8 @@ function fillTalentProfiles(existingCount: number, target: number): Omit<TalentP
       tags: tagA === tagB ? [tagA] : [tagA, tagB],
       gender: seed % 2 === 0 ? '여성' : '남성',
       tones: seed % 3 === 0 ? ['귀여운', '친근한'] : seed % 3 === 1 ? ['차분한', '자연스러운'] : ['밝은', '감성적인'],
-      favorites: 120 + seed * 7,
-      completedProjects: 20 + seed % 130,
+      ageRange: talentAgeRangePool[seed % talentAgeRangePool.length],
+      specialty: talentSpecialtyPool[seed % talentSpecialtyPool.length],
       duration: 20 + (seed % 40),
     };
   });

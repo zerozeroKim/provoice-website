@@ -3,6 +3,6 @@ import type { PortfolioItem } from '../../components';
 
 export type { PortfolioItem };
 export type HeroStat = { value: string; label: string };
-export type TalentProfile = { name: string; avatarSrc: string; locale: string; tags: string[]; duration: number; gender?: string; tones?: string[]; favorites?: number; completedProjects?: number };
+export type TalentProfile = { name: string; avatarSrc: string; locale: string; tags: string[]; duration: number; gender?: string; tones?: string[]; ageRange?: string; specialty?: string };
 export type ServiceItem = { icon?: ReactNode; imageSrc?: string; imageAlt?: string; title: string; description: string; badge?: string; link?: string; href?: string; slug?: string };
 export type TranslationRow = { label: string; value: string };

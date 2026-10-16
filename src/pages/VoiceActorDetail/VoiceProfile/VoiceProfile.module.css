@@ -6,7 +6,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 0 2rem;
-  padding: 2.5rem 2.75rem 0;
+  padding: 2.5rem 2.75rem;
   border: 1px solid #e6ddf3;
   border-radius: 1.75rem;
   background: #faf7ff;
@@ -40,35 +40,23 @@
 .empty { color: var(--neutral-500); font-weight: 400; }
 .contact { align-self: start; padding-top: 2.75rem; }
 .contactButton { background: var(--gradient-deep-purple); min-width: 12rem; }
+
+/* MyProfilePage.tsx reuses this to lay out its own bio field below the hero grid. */
 .footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; grid-column: 1 / -1; margin-top: 1.75rem; padding: 1.25rem 0; border-top: 1px solid #e6ddf3; }
-.note { color: var(--neutral-500); font-size: .7rem; }
-.stats { display: flex; flex-wrap: wrap; gap: 0; margin: 0; }
-.stats > div { display: flex; align-items: center; gap: .65rem; padding: 0 1.25rem; border-right: 1px solid #e1d7ed; }
-.stats > div:last-child { padding-right: 0; border: 0; }
-.stats dt { display: flex; align-items: center; gap: .4rem; color: var(--neutral-600); font-size: .85rem; }
-.stats svg { color: var(--purple-500); }
-.stats dd { margin: 0; color: var(--neutral-900); font-size: 1rem; font-weight: 750; }
-.stats dd span { font-size: .7rem; font-weight: 400; color: var(--neutral-500); }
+
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding: 2rem 2rem 0; }
+  .hero { grid-template-columns: 1fr; padding: 2rem; }
   .body { max-width: none; }
   .contact { padding: 1.5rem 0 0 9rem; }
-  .stats > div:first-child { padding-left: 0; }
 }
 @media (max-width: 480px) {
-  .hero { padding: 1.5rem 1.25rem 0; }
+  .hero { padding: 1.5rem 1.25rem; }
   .identity { position: relative; display: block; }
   .avatar { position: absolute; top: .25rem; left: 0; width: 3.5rem; height: 3.5rem; border-width: 3px; font-size: 1.5rem; }
   .body h1 { margin: 0 0 1.5rem 4.5rem; font-size: 1.8rem; }
   .facts > div { grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; }
   .contact { padding: 1.25rem 0 0; }
   .contactButton { width: 100%; }
-  .footer { margin-top: 1.5rem; }
-  .stats { justify-content: space-between; width: 100%; }
-  .stats > div { padding: 0 .5rem; gap: .35rem; }
-  .stats dt { font-size: .75rem; }
-  .stats dd { font-size: .85rem; }
-  .note { order: 1; }
 }
 
 @media (max-width: 900px) { .hero::before, .hero::after { display: none; } }

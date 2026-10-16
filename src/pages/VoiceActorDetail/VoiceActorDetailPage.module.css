@@ -115,10 +115,10 @@
 }
 
 .projectRow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.reviewRow, .reviewGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; }
 
 .portfolioGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
 
+/* 마이페이지(MyProfilePage.tsx)의 경력 편집 목록도 이 3열 그리드(연도·제목·역할)를 그대로 재사용합니다. */
 .careerList { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
 .careerList.tabPanel { padding: 2rem; }
 
@@ -155,23 +155,15 @@
   white-space: nowrap;
 }
 
+/** 성우 상세 페이지의 "경력"은 구조화 없이 한 줄 텍스트로 입력되므로, 3열 그리드 대신 단일 텍스트 줄로 표현합니다. */
+.careerListFlat li { display: block; padding: 1rem 0 1rem 1.5rem; min-height: 0; line-height: 1.6; }
+.careerListFlat li::before { left: .2rem; }
+.careerListFlat li:first-child::before { top: 1.6rem; }
+.careerListFlat li:last-child::before { bottom: calc(100% - 1.6rem); }
+.careerListFlat li::after { left: calc(.2rem - 4px); top: 1.5rem; }
+
 .sectionHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
 .sectionHead h2 { margin: 0; }
-
-.countBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.4rem;
-  height: 1.4rem;
-  margin-left: .3rem;
-  padding: 0 .4rem;
-  border-radius: var(--radius-full);
-  background: var(--neutral-100);
-  color: var(--neutral-600);
-  font-size: .72rem;
-  font-weight: 700;
-}
 
 .viewAllLink {
   display: inline-flex;
@@ -189,30 +181,6 @@
 
 .viewAllLink:hover { color: var(--purple-600); }
 
-.reviewToolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-  color: var(--neutral-500);
-  font-size: .88rem;
-}
-
-.reviewToolbar .reviewSort {
-  flex: 0 0 auto;
-  width: 9rem;
-  min-height: 2.5rem;
-  margin-left: auto;
-  padding: .45rem .75rem;
-  border-radius: .625rem;
-  background: var(--neutral-0);
-  font-size: .82rem;
-  cursor: pointer;
-}
-
-.reviewToolbar strong { color: var(--neutral-900); }
-
 @media (max-width: 720px) {
   .detailsRow { grid-template-columns: 1fr; }
   .projectRow, .portfolioGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -223,6 +191,6 @@
 @media (max-width: 480px) {
   .shell { padding: 1.25rem 1rem 3rem; }
   .tabPanel { padding: 1.25rem; }
-  .projectRow, .portfolioGrid, .reviewRow, .reviewGrid { grid-template-columns: minmax(0, 1fr); }
+  .projectRow, .portfolioGrid { grid-template-columns: minmax(0, 1fr); }
   .tabBar button + button { margin-left: .75rem; }
 }
