@@ -73,7 +73,6 @@ export function TalentDirectorySection({ talents, headingLevel = 2 }: { talents:
                       className={styles.talentCarouselCard}
                       name={talent.name} avatarSrc={talent.avatarSrc}
                       flagEmoji={flagFor(talent.locale)}
-                      nickname={talent.locale}
                       best={talent.best}
                       tags={talent.tones ?? []}
                       duration={talent.duration}
@@ -96,7 +95,7 @@ export function TalentDirectorySection({ talents, headingLevel = 2 }: { talents:
               <div className={styles.talentGrid}>
                 {visibleTalents.map((talent) => (
                   <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
-                    <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} flagEmoji={flagFor(talent.locale)} nickname={talent.locale} best={talent.best} tags={talent.tones ?? []} duration={talent.duration} />
+                    <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} flagEmoji={flagFor(talent.locale)} best={talent.best} tags={talent.tones ?? []} duration={talent.duration} />
                   </div>
                 ))}
               </div>
@@ -162,7 +161,7 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
           <div className={styles.talentGrid}>
             {visibleTalents.map((talent) => (
               <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
-                <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} flagEmoji={flagFor(talent.locale)} nickname={talent.locale} best={talent.best} tags={talent.tones ?? []} duration={talent.duration} />
+                <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} flagEmoji={flagFor(talent.locale)} best={talent.best} tags={talent.tones ?? []} duration={talent.duration} />
               </div>
             ))}
           </div>
