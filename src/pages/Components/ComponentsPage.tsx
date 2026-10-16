@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { ActionCard, Button, Chip, FilterDropdown, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, Select, Stepper, TestimonialCard, TextField, ToggleGroup, VoiceActorCard } from '../../design-system';
+import { ActionCard, Breadcrumb, Button, Chip, FilterDropdown, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, Select, Stepper, TestimonialCard, TextField, ToggleGroup, VoiceActorCard } from '../../design-system';
 import styles from './ComponentsPage.module.css';
 
-const tabs = ['GNB', 'Footer', 'Button', 'Input', 'Chip', 'Filter Dropdown', 'Toggle Group', 'Stepper', 'Select', 'Card', 'Section Header', 'Portfolio', 'Load More'];
+const tabs = ['GNB', 'Footer', 'Breadcrumb', 'Button', 'Input', 'Chip', 'Filter Dropdown', 'Toggle Group', 'Stepper', 'Select', 'Card', 'Section Header', 'Portfolio', 'Load More'];
 
 const testimonialCards = [
   {
@@ -287,6 +287,24 @@ export function ComponentsPage() {
               <div className={styles.exampleHead}><strong>Without view-all</strong><span>전용 포트폴리오 페이지 등 자기 자신을 가리킬 필요가 없을 때</span></div>
               <div className={styles.buttonRow}>
                 <NamedSample name="LoadMoreControl / showViewAll=false"><LoadMoreControl visible={12} total={20} hasMore showViewAll={false} onLoadMore={() => {}} /></NamedSample>
+              </div>
+            </article>
+          </div>
+        </section>
+      ) : activeTab === 'Breadcrumb' ? (
+        <section className={styles.content}>
+          <div className={styles.title}><div><h2>Breadcrumb</h2><p>상세 페이지에서 상위 경로로 돌아갈 수 있는 현재 위치 표시입니다.</p></div></div>
+          <div className={styles.buttonDocs}>
+            <article>
+              <div className={styles.exampleHead}><strong>Default</strong><span>중간 항목 전부 링크, 마지막 항목만 현재 위치</span></div>
+              <div className={styles.buttonRow}>
+                <NamedSample name="Breadcrumb / 3 depth"><Breadcrumb items={[{ label: 'HOME', href: '#client' }, { label: '성우검색', href: '#voice-search' }, { label: '김지훈' }]} /></NamedSample>
+              </div>
+            </article>
+            <article>
+              <div className={styles.exampleHead}><strong>2 depth</strong><span>최소 구성</span></div>
+              <div className={styles.buttonRow}>
+                <NamedSample name="Breadcrumb / 2 depth"><Breadcrumb items={[{ label: 'HOME', href: '#client' }, { label: '포트폴리오' }]} /></NamedSample>
               </div>
             </article>
           </div>

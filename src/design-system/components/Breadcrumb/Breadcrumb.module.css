@@ -1,0 +1,18 @@
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+  color: var(--neutral-500);
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.item { display: inline-flex; align-items: center; gap: .35rem; }
+
+.breadcrumb a { color: var(--neutral-500); text-decoration: none; }
+.breadcrumb a:hover { color: var(--neutral-900); }
+
+.current { color: var(--neutral-900); font-weight: 700; }
+
+.separator { flex: none; color: var(--neutral-300); }

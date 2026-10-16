@@ -47,6 +47,8 @@
 
 .backLink:hover { color: var(--neutral-900); }
 
+.breadcrumb { margin-bottom: 1.5rem; }
+
 .notFound {
   display: grid;
   gap: .75rem;

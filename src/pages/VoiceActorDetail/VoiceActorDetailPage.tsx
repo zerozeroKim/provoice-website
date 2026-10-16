@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { Footer, GNB, PortfolioCard, PortfolioDetail, talentProfiles } from '@/design-system';
+import { ArrowRight } from 'lucide-react';
+import { Breadcrumb, Footer, GNB, PortfolioCard, PortfolioDetail, talentProfiles } from '@/design-system';
 import type { PortfolioItem, TalentProfile } from '@/design-system';
 import { createDemoAudio } from '@/utils/demoAudio';
 import styles from './VoiceActorDetailPage.module.css';
@@ -62,7 +62,7 @@ export function VoiceActorDetailPage() {
     <main className={styles.page}>
       <GNB />
       <div className={styles.shell}>
-        <a className={styles.backLink} href="#voice-search"><ArrowLeft size={16} /> 성우검색으로</a>
+        <Breadcrumb className={styles.breadcrumb} items={[{ label: 'HOME', href: '#client' }, { label: '성우검색', href: '#voice-search' }, { label: talent.name }]} />
 
         <VoiceProfile talent={talent} />
 

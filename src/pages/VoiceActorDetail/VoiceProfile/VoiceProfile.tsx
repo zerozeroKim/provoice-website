@@ -2,8 +2,6 @@ import { ArrowRight } from 'lucide-react';
 import { Button, VoiceTraitChip, type TalentProfile } from '@/design-system';
 import styles from './VoiceProfile.module.css';
 
-const languages: Record<string, string> = { KO: '한국어', EN: '영어', JP: '일본어', ZH: '중국어', ES: '스페인어', AR: '아랍어', FR: '프랑스어', DE: '독일어', RU: '러시아어', PT: '포르투갈어', IT: '이탈리아어', TR: '터키어', VI: '베트남어', ID: '인도네시아어', TH: '태국어' };
-
 export function VoiceProfile({ talent }: { talent: TalentProfile }) {
   return (
     <section className={styles.hero} aria-labelledby="voice-actor-name">
@@ -14,7 +12,6 @@ export function VoiceProfile({ talent }: { talent: TalentProfile }) {
           <dl className={styles.facts}>
             <div><dt>성별</dt><dd>{talent.gender ?? '미등록'}</dd></div>
             <div><dt>연령대</dt><dd>{talent.ageRange ?? '미등록'}</dd></div>
-            <div><dt>언어</dt><dd>{talent.locale.split(' / ').map(code => languages[code] ?? code).join(' · ')}</dd></div>
             <div><dt>카테고리</dt><dd>{talent.tags.map(tag => <VoiceTraitChip key={tag} label={tag} />)}</dd></div>
             <div><dt>톤</dt><dd>{talent.tones?.length ? talent.tones.map(tone => <span key={tone} className={styles.tone}>{tone}</span>) : <span className={styles.empty}>미등록</span>}</dd></div>
             <div><dt>특기</dt><dd>{talent.specialty ?? '미등록'}</dd></div>
