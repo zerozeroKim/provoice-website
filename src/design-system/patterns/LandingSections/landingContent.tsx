@@ -88,7 +88,7 @@ export const reviewCards: TestimonialCardProps[] = [
 
 const curatedTalentProfiles: Omit<TalentProfile, 'avatarSrc'>[] = [
   { name: '김지훈', locale: 'KO / EN', tags: ['내레이션', '광고'], duration: 32, gender: '남성', tones: ['자신감', '친근한'], ageRange: '중년', specialty: '차분한 내레이션 톤 전환' },
-  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, gender: '여성', tones: ['귀여운', '재밌는'], ageRange: '청년', specialty: '코믹 애드립 연기' },
+  { name: 'Mika S.', locale: 'JP / EN', tags: ['캐릭터', '게임', 'NPC'], duration: 28, gender: '여성', tones: ['귀여운', '친근한', '재밌는', '감성적인', '따뜻한'], ageRange: '청년', specialty: '코믹 애드립 연기' },
   { name: '박다경', locale: 'KO', tags: ['키즈', '더빙', '연기'], duration: 41, gender: '여성', tones: ['귀여운', '친근한'], ageRange: '청년', specialty: '동요·동화 구연' },
   { name: 'Ahmed L.', locale: 'AR / EN', tags: ['내레이션', '다큐'], duration: 35, gender: '남성', tones: ['진중한', '차분한'], ageRange: '중년', specialty: '다큐멘터리 내레이션' },
   { name: 'Aoi K.', locale: 'JP', tags: ['캐릭터', '애니메이션'], duration: 36, gender: '여성', tones: ['밝은', '재밌는'], ageRange: '청년', specialty: '애니메이션 감정 연기' },
