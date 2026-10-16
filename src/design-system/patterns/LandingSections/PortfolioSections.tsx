@@ -94,7 +94,7 @@ export function PortfolioPageSection<T extends string>({ tabs, cards }: { tabs: 
         <SectionHeader headingLevel={1} className={styles.portfolioHeader} eyebrow="PORTFOLIO" title="모든 프로젝트 살펴보기" description="장르, 언어별로 원하는 작업 사례를 찾아보세요." />
         <PortfolioSocialLinks />
         <div className={styles.portfolioPageControls}>
-          <FilterDropdown label="언어" options={portfolioLanguageOptions} selected={languages} onSelect={selectLanguage} />
+          <FilterDropdown label="언어" options={portfolioLanguageOptions} selected={languages} onSelect={selectLanguage} align="end" />
           <PortfolioFilter items={tabs} value={active} onChange={handleFilter} className={styles.portfolioPageFilter} />
         </div>
         <div className={styles.portfolioImageGrid}>
