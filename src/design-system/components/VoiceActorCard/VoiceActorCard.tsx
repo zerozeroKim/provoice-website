@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes } from 'react';
 import { VoiceTraitChip } from '../VoiceTraitChip';
 import styles from './VoiceActorCard.module.css';
 
@@ -6,8 +6,8 @@ export type VoiceActorCardProps = Omit<HTMLAttributes<HTMLElement>, 'onClick'> &
   name: string;
   nickname?: string;
   avatarSrc?: string;
-  flag?: ReactNode;
-  flagLabel?: string;
+  /** 성우가 프로필 사진을 등록하지 않았을 때 아바타 자리에 대신 보여줄 국기(이모지). */
+  flagEmoji?: string;
   best?: boolean;
   tags?: string[];
   duration: number;
@@ -47,30 +47,27 @@ const DownloadIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0 3.5-3.5M12 15l-3.5-3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" /><path d="M5 18.5h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" /></svg>
 );
 
-export function VoiceActorCard({ name, nickname, avatarSrc, flag, flagLabel, best = false, tags = [], duration, currentTime = 0, playing = false, onPlayToggle, locked = false, onUnlock, canDownload = false, onDownload, downloadCount, className = '', ...props }: VoiceActorCardProps) {
+export function VoiceActorCard({ name, nickname, avatarSrc, flagEmoji, best = false, tags = [], duration, currentTime = 0, playing = false, onPlayToggle, locked = false, onUnlock, canDownload = false, onDownload, downloadCount, className = '', ...props }: VoiceActorCardProps) {
   const progress = duration > 0 ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0;
 
   return (
     <article data-component="VoiceActorCard" className={`${styles.card} ${className}`} {...props}>
       <div className={styles.header}>
         <span className={styles.avatar}>
-          {avatarSrc ? <img src={avatarSrc} alt={`${name} 성우 프로필`} loading="lazy" /> : <span className={styles.avatarFallback}><PersonIcon /></span>}
+          {avatarSrc
+            ? <img src={avatarSrc} alt={`${name} 성우 프로필`} loading="lazy" />
+            : flagEmoji
+              ? <span className={styles.avatarFlag} aria-hidden="true">{flagEmoji}</span>
+              : <span className={styles.avatarFallback}><PersonIcon /></span>}
+          {best && <span className={styles.best}>BEST</span>}
         </span>
 
         <span className={styles.profileMain}>
           <span className={styles.nameLine}>
             <h3 className={styles.name}>{name}</h3>
           </span>
-          {(nickname || flag) && (
-            <span className={styles.metaLine}>
-              {nickname && <span>{nickname}</span>}
-              {nickname && flag && <span className={styles.metaDivider} aria-hidden="true">|</span>}
-              {flag && <span>{flag} {flagLabel}</span>}
-            </span>
-          )}
+          {nickname && <span className={styles.metaLine}>{nickname}</span>}
         </span>
-
-        {best && <span className={styles.best}>BEST</span>}
       </div>
 
       <ul className={styles.traits}>

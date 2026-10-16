@@ -1,12 +1,16 @@
 import { ArrowRight } from 'lucide-react';
-import { Button, VoiceTraitChip, type TalentProfile } from '@/design-system';
+import { Button, VoiceTraitChip, flagFor, type TalentProfile } from '@/design-system';
 import styles from './VoiceProfile.module.css';
 
 export function VoiceProfile({ talent }: { talent: TalentProfile }) {
   return (
     <section className={styles.hero} aria-labelledby="voice-actor-name">
       <div className={styles.identity}>
-        <img className={styles.avatar} src={talent.avatarSrc} alt={`${talent.name} 프로필 예시 사진`} width={112} height={112} />
+        <span className={styles.avatar}>
+          {talent.avatarSrc
+            ? <img src={talent.avatarSrc} alt={`${talent.name} 프로필 예시 사진`} width={112} height={112} />
+            : <span className={styles.avatarFlag} aria-hidden="true">{flagFor(talent.locale) ?? '🎙️'}</span>}
+        </span>
         <div className={styles.body}>
           <h1 id="voice-actor-name">{talent.name}</h1>
           <dl className={styles.facts}>

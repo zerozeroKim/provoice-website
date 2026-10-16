@@ -2,6 +2,7 @@ import { useMemo, useState, type FormEvent } from 'react';
 import { Search, Users } from 'lucide-react';
 import { Button, Chip, FilterDropdown, Pagination, SectionHeader, TextField, VoiceActorCard } from '../../components';
 import styles from './TalentSections.module.css';
+import { flagFor } from './landingContent';
 import type { TalentProfile } from './types';
 
 const recognizedConditions = ['일본어', '20대', '여성', '캐릭터 보이스'];
@@ -71,8 +72,10 @@ export function TalentDirectorySection({ talents, headingLevel = 2 }: { talents:
                     <VoiceActorCard
                       className={styles.talentCarouselCard}
                       name={talent.name} avatarSrc={talent.avatarSrc}
+                      flagEmoji={flagFor(talent.locale)}
                       nickname={talent.locale}
-                      tags={talent.tags}
+                      best={talent.best}
+                      tags={talent.tones ?? []}
                       duration={talent.duration}
                     />
                   </div>
@@ -93,7 +96,7 @@ export function TalentDirectorySection({ talents, headingLevel = 2 }: { talents:
               <div className={styles.talentGrid}>
                 {visibleTalents.map((talent) => (
                   <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
-                    <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} nickname={talent.locale} tags={talent.tags} duration={talent.duration} />
+                    <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} flagEmoji={flagFor(talent.locale)} nickname={talent.locale} best={talent.best} tags={talent.tones ?? []} duration={talent.duration} />
                   </div>
                 ))}
               </div>
@@ -159,7 +162,7 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
           <div className={styles.talentGrid}>
             {visibleTalents.map((talent) => (
               <div key={talent.name} className={styles.talentCardLink} role="button" tabIndex={0} onClick={() => openTalentDetail(talent)} onKeyDown={(event) => event.key === 'Enter' && openTalentDetail(talent)}>
-                <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} nickname={talent.locale} tags={talent.tags} duration={talent.duration} />
+                <VoiceActorCard className={styles.talentCard} name={talent.name} avatarSrc={talent.avatarSrc} flagEmoji={flagFor(talent.locale)} nickname={talent.locale} best={talent.best} tags={talent.tones ?? []} duration={talent.duration} />
               </div>
             ))}
           </div>
