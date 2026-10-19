@@ -68,9 +68,36 @@
   gap: .75rem;
 }
 
+.filterSearchButton { flex: none; }
+
 @media (max-width: 720px) {
   .talentFilterRow { flex-direction: column; align-items: stretch; }
 }
+
+.selectedFiltersRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .55rem;
+  margin-top: 1rem;
+  padding-top: .9rem;
+  border-top: 1px solid var(--neutral-100);
+}
+
+.selectedFiltersLabel { color: var(--neutral-500); font-size: .82rem; font-weight: 600; }
+
+.clearFiltersButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--purple-500);
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: .15rem;
+}
+.clearFiltersButton:hover { color: var(--purple-600); }
 
 .talentResults {
   margin-top: 1.25rem;

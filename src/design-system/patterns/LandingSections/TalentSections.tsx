@@ -154,6 +154,10 @@ export const talentTones = [
 ];
 export const talentAges = [{ ko: '아이', en: 'Child' }, { ko: '청년', en: 'Young Adult' }, { ko: '중년', en: 'Middle-aged' }, { ko: '노년', en: 'Senior' }, { ko: '미상', en: 'Unspecified' }];
 
+type FilterState = { languages: string[]; genders: string[]; categories: string[]; tones: string[]; ages: string[] };
+const emptyFilterState: FilterState = { languages: [], genders: [], categories: [], tones: [], ages: [] };
+const resolveKo = (pairs: { ko: string; en: string }[], value: string) => pairs.find((pair) => pair.ko === value || pair.en === value)?.ko ?? value;
+
 export function TalentFilterSection({ talents, pageSize = 20 }: { talents: TalentProfile[]; pageSize?: number }) {
   const t = useT();
   const { language } = useLanguage();
@@ -162,24 +166,53 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
   const [categories, setCategories] = useState<string[]>([]);
   const [tones, setTones] = useState<string[]>([]);
   const [ages, setAges] = useState<string[]>([]);
+  const [appliedFilters, setAppliedFilters] = useState<FilterState>(emptyFilterState);
   const [page, setPage] = useState(1);
 
   const pick = (pairs: { ko: string; en: string }[]) => pairs.map((pair) => t(pair.ko, pair.en));
 
   const selectSingle = (setter: (value: string[]) => void, current: string[]) => (option: string) => {
     setter(current.includes(option) ? [] : [option]);
-    setPage(1);
   };
   const toggleMulti = (setter: (updater: (current: string[]) => string[]) => void) => (option: string) => {
     setter((current) => current.includes(option) ? current.filter((item) => item !== option) : [...current, option]);
+  };
+
+  const runSearch = () => {
+    setAppliedFilters({ languages, genders, categories, tones, ages });
     setPage(1);
   };
 
+  const clearAll = () => {
+    setLanguages([]); setGenders([]); setCategories([]); setTones([]); setAges([]);
+  };
+
+  const selectedEntries = [
+    ...languages.map((value) => ({ key: `lang-${value}`, label: value, onRemove: () => setLanguages([]) })),
+    ...genders.map((value) => ({ key: `gender-${value}`, label: value, onRemove: () => setGenders([]) })),
+    ...categories.map((value) => ({ key: `cat-${value}`, label: value, onRemove: () => setCategories([]) })),
+    ...tones.map((value) => ({ key: `tone-${value}`, label: value, onRemove: () => toggleMulti(setTones)(value) })),
+    ...ages.map((value) => ({ key: `age-${value}`, label: value, onRemove: () => setAges([]) })),
+  ];
+
   const matchedTalents = useMemo(() => {
-    const selectedLanguage = languages[0];
-    const localeFilter = talentLanguages.find((item) => item.ko === selectedLanguage || item.en === selectedLanguage)?.code ?? null;
-    return talents.filter((talent) => !localeFilter || talent.locale.includes(localeFilter));
-  }, [languages, talents]);
+    const selectedLanguage = appliedFilters.languages[0];
+    const localeFilter = selectedLanguage ? talentLanguages.find((item) => item.ko === selectedLanguage || item.en === selectedLanguage)?.code ?? null : null;
+
+    const genderKo = appliedFilters.genders[0] ? resolveKo(talentGenders, appliedFilters.genders[0]) : null;
+    const categoryKo = appliedFilters.categories[0] ? resolveKo(talentCategories, appliedFilters.categories[0]) : null;
+    const toneKos = appliedFilters.tones.map((value) => resolveKo(talentTones, value));
+    const ageKo = appliedFilters.ages[0] ? resolveKo(talentAges, appliedFilters.ages[0]) : null;
+
+    return talents.filter((talent) => {
+      if (localeFilter && !talent.locale.includes(localeFilter)) return false;
+      if (genderKo && talent.gender !== genderKo) return false;
+      if (categoryKo && !talent.tags.some((tag) => tag.includes(categoryKo) || categoryKo.includes(tag))) return false;
+      if (toneKos.length && !talent.tones?.some((tone) => toneKos.includes(tone))) return false;
+      if (ageKo && talent.ageRange !== ageKo) return false;
+      return true;
+    });
+  }, [appliedFilters, talents]);
   const totalPages = Math.max(1, Math.ceil(matchedTalents.length / pageSize));
   const visibleTalents = matchedTalents.slice((page - 1) * pageSize, page * pageSize);
 
@@ -193,7 +226,17 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
             <FilterDropdown label={t('카테고리', 'Category')} options={pick(talentCategories)} selected={categories} onSelect={selectSingle(setCategories, categories)} />
             <FilterDropdown label={t('톤', 'Tone')} options={pick(talentTones)} selected={tones} multiple onSelect={toggleMulti(setTones)} />
             <FilterDropdown label={t('연령', 'Age')} options={pick(talentAges)} selected={ages} onSelect={selectSingle(setAges, ages)} />
+            <Button className={styles.filterSearchButton} size="md" leadingIcon={<Search size={16} strokeWidth={1.75} />} onClick={runSearch}>{t('검색', 'Search')}</Button>
           </div>
+          {selectedEntries.length > 0 && (
+            <div className={styles.selectedFiltersRow}>
+              <span className={styles.selectedFiltersLabel}>{t('선택한 조건', 'Selected')}</span>
+              {selectedEntries.map((entry) => (
+                <Chip key={entry.key} variant="input" size="sm" tone="purple" onRemove={entry.onRemove}>{entry.label}</Chip>
+              ))}
+              <button type="button" className={styles.clearFiltersButton} onClick={clearAll}>{t('전체 초기화', 'Clear all')}</button>
+            </div>
+          )}
         </div>
         <div className={styles.talentResults}>
           <div className={styles.talentResultsHeader}>
