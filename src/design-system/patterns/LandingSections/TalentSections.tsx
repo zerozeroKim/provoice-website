@@ -232,7 +232,7 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
             <div className={styles.selectedFiltersRow}>
               <span className={styles.selectedFiltersLabel}>{t('선택한 조건', 'Selected')}</span>
               {selectedEntries.map((entry) => (
-                <Chip key={entry.key} variant="input" size="sm" tone="purple" onRemove={entry.onRemove}>{entry.label}</Chip>
+                <Chip key={entry.key} variant="input" size="md" tone="purple" onRemove={entry.onRemove}>{entry.label}</Chip>
               ))}
               <button type="button" className={styles.clearFiltersButton} onClick={clearAll}>{t('전체 초기화', 'Clear all')}</button>
             </div>
