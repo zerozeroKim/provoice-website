@@ -11,10 +11,10 @@ const menuHref: Partial<Record<(typeof mainMenu)[number], string>> = { 성우검
 const mainMenuEn: Record<(typeof mainMenu)[number], string> = { 성우검색: 'Find Voices', 서비스: 'Services', 포트폴리오: 'Portfolio', 작업문의: 'Inquiry', 블로그: 'Blog' };
 
 const serviceMenu = [
-  { label: '애니메이션·게임·웹툰 더빙', labelEn: 'Animation · Game · Webtoon Dubbing', href: undefined },
-  { label: '기업 홍보·유튜브 콘텐츠', labelEn: 'Corporate PR · YouTube Content', href: undefined },
-  { label: '번역 (ISO 17100)', labelEn: 'Translation (ISO 17100)', href: undefined },
-  { label: 'AI × Human 하이브리드 더빙', labelEn: 'AI × Human Hybrid Dubbing', href: '#ai' },
+  { label: '더빙', labelEn: 'Dubbing', href: undefined },
+  { label: '번역', labelEn: 'Translation', href: undefined },
+  { label: '사운드', labelEn: 'Sound', href: undefined },
+  { label: 'AI 서비스', labelEn: 'AI Service', href: '#ai' },
 ] as const;
 
 const languageOptions: { value: Language; label: string; flag: string }[] = [
