@@ -7,8 +7,7 @@ import { VersionSwitcher } from '../VersionSwitcher';
 import styles from './GNB.module.css';
 
 const mainMenu = ['성우검색', '서비스', '포트폴리오', '작업문의', '블로그'] as const;
-const menuHref: Partial<Record<(typeof mainMenu)[number], string>> = { 성우검색: '#voice-search', 포트폴리오: '#portfolio', 작업문의: '#work-inquiry' };
-const BLOG_URL = 'https://provoice.tistory.com/';
+const menuHref: Partial<Record<(typeof mainMenu)[number], string>> = { 성우검색: '#voice-search', 포트폴리오: '#portfolio', 작업문의: '#work-inquiry', 블로그: '#admin' };
 const mainMenuEn: Record<(typeof mainMenu)[number], string> = { 성우검색: 'Find Voices', 서비스: 'Services', 포트폴리오: 'Portfolio', 작업문의: 'Inquiry', 블로그: 'Blog' };
 
 const serviceMenu = [
@@ -116,9 +115,6 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
         </div>
       );
     }
-    if (item === '블로그') {
-      return <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" key={item}>{label}</a>;
-    }
     const href = menuHref[item];
     return <a className={isCurrent ? styles.current : ''} href={href ?? `#${item}`} onClick={href ? undefined : stopDemoLink} key={item}>{label}</a>;
   };
@@ -189,13 +185,6 @@ export function GNB({ mobile: mobileOverride, defaultOpen = false }: GNBProps) {
                       </div>
                     )}
                   </div>
-                );
-              }
-              if (item === '블로그') {
-                return (
-                  <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1} key={item}>
-                    <span>0{index + 1}</span>{t(item, mainMenuEn[item])}
-                  </a>
                 );
               }
               const href = menuHref[item];
