@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type PointerEvent } from 'react';
-import { Gamepad2, Megaphone, Smile } from 'lucide-react';
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react';
+import { AudioLines, Gamepad2, Megaphone, Smile, Play, Square } from 'lucide-react';
 import { useLanguage, useT } from '@/lib/i18n';
 import { Chip, SectionHeader, Select } from '../../components';
 import styles from './VoicePreviewSection.module.css';
@@ -11,6 +11,7 @@ const presets = [
 ] as const;
 
 const MAX_LENGTH = 180;
+const BAR_COUNT = 32;
 
 export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
   const t = useT();
@@ -27,9 +28,15 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
   const [text, setText] = useState<string>(language === 'en' ? presets[0].textEn : presets[0].text);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [voiceIndex, setVoiceIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [supported, setSupported] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    if (typeof window === 'undefined' || !window.speechSynthesis) {
+      setSupported(false);
+      return;
+    }
     const loadVoices = () => {
       const all = window.speechSynthesis.getVoices();
       const byName = (a: SpeechSynthesisVoice, b: SpeechSynthesisVoice) => a.name.localeCompare(b.name);
@@ -39,13 +46,43 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
     };
     loadVoices();
     window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
-    return () => window.speechSynthesis.removeEventListener('voiceschanged', loadVoices);
+    return () => {
+      window.speechSynthesis.removeEventListener('voiceschanged', loadVoices);
+      window.speechSynthesis.cancel();
+    };
   }, []);
 
   const selectPreset = (index: number) => {
+    if (supported) window.speechSynthesis.cancel();
+    setPlaying(false);
+    setProgress(0);
     setBurst(value => value + 1);
     setActivePreset(index);
     setText(language === 'en' ? presets[index].textEn : presets[index].text);
+  };
+
+  const togglePlay = () => {
+    if (!supported) return;
+    if (playing) {
+      window.speechSynthesis.cancel();
+      setPlaying(false);
+      return;
+    }
+    if (!text.trim()) return;
+    setBurst(value => value + 1);
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voice = voices[voiceIndex];
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    }
+    setProgress(0);
+    utterance.onboundary = (event) => setProgress(Math.min(100, (event.charIndex / text.length) * 100));
+    utterance.onend = () => { setPlaying(false); setProgress(100); };
+    utterance.onerror = () => setPlaying(false);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setPlaying(true);
   };
 
   return (
@@ -77,7 +114,7 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
               className={styles.textarea}
               value={text}
               maxLength={MAX_LENGTH}
-              onChange={(event) => { setActivePreset(-1); setText(event.target.value); }}
+              onChange={(event) => { window.speechSynthesis?.cancel(); setPlaying(false); setProgress(0); setActivePreset(-1); setText(event.target.value); }}
               aria-label={t('읽어드릴 문장', 'Sentence to read')}
             />
             <div className={styles.meta}>
@@ -85,10 +122,28 @@ export function VoicePreviewSection({ headingLevel = 2 }: { headingLevel?: 1 | 2
               <span>{t('브라우저 내장 음성 엔진 사용', "Uses your browser's built-in voice engine")}</span>
             </div>
             <div className={styles.playRow}>
-              <Select className={styles.voiceSelect} aria-label={t('음성 선택', 'Choose a voice')} value={voiceIndex} onChange={(event) => setVoiceIndex(Number(event.target.value))} disabled={voices.length === 0}>
+              <Select className={styles.voiceSelect} aria-label={t('음성 선택', 'Choose a voice')} value={voiceIndex} onChange={(event) => { window.speechSynthesis.cancel(); setPlaying(false); setProgress(0); setVoiceIndex(Number(event.target.value)); }} disabled={voices.length === 0}>
                 {voices.length === 0 && <option>{t('사용 가능한 음성이 없습니다', 'No voices available')}</option>}
                 {voices.map((voice, index) => <option key={`${voice.name}-${voice.lang}`} value={index}>{voice.name} ({voice.lang})</option>)}
               </Select>
+            </div>
+          </div>
+
+          <div className={styles.visualizer}>
+            <div className={styles.monitorHeader}><span className={styles.monitorLabel}><AudioLines size={14} /> VOICE STUDIO</span><span className={styles.previewLabel}>{activePreset >= 0 ? t(presets[activePreset].label, presets[activePreset].labelEn) : t('직접 입력한 문장', 'Custom sentence')}</span></div>
+            <div className={styles.waveBox}>
+              <div className={playing ? styles.waveActive : styles.wave} aria-hidden="true">
+                {Array.from({ length: BAR_COUNT }).map((_, index) => <span key={index} style={{ '--bar-height': `${18 + ((Math.sin(index * 2.17 + .7) + 1) / 2) ** 1.4 * 92}px`, animationDelay: `${-index * .17}s`, animationDuration: playing ? `${.75 + (index % 5) * .16}s` : '4s' } as CSSProperties} />)}
+              </div>
+              <button type="button" className={styles.centerPlay} onClick={togglePlay} disabled={!supported || voices.length === 0 || !text.trim()} aria-label={playing ? t('미리듣기 중지', 'Stop preview') : t('미리듣기 재생', 'Play preview')}>
+                {playing ? <Square size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
+              </button>
+            </div>
+            <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
+            <div className={styles.visualizerFooter}>
+              <p className={styles.status} role="status">{supported ? (playing ? t('재생 중 — 목소리를 들어보세요', 'Playing — listen to the voice') : progress === 100 ? t('다른 문장으로도 비교해보세요', 'Try comparing with another sentence') : t('미리듣기를 누르면 선택한 문장을 읽어드려요', 'Press play to hear the selected sentence')) : t('이 브라우저에서는 음성 미리듣기를 지원하지 않습니다', "This browser doesn't support voice preview")}</p>
+              <hr className={styles.divider} />
+              <p className={styles.disclaimer}>{t('기기에 설치된 음성 엔진을 사용하므로 브라우저·운영체제에 따라 목소리가 다르게 들릴 수 있으며, 실제 성우 캐스팅 품질과는 별개입니다.', 'This uses the voice engine installed on your device, so the voice may sound different depending on browser and OS, and is separate from actual voice casting quality.')}</p>
             </div>
           </div>
         </div>
