@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { currentDesignVersion, layoutVersions } from '@/app/version';
 import {
+  FAQSection,
   Footer,
   GetStartedSection,
   GNB,
@@ -47,6 +48,7 @@ export function LayoutPage() {
         <ServiceSection services={serviceCards} />
         <PortfolioSection tabs={portfolioTabs} cards={portfolioCards} />
         <TranslationSection rows={translationRows} languages={supportLanguages} />
+        <FAQSection />
         <GetStartedSection />
         <Footer />
       </div>

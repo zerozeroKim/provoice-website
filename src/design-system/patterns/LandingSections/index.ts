@@ -11,5 +11,6 @@ export * from './OtherServicesSection';
 export * from './PortfolioSections';
 export * from './TranslationSection';
 export * from './TranslationShowcaseSection';
+export * from './FAQSection';
 export * from './GetStartedSection';
 export * from './landingContent';
