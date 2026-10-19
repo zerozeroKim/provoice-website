@@ -19,6 +19,8 @@ export type ActionCardProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   primaryAction: ActionCardAction;
   secondaryActions?: ActionCardAction[];
   secondaryLabel?: string;
+  /** secondaryActions 대신 같은 박스 안에 임의의 내용(예: 혜택 태그)을 넣고 싶을 때 씁니다. */
+  secondaryContent?: ReactNode;
 };
 
 function Action({ action, className }: { action: ActionCardAction; className: string }) {
@@ -35,7 +37,7 @@ function Action({ action, className }: { action: ActionCardAction; className: st
   return <button className={className} type="button" onClick={action.onClick}>{icon}<span>{action.label}</span></button>;
 }
 
-export function ActionCard({ title, description, variant = 'light', primaryAction, secondaryActions = [], secondaryLabel = '간편 연결', className = '', ...props }: ActionCardProps) {
+export function ActionCard({ title, description, variant = 'light', primaryAction, secondaryActions = [], secondaryLabel = '간편 연결', secondaryContent, className = '', ...props }: ActionCardProps) {
   return (
     <article data-component="ActionCard" data-variant={variant} className={`${styles.actionCard} ${styles[variant]} ${className}`} {...props}>
       <div className={styles.content}>
@@ -43,7 +45,12 @@ export function ActionCard({ title, description, variant = 'light', primaryActio
         <p>{description}</p>
       </div>
       <Action action={primaryAction} className={styles.primaryAction} />
-      {secondaryActions.length > 0 && (
+      {secondaryContent ? (
+        <div className={styles.secondaryGroup}>
+          {secondaryLabel && <span className={styles.secondaryLabel}>{secondaryLabel}</span>}
+          <div className={styles.secondaryActions}>{secondaryContent}</div>
+        </div>
+      ) : secondaryActions.length > 0 && (
         <div className={styles.secondaryGroup}>
           <span className={styles.secondaryLabel}>{secondaryLabel}</span>
           <div className={styles.secondaryActions}>

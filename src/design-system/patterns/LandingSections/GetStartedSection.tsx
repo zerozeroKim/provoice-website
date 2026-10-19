@@ -1,10 +1,16 @@
 import { useLanguage, useT } from '@/lib/i18n';
-import { ActionCard, SectionHeader } from '../../components';
+import { ActionCard, Chip, SectionHeader } from '../../components';
 import styles from './GetStartedSection.module.css';
 
 const quickContactActions = [
   { label: '네이버', href: 'https://blog.naver.com/provoiceon', tone: 'naver' as const },
   { label: '카카오', href: 'https://pf.kakao.com/_xfNjDK', tone: 'kakao' as const },
+];
+
+const expertBenefits = [
+  { ko: '포트폴리오 무료 등록', en: 'Free portfolio listing' },
+  { ko: '검증 배지 제공', en: 'Verified badge' },
+  { ko: '프로젝트 매칭 알림', en: 'Project match alerts' },
 ];
 
 export function GetStartedSection() {
@@ -32,6 +38,10 @@ export function GetStartedSection() {
             ? <>Organize your portfolio in one place,<br />and meet new projects as a verified Provoice expert.</>
             : <>포트폴리오를 한 곳에 정리하고,<br />검증된 프로보이스 전문가로 새로운 프로젝트를 만나보세요.</>}
           primaryAction={{ label: t('전문가 등록하기', 'Register as an Expert') }}
+          secondaryLabel={t('가입 혜택', 'Member Benefits')}
+          secondaryContent={expertBenefits.map((benefit) => (
+            <Chip key={benefit.ko} variant="status" tone="purple" size="sm">{t(benefit.ko, benefit.en)}</Chip>
+          ))}
           className={styles.getStartedCard}
         />
       </div>
