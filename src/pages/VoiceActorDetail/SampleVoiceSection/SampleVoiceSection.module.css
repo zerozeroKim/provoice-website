@@ -1,0 +1,68 @@
+.panel {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid var(--neutral-100);
+  border-radius: 1.5rem;
+  background: var(--neutral-0);
+  box-shadow: 0 20px 48px rgb(23 19 31 / .04);
+  margin-top: 1.5rem;
+}
+.panel h2 { display: flex; align-items: center; gap: .55rem; margin: 0 0 1.4rem; color: var(--neutral-900); font-size: 1rem; }
+.panel h2::before { content: ''; width: .3rem; height: 1rem; border-radius: var(--radius-full); background: var(--gradient-deep-purple); }
+
+.groups { display: grid; gap: 1.75rem; }
+.group { display: grid; gap: .9rem; }
+
+.groupHead { display: flex; align-items: center; gap: .5rem; }
+.groupHead h3 { margin: 0; color: var(--neutral-900); font-size: 1.02rem; font-weight: 700; }
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 .4rem;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--purple-100) 45%, white);
+  color: var(--purple-600);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; }
+
+.cell {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 0;
+  padding: .6rem .8rem;
+  border: 1px solid var(--neutral-100);
+  border-radius: .75rem;
+  background: var(--neutral-50);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .16s ease, background .16s ease;
+}
+.cell:hover { border-color: var(--purple-200); background: color-mix(in srgb, var(--purple-100) 18%, var(--neutral-50)); }
+.cell[aria-pressed='true'] { border-color: var(--purple-300); background: color-mix(in srgb, var(--purple-100) 28%, white); }
+
+.cellIcon {
+  display: grid;
+  flex: none;
+  width: 1.7rem;
+  height: 1.7rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gradient-deep-purple);
+  color: white;
+}
+.cellIcon svg { margin-left: 1px; }
+
+.cellLabel { overflow: hidden; color: var(--neutral-700); font-size: .82rem; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (max-width: 720px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 420px) {
+  .grid { grid-template-columns: 1fr; }
+}

@@ -7,6 +7,7 @@ import { useT } from '@/lib/i18n';
 import styles from './VoiceActorDetailPage.module.css';
 import { VoiceProfile } from './VoiceProfile';
 import { ActivityFields } from './ActivityFields';
+import { SampleVoiceSection } from './SampleVoiceSection';
 
 const tabs = ['프로필', '포트폴리오', '경력·크레딧'] as const;
 const tabLabelEn: Record<(typeof tabs)[number], string> = { 프로필: 'Profile', 포트폴리오: 'Portfolio', '경력·크레딧': 'Career & Credits' };
@@ -55,6 +56,7 @@ export function VoiceActorDetailPage() {
   const seed = seedFromName(talent.name);
   const projects = [...projectPool.slice(seed % projectPool.length), ...projectPool.slice(0, seed % projectPool.length)];
   const careerLines = careerText.split('\n');
+  const sampleGroups = talent.tags.map((tag, index) => ({ category: tag, count: index % 2 === 0 ? 8 : 4 }));
 
   const openProject = (project: (typeof projectPool)[number], cardOrigin: DOMRect) => {
     setOrigin(cardOrigin);
@@ -68,6 +70,8 @@ export function VoiceActorDetailPage() {
         <Breadcrumb className={styles.breadcrumb} items={[{ label: t('HOME', 'HOME'), href: '#client' }, { label: t('성우검색', 'Find Voices'), href: '#voice-search' }, { label: talent.name }]} />
 
         <VoiceProfile talent={talent} />
+
+        <SampleVoiceSection groups={sampleGroups} seed={seed} />
 
         <nav className={styles.tabBar} aria-label={t('성우 상세 탭', 'Voice actor detail tabs')}>
           {tabs.map((tab) => (
