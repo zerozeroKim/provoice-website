@@ -37,7 +37,7 @@ const features = [
 export function VoiceAIDataSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
   const t = useT();
   return (
-    <section className={styles.section} aria-label={t('AI 학습용 음성 데이터 제작', 'Voice data production for AI training')}>
+    <section id="ai-voice-data" className={styles.section} aria-label={t('AI 학습용 음성 데이터 제작', 'Voice data production for AI training')}>
       <div className={styles.inner}>
         <SectionHeader
           headingLevel={headingLevel}

@@ -1,6 +1,7 @@
 export * from './types';
 export * from './HeroSection';
 export * from './AISection';
+export * from './AIProductsSection';
 export * from './VoicePreviewSection';
 export * from './AIHumanSection';
 export * from './VoiceAIDataSection';

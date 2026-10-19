@@ -52,6 +52,7 @@ export function AIHumanSection({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
 
   return (
     <section
+      id="ai-dubbing-pack"
       ref={sectionRef}
       className={styles.section}
       onPointerMove={moveGlow}
