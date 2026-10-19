@@ -1,29 +1,33 @@
 import { ArrowRight } from 'lucide-react';
-import { Button, VoiceTraitChip, flagFor, type TalentProfile } from '@/design-system';
+import { Button, VoiceTraitChip, flagFor, talentAges, talentCategories, talentGenders, talentTones, type TalentProfile } from '@/design-system';
+import { useT } from '@/lib/i18n';
 import styles from './VoiceProfile.module.css';
 
+const lookup = (pairs: { ko: string; en: string }[], value: string) => pairs.find((pair) => pair.ko === value)?.en ?? value;
+
 export function VoiceProfile({ talent }: { talent: TalentProfile }) {
+  const t = useT();
   return (
     <section className={styles.hero} aria-labelledby="voice-actor-name">
       <div className={styles.identity}>
         <span className={styles.avatar}>
           {talent.avatarSrc
-            ? <img src={talent.avatarSrc} alt={`${talent.name} 프로필 예시 사진`} width={112} height={112} />
+            ? <img src={talent.avatarSrc} alt={t(`${talent.name} 프로필 예시 사진`, `${talent.name} sample profile photo`)} width={112} height={112} />
             : <span className={styles.avatarFlag} aria-hidden="true">{flagFor(talent.locale) ?? '🎙️'}</span>}
         </span>
         <div className={styles.body}>
           <h1 id="voice-actor-name">{talent.name}</h1>
           <dl className={styles.facts}>
-            <div><dt>성별</dt><dd>{talent.gender ?? '미등록'}</dd></div>
-            <div><dt>연령대</dt><dd>{talent.ageRange ?? '미등록'}</dd></div>
-            <div><dt>카테고리</dt><dd>{talent.tags.map(tag => <VoiceTraitChip key={tag} label={tag} />)}</dd></div>
-            <div><dt>톤</dt><dd>{talent.tones?.length ? talent.tones.map(tone => <span key={tone} className={styles.tone}>{tone}</span>) : <span className={styles.empty}>미등록</span>}</dd></div>
-            <div><dt>특기</dt><dd>{talent.specialty ?? '미등록'}</dd></div>
+            <div><dt>{t('성별', 'Gender')}</dt><dd>{talent.gender ? t(talent.gender, lookup(talentGenders, talent.gender)) : t('미등록', 'Not set')}</dd></div>
+            <div><dt>{t('연령대', 'Age Range')}</dt><dd>{talent.ageRange ? t(talent.ageRange, lookup(talentAges, talent.ageRange)) : t('미등록', 'Not set')}</dd></div>
+            <div><dt>{t('카테고리', 'Category')}</dt><dd>{talent.tags.map(tag => <VoiceTraitChip key={tag} label={t(tag, lookup(talentCategories, tag))} />)}</dd></div>
+            <div><dt>{t('톤', 'Tone')}</dt><dd>{talent.tones?.length ? talent.tones.map(tone => <span key={tone} className={styles.tone}>{t(tone, lookup(talentTones, tone))}</span>) : <span className={styles.empty}>{t('미등록', 'Not set')}</span>}</dd></div>
+            <div><dt>{t('특기', 'Specialty')}</dt><dd>{talent.specialty ?? t('미등록', 'Not set')}</dd></div>
           </dl>
         </div>
       </div>
       <aside className={styles.contact}>
-        <Button className={styles.contactButton} trailingIcon={<ArrowRight size={18} />} onClick={() => { window.location.href = 'https://pf.kakao.com/_xfNjDK'; }}>성우문의</Button>
+        <Button className={styles.contactButton} trailingIcon={<ArrowRight size={18} />} onClick={() => { window.location.href = 'https://pf.kakao.com/_xfNjDK'; }}>{t('성우문의', 'Contact Voice Actor')}</Button>
       </aside>
     </section>
   );

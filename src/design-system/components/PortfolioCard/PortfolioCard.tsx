@@ -1,4 +1,4 @@
-import { useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent } from 'react';
+import { useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 import { Pause, Play } from 'lucide-react';
 import { PixelCard } from '../PixelCard';
 import styles from './PortfolioCard.module.css';
@@ -97,11 +97,13 @@ export type PortfolioFilterProps<T extends string> = {
   items: readonly T[];
   value: T;
   onChange: (value: T) => void;
+  /** 표시 라벨을 값과 분리하고 싶을 때(예: 다국어 전환) 사용합니다. 생략하면 값을 그대로 보여줍니다. */
+  labelFor?: (item: T) => ReactNode;
   ariaLabel?: string;
   className?: string;
 };
 
-export function PortfolioFilter<T extends string>({ items, value, onChange, ariaLabel = '포트폴리오 카테고리', className = '' }: PortfolioFilterProps<T>) {
+export function PortfolioFilter<T extends string>({ items, value, onChange, labelFor, ariaLabel = '포트폴리오 카테고리', className = '' }: PortfolioFilterProps<T>) {
   return (
     <div className={`${styles.filter} ${className}`} role="tablist" aria-label={ariaLabel}>
       {items.map((item) => (
@@ -112,7 +114,7 @@ export function PortfolioFilter<T extends string>({ items, value, onChange, aria
           aria-selected={value === item}
           onClick={() => onChange(item)}
         >
-          {item}
+          {labelFor ? labelFor(item) : item}
         </button>
       ))}
     </div>

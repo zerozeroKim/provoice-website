@@ -3,11 +3,13 @@ import { ArrowRight } from 'lucide-react';
 import { Breadcrumb, Footer, GNB, PortfolioCard, PortfolioDetail, talentProfiles } from '@/design-system';
 import type { PortfolioItem, TalentProfile } from '@/design-system';
 import { createDemoAudio } from '@/utils/demoAudio';
+import { useT } from '@/lib/i18n';
 import styles from './VoiceActorDetailPage.module.css';
 import { VoiceProfile } from './VoiceProfile';
 import { ActivityFields } from './ActivityFields';
 
 const tabs = ['프로필', '포트폴리오', '경력·크레딧'] as const;
+const tabLabelEn: Record<(typeof tabs)[number], string> = { 프로필: 'Profile', 포트폴리오: 'Portfolio', '경력·크레딧': 'Career & Credits' };
 
 /** 실제 프로필 데이터가 없는 상태에서 IMDB 배우 페이지처럼 구성만 보여주기 위한 예시 데이터 풀. */
 const projectPool = [
@@ -31,6 +33,7 @@ const seedFromName = (name: string) => name.split('').reduce((sum, char) => sum 
 const getRequestedName = () => decodeURIComponent(window.location.hash.split('/')[1] ?? '');
 
 export function VoiceActorDetailPage() {
+  const t = useT();
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>('프로필');
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
   const [origin, setOrigin] = useState<DOMRect | null>(null);
@@ -41,8 +44,8 @@ export function VoiceActorDetailPage() {
       <main className={styles.page}>
         <GNB />
         <div className={styles.notFound}>
-          <p>해당 성우 프로필을 찾을 수 없습니다.</p>
-          <a href="#voice-search">성우검색으로 돌아가기</a>
+          <p>{t('해당 성우 프로필을 찾을 수 없습니다.', 'This voice actor profile could not be found.')}</p>
+          <a href="#voice-search">{t('성우검색으로 돌아가기', 'Back to Find Voice Actors')}</a>
         </div>
         <Footer />
       </main>
@@ -62,13 +65,13 @@ export function VoiceActorDetailPage() {
     <main className={styles.page}>
       <GNB />
       <div className={styles.shell}>
-        <Breadcrumb className={styles.breadcrumb} items={[{ label: 'HOME', href: '#client' }, { label: '성우검색', href: '#voice-search' }, { label: talent.name }]} />
+        <Breadcrumb className={styles.breadcrumb} items={[{ label: t('HOME', 'HOME'), href: '#client' }, { label: t('성우검색', 'Find Voices'), href: '#voice-search' }, { label: talent.name }]} />
 
         <VoiceProfile talent={talent} />
 
-        <nav className={styles.tabBar} aria-label="성우 상세 탭">
+        <nav className={styles.tabBar} aria-label={t('성우 상세 탭', 'Voice actor detail tabs')}>
           {tabs.map((tab) => (
-            <button key={tab} type="button" className={tab === activeTab ? styles.tabActive : ''} onClick={() => setActiveTab(tab)}>{tab}</button>
+            <button key={tab} type="button" className={tab === activeTab ? styles.tabActive : ''} onClick={() => setActiveTab(tab)}>{t(tab, tabLabelEn[tab])}</button>
           ))}
         </nav>
 
@@ -77,8 +80,8 @@ export function VoiceActorDetailPage() {
             <div className={styles.profileGrid}>
               <section className={styles.tabPanel}>
                 <div className={styles.sectionHead}>
-                  <h2>대표 프로젝트</h2>
-                  <button type="button" className={styles.viewAllLink} onClick={() => setActiveTab('포트폴리오')}>전체보기 <ArrowRight size={14} /></button>
+                  <h2>{t('대표 프로젝트', 'Featured Projects')}</h2>
+                  <button type="button" className={styles.viewAllLink} onClick={() => setActiveTab('포트폴리오')}>{t('전체보기', 'View all')} <ArrowRight size={14} /></button>
                 </div>
                 <div className={styles.projectRow}>
                   {projects.slice(0, 3).map((project) => (
@@ -88,7 +91,7 @@ export function VoiceActorDetailPage() {
               </section>
               <div className={styles.detailsRow}>
               <section className={styles.tabPanel}>
-                <h2>주요경력</h2>
+                <h2>{t('주요경력', 'Key Career')}</h2>
                 <ul className={`${styles.careerList} ${styles.careerListFlat}`}>
                   {careerLines.slice(0, 3).map((line) => <li key={line}>{line}</li>)}
                 </ul>

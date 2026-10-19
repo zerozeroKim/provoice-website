@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LanguageProvider } from '../lib/i18n';
 import { DesignSystemLayout } from './DesignSystemLayout';
 import { TypographyPage } from '../pages/Typography/TypographyPage';
 import { ColorsPage } from '../pages/Colors/ColorsPage';
@@ -132,18 +133,20 @@ export function App() {
   }, [page]);
 
   if (isCustomerHost) {
-    return renderStandalonePage(page) ?? <LayoutPage />;
+    return <LanguageProvider>{renderStandalonePage(page) ?? <LayoutPage />}</LanguageProvider>;
   }
 
   return (
-    <DesignSystemLayout current={page}>
-      {renderStandalonePage(page) ??
-        (page === 'client' ? <LayoutPage />
-          : page === 'colors' ? <ColorsPage />
-          : page === 'components' ? <ComponentsPage />
-          : page === 'templates' ? <TemplatesPage />
-          : page === 'layout' ? <LayoutPage />
-          : <TypographyPage />)}
-    </DesignSystemLayout>
+    <LanguageProvider>
+      <DesignSystemLayout current={page}>
+        {renderStandalonePage(page) ??
+          (page === 'client' ? <LayoutPage />
+            : page === 'colors' ? <ColorsPage />
+            : page === 'components' ? <ComponentsPage />
+            : page === 'templates' ? <TemplatesPage />
+            : page === 'layout' ? <LayoutPage />
+            : <TypographyPage />)}
+      </DesignSystemLayout>
+    </LanguageProvider>
   );
 }
