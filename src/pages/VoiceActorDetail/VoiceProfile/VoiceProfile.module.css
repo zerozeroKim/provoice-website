@@ -44,7 +44,8 @@
 .facts dd { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0; color: var(--neutral-900); font-size: .92rem; font-weight: 600; }
 .tone { padding: .25rem .6rem; border: 1px solid #ddcef5; border-radius: var(--radius-full); color: #5926a5; font-size: .78rem; background: white; }
 .empty { color: var(--neutral-500); font-weight: 400; }
-.contact { align-self: center; }
+.contact { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; align-self: stretch; padding-left: 2.5rem; border-left: 1px solid rgb(176 144 220 / .22); }
+.contactHint { color: var(--neutral-600); font-size: .78rem; font-weight: 600; white-space: nowrap; }
 .contactButton { background: var(--gradient-deep-purple); min-width: 12rem; }
 
 /* MyProfilePage.tsx reuses this to lay out its own bio field below the hero grid. */
@@ -53,7 +54,7 @@
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; padding: 2rem; }
   .body { max-width: none; }
-  .contact { padding: 1.5rem 0 0 9rem; }
+  .contact { align-items: flex-start; margin-left: 9rem; padding: 1.5rem 0 0; border-left: none; border-top: 1px solid rgb(176 144 220 / .22); }
 }
 @media (max-width: 480px) {
   .hero { padding: 1.5rem 1.25rem; }
@@ -63,7 +64,8 @@
   .facts { grid-template-columns: 1fr; }
   .facts > div { grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; padding: .7rem 0; border-right: none !important; }
   .facts > div:not(:last-child) { border-bottom: 1px solid rgb(176 144 220 / .22); }
-  .contact { padding: 1.25rem 0 0; }
+  .contact { align-items: stretch; margin-left: 0; padding: 1.25rem 0 0; }
+  .contactHint { white-space: normal; text-align: center; }
   .contactButton { width: 100%; }
 }
 

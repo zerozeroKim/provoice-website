@@ -36,6 +36,7 @@ export function VoiceProfile({ talent }: { talent: TalentProfile }) {
         </div>
       </div>
       <aside className={styles.contact}>
+        <p className={styles.contactHint}>{t('섭외 문의는 1~2일 내 답변드려요', 'We reply to inquiries within 1–2 days')}</p>
         <Button className={styles.contactButton} trailingIcon={<ArrowRight size={18} />} onClick={() => { window.location.href = 'https://pf.kakao.com/_xfNjDK'; }}>{t('성우문의', 'Contact Voice Actor')}</Button>
       </aside>
     </section>
