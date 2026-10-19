@@ -102,6 +102,9 @@ const curatedTalentProfiles: Omit<TalentProfile, 'avatarSrc'>[] = [
   { name: 'Saki O.', locale: 'JP', tags: ['캐릭터', '게임', 'NPC'], duration: 29, gender: '여성', tones: ['진중한', '드라마틱'], ageRange: '청년', specialty: '드라마틱 서사 연기' },
 ];
 
+/** accent/vocalRange는 검색 필터 전용 메타데이터입니다 (RQ-FR-023) — 성우 상세 페이지에는 노출하지 않습니다. */
+const talentAccentPool = ['표준어', '서울말씨', '경상도 사투리', '전라도 사투리', '충청도 사투리', '강원도 사투리', '제주도 사투리'];
+const talentVocalRangePool = ['소프라노', '메조소프라노', '알토', '테너', '바리톤', '베이스'];
 const talentLocalePool = ['KO', 'EN', 'JP', 'ZH', 'ES', 'AR', 'FR', 'DE', 'RU', 'PT', 'IT', 'TR', 'VI', 'ID', 'TH'];
 const talentTagPool = ['내레이션', '광고', '캐릭터', '게임', 'NPC', '키즈', '더빙', '연기', '다큐', '애니메이션'];
 const talentAgeRangePool = ['아이', '청년', '중년', '노년'];
@@ -138,6 +141,8 @@ export const talentProfiles: TalentProfile[] = [...curatedTalentProfiles, ...fil
   return {
     ...talent,
     avatarSrc: hasUploadedPhoto ? `/assets/talents/portrait-${String(talent.gender === '여성' ? 1 : talent.gender === '남성' ? 2 + index % 2 : index % 3 + 1).padStart(2, '0')}.jpg` : undefined,
+    accent: talentAccentPool[index % talentAccentPool.length],
+    vocalRange: talentVocalRangePool[index % talentVocalRangePool.length],
   };
 });
 

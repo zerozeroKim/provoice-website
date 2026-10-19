@@ -153,9 +153,19 @@ export const talentTones = [
   { ko: '차분한', en: 'Calm' }, { ko: '친근한', en: 'Friendly' }, { ko: '투박한', en: 'Rugged' }, { ko: '기타', en: 'Other' },
 ];
 export const talentAges = [{ ko: '아이', en: 'Child' }, { ko: '청년', en: 'Young Adult' }, { ko: '중년', en: 'Middle-aged' }, { ko: '노년', en: 'Senior' }, { ko: '미상', en: 'Unspecified' }];
+/** 검색 전용 필터입니다 (RQ-FR-023) — 성우 상세 페이지에는 노출하지 않습니다. */
+export const talentAccents = [
+  { ko: '표준어', en: 'Standard' }, { ko: '서울말씨', en: 'Seoul' }, { ko: '경상도 사투리', en: 'Gyeongsang dialect' },
+  { ko: '전라도 사투리', en: 'Jeolla dialect' }, { ko: '충청도 사투리', en: 'Chungcheong dialect' },
+  { ko: '강원도 사투리', en: 'Gangwon dialect' }, { ko: '제주도 사투리', en: 'Jeju dialect' },
+];
+export const talentVocalRanges = [
+  { ko: '소프라노', en: 'Soprano' }, { ko: '메조소프라노', en: 'Mezzo-soprano' }, { ko: '알토', en: 'Alto' },
+  { ko: '테너', en: 'Tenor' }, { ko: '바리톤', en: 'Baritone' }, { ko: '베이스', en: 'Bass' },
+];
 
-type FilterState = { languages: string[]; genders: string[]; categories: string[]; tones: string[]; ages: string[] };
-const emptyFilterState: FilterState = { languages: [], genders: [], categories: [], tones: [], ages: [] };
+type FilterState = { languages: string[]; genders: string[]; categories: string[]; tones: string[]; ages: string[]; accents: string[]; vocalRanges: string[] };
+const emptyFilterState: FilterState = { languages: [], genders: [], categories: [], tones: [], ages: [], accents: [], vocalRanges: [] };
 const resolveKo = (pairs: { ko: string; en: string }[], value: string) => pairs.find((pair) => pair.ko === value || pair.en === value)?.ko ?? value;
 
 export function TalentFilterSection({ talents, pageSize = 20 }: { talents: TalentProfile[]; pageSize?: number }) {
@@ -166,6 +176,8 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
   const [categories, setCategories] = useState<string[]>([]);
   const [tones, setTones] = useState<string[]>([]);
   const [ages, setAges] = useState<string[]>([]);
+  const [accents, setAccents] = useState<string[]>([]);
+  const [vocalRanges, setVocalRanges] = useState<string[]>([]);
   const [appliedFilters, setAppliedFilters] = useState<FilterState>(emptyFilterState);
   const [page, setPage] = useState(1);
 
@@ -179,12 +191,12 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
   };
 
   const runSearch = () => {
-    setAppliedFilters({ languages, genders, categories, tones, ages });
+    setAppliedFilters({ languages, genders, categories, tones, ages, accents, vocalRanges });
     setPage(1);
   };
 
   const clearAll = () => {
-    setLanguages([]); setGenders([]); setCategories([]); setTones([]); setAges([]);
+    setLanguages([]); setGenders([]); setCategories([]); setTones([]); setAges([]); setAccents([]); setVocalRanges([]);
   };
 
   const selectedEntries = [
@@ -193,6 +205,8 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
     ...categories.map((value) => ({ key: `cat-${value}`, label: value, onRemove: () => setCategories([]) })),
     ...tones.map((value) => ({ key: `tone-${value}`, label: value, onRemove: () => toggleMulti(setTones)(value) })),
     ...ages.map((value) => ({ key: `age-${value}`, label: value, onRemove: () => setAges([]) })),
+    ...accents.map((value) => ({ key: `accent-${value}`, label: value, onRemove: () => setAccents([]) })),
+    ...vocalRanges.map((value) => ({ key: `vocal-${value}`, label: value, onRemove: () => setVocalRanges([]) })),
   ];
 
   const matchedTalents = useMemo(() => {
@@ -203,6 +217,8 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
     const categoryKo = appliedFilters.categories[0] ? resolveKo(talentCategories, appliedFilters.categories[0]) : null;
     const toneKos = appliedFilters.tones.map((value) => resolveKo(talentTones, value));
     const ageKo = appliedFilters.ages[0] ? resolveKo(talentAges, appliedFilters.ages[0]) : null;
+    const accentKo = appliedFilters.accents[0] ? resolveKo(talentAccents, appliedFilters.accents[0]) : null;
+    const vocalRangeKo = appliedFilters.vocalRanges[0] ? resolveKo(talentVocalRanges, appliedFilters.vocalRanges[0]) : null;
 
     return talents.filter((talent) => {
       if (localeFilter && !talent.locale.includes(localeFilter)) return false;
@@ -210,6 +226,8 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
       if (categoryKo && !talent.tags.some((tag) => tag.includes(categoryKo) || categoryKo.includes(tag))) return false;
       if (toneKos.length && !talent.tones?.some((tone) => toneKos.includes(tone))) return false;
       if (ageKo && talent.ageRange !== ageKo) return false;
+      if (accentKo && talent.accent !== accentKo) return false;
+      if (vocalRangeKo && talent.vocalRange !== vocalRangeKo) return false;
       return true;
     });
   }, [appliedFilters, talents]);
@@ -226,6 +244,8 @@ export function TalentFilterSection({ talents, pageSize = 20 }: { talents: Talen
             <FilterDropdown label={t('카테고리', 'Category')} options={pick(talentCategories)} selected={categories} onSelect={selectSingle(setCategories, categories)} />
             <FilterDropdown label={t('톤', 'Tone')} options={pick(talentTones)} selected={tones} multiple onSelect={toggleMulti(setTones)} />
             <FilterDropdown label={t('연령', 'Age')} options={pick(talentAges)} selected={ages} onSelect={selectSingle(setAges, ages)} />
+            <FilterDropdown label={t('악센트', 'Accent')} options={pick(talentAccents)} selected={accents} onSelect={selectSingle(setAccents, accents)} />
+            <FilterDropdown label={t('발성 범위', 'Vocal Range')} options={pick(talentVocalRanges)} selected={vocalRanges} onSelect={selectSingle(setVocalRanges, vocalRanges)} />
             <Button className={styles.filterSearchButton} size="md" leadingIcon={<Search size={16} strokeWidth={1.75} />} onClick={runSearch}>{t('검색', 'Search')}</Button>
           </div>
           {selectedEntries.length > 0 && (

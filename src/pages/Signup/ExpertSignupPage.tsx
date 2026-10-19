@@ -74,6 +74,7 @@ export function ExpertSignupPage() {
       <div className={styles.card}>
         <a className={styles.backLink} href="#signup"><ArrowLeft size={16} /> {t('가입 유형 다시 선택', 'Choose sign-up type again')}</a>
         <h1 className={styles.title}>{t('전문가로 가입', 'Sign Up as an Expert')}</h1>
+        <p className={styles.emailNotice}>{t('성우·번역가는 이메일로 가입해 주세요. 네이버·카카오 간편가입은 의뢰인 전용입니다.', 'Voice actors and translators should sign up with email. Naver/Kakao quick sign-up is for clients only.')}</p>
 
         <Stepper steps={steps} currentIndex={step} />
 

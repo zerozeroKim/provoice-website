@@ -27,6 +27,7 @@ export function SignupPage() {
                 <span className={styles.choiceIcon}><IdCard /></span>
                 <strong>{t('전문가로 가입', 'Sign Up as an Expert')}</strong>
               </a>
+              <span className={styles.choiceNotice}>{t('성우·번역가는 이메일로 가입해 주세요. (SNS 간편가입은 의뢰인 전용입니다)', 'Voice actors and translators should sign up with email. (Social sign-up is for clients only.)')}</span>
             </div>
           </div>
 
