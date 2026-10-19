@@ -63,7 +63,7 @@
 }
 .inlineInput:hover, .inlineInput:focus { border-bottom-color: var(--purple-300); outline: none; }
 
-.contactCompact { padding-top: 0 !important; }
+.contactCompact { position: static !important; padding-top: 0 !important; }
 @media (max-width: 900px) { .contactCompact { padding: .85rem 0 0 6.5rem !important; } }
 @media (max-width: 480px) { .contactCompact { padding: .75rem 0 0 !important; } }
 
