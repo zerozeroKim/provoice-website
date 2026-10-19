@@ -72,6 +72,7 @@
 
 @media (max-width: 720px) {
   .talentFilterRow { flex-direction: column; align-items: stretch; }
+  .filterSearchButton { width: 100%; }
 }
 
 .selectedFiltersRow {
