@@ -23,7 +23,7 @@ const testimonialCards = [
   },
 ];
 
-const portfolioTabs = ['애니메이션', '게임', '광고', '웹툰', 'OTT', '유튜브', '오디오북'];
+const portfolioTabs = ['애니메이션', '게임', '광고', '웹툰', 'OTT', '캐릭터', '오디오북'];
 const portfolioCards = [
   { category: '광고', title: '광고 성우 더빙 프로젝트', type: '더빙', tone: '광고', languages: ['JP', 'EN'], tags: ['광고', '나레이션'], image: 'linear-gradient(135deg, #d7d7d7 0%, #bfc2cb 25%, #8ea1b3 100%)' },
   { category: '애니메이션', title: '시리즈 메인 캐릭터 성우', type: '더빙', tone: '애니메이션', languages: ['EN'], tags: ['애니메이션', '캐릭터'], image: 'linear-gradient(135deg, #d9d9d9 0%, #b9c7d4 40%, #7ca1bf 100%)' },
@@ -33,7 +33,7 @@ const portfolioCards = [
   { category: '웹툰', title: '자막형 웹툰 더빙', type: '더빙', tone: '웹툰', languages: ['JP', 'EN'], tags: ['웹툰', '더빙'], image: 'linear-gradient(135deg, #d9d1d1 0%, #c7b9c7 42%, #9a8bbb 100%)' },
   { category: '오디오북', title: '오디오북 내레이션 제작', type: '내레이션', tone: '오디오북', languages: ['KO'], tags: ['오디오북', '내레이션'], image: 'linear-gradient(135deg, #d7d9d5 0%, #bfd0cb 40%, #87b2a6 100%)' },
   { category: 'OTT', title: 'OTT 드라마 보이스 하이브리드', type: 'AI 하이브리드', tone: 'OTT', languages: ['KO', 'EN'], tags: ['OTT', '드라마'], image: 'linear-gradient(135deg, #dfe1eb 0%, #c0c7da 35%, #8fa0d8 100%)' },
-  { category: '유튜브', title: '유튜브 쇼츠 성우 제작', type: '내레이션', tone: '유튜브', languages: ['KO'], tags: ['유튜브', '쇼츠'], image: 'linear-gradient(135deg, #e3dfe9 0%, #c6d0e5 38%, #86a6d5 100%)' },
+  { category: '캐릭터', title: '모바일 앱 마스코트 캐릭터 보이스', type: '연기', tone: '캐릭터', languages: ['KO'], tags: ['캐릭터', '연기'], image: 'linear-gradient(135deg, #e3dfe9 0%, #c6d0e5 38%, #86a6d5 100%)' },
   { category: 'OTT', title: 'OTT 캐릭터 목소리 작업', type: '보이스오버', tone: 'OTT', languages: ['EN'], tags: ['OTT', '캐릭터'], image: 'linear-gradient(135deg, #d9e0e7 0%, #cad5dc 36%, #8da8b5 100%)' },
 ];
 

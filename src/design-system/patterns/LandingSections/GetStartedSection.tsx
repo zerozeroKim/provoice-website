@@ -19,22 +19,22 @@ export function GetStartedSection() {
         <ActionCard
           variant="gradient"
           icon={<FileText />}
-          title={t('프로젝트 의뢰하기', 'Start a Project')}
+          title={t('작업문의', 'Work Inquiry')}
           description={language === 'en'
             ? <>Have content that needs translation or dubbing?<br />Your dedicated PM will guide you through pricing and scheduling within 24 hours.</>
             : <>번역·더빙이 필요한 콘텐츠가 있으신가요?<br />담당 PM이 24시간 내 견적과 일정을 안내합니다.</>}
-          primaryAction={{ label: t('의뢰 문의 시작하기', 'Start Your Inquiry') }}
+          primaryAction={{ label: t('의뢰 문의 시작하기', 'Start Your Inquiry'), href: '#work-inquiry' }}
           secondaryDividerLabel={t('간편하게 시작하기', 'Quick start')}
           secondaryLinks={quickContactActionsLocalized}
           className={styles.getStartedCard}
         />
         <ActionCard
           icon={<Mic />}
-          title={t('성우·번역가로 등록하기', 'Register as a Voice Actor or Translator')}
+          title={t('전문가 등록', 'Expert Sign-up')}
           description={language === 'en'
             ? <>Organize your portfolio in one place,<br />and meet new projects with verified clients.</>
             : <>포트폴리오를 한 곳에 정리하고,<br />검증된 클라이언트와 새로운 프로젝트를 만나보세요.</>}
-          primaryAction={{ label: t('전문가 등록하기', 'Register as an Expert') }}
+          primaryAction={{ label: t('전문가 등록하기', 'Register as an Expert'), href: '#signup/expert' }}
           className={styles.getStartedCard}
         />
       </div>

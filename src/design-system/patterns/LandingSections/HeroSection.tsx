@@ -44,8 +44,8 @@ export function HeroSection({ stats, headingLevel = 1 }: { stats: HeroStat[]; he
             {t('게임 사운드 제작까지 — 프로보이스의 원스탑 로컬라이징 솔루션.', 'to game sound production — Provoice is your one-stop localization solution.')}
           </p>
           <div className={shared.ctaRow}>
-            <button type="button" className={shared.primaryButton}>{t('프로젝트 의뢰하기', 'Start a Project')}</button>
-            <button type="button" className={shared.secondaryButton}>{t('성우 디렉토리 보기', 'Browse Voice Actors')}</button>
+            <a href="#voice-search" className={shared.primaryButton}>{t('성우검색', 'Find Voices')}</a>
+            <a href="#work-inquiry" className={shared.secondaryButton}>{t('작업문의', 'Work Inquiry')}</a>
           </div>
           <div className={styles.stats}>
             {stats.map((stat) => {

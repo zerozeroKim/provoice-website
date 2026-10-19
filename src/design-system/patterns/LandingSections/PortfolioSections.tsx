@@ -26,8 +26,8 @@ function PortfolioSocialLinks() {
 }
 
 /** 7개 장르 카테고리 탭과, PortfolioCard 모서리에 붙는 톤 배지(GAME/OTT 등)의 영문 라벨입니다. */
-const categoryLabelEn: Record<string, string> = { 애니메이션: 'Animation', 게임: 'Game', 광고: 'Ad', 웹툰: 'Webtoon', OTT: 'OTT', 유튜브: 'YouTube', 오디오북: 'Audiobook' };
-const toneLabelEn: Record<string, string> = { GAME: 'GAME', ANIMATION: 'ANIMATION', 웹툰: 'WEBTOON', 광고: 'AD', OTT: 'OTT', 유튜브: 'YOUTUBE', 오디오북: 'AUDIOBOOK' };
+const categoryLabelEn: Record<string, string> = { 애니메이션: 'Animation', 게임: 'Game', 광고: 'Ad', 웹툰: 'Webtoon', OTT: 'OTT', 캐릭터: 'Character', 오디오북: 'Audiobook' };
+const toneLabelEn: Record<string, string> = { GAME: 'GAME', ANIMATION: 'ANIMATION', 웹툰: 'WEBTOON', 광고: 'AD', OTT: 'OTT', 캐릭터: 'CHARACTER', 오디오북: 'AUDIOBOOK' };
 
 export function PortfolioSection<T extends string>({ tabs, cards, initialCount = 6, increment = 6, maxCount = 12 }: { tabs: readonly T[]; cards: PortfolioItem<Exclude<T, '전체'>>[]; initialCount?: number; increment?: number; maxCount?: number }) {
   const t = useT();
