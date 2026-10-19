@@ -35,8 +35,11 @@
 .body { min-width: 0; max-width: 34rem; }
 .body h1 { margin: 0 0 1.1rem; color: var(--neutral-950); font-size: clamp(2rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
 
-.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem 2rem; margin: 0; }
-.facts > div { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: .9rem; align-items: center; min-height: 2.75rem; padding: .55rem 0; }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 0; }
+.facts > div { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: .9rem; align-items: center; min-height: 2.75rem; padding: .7rem 1.5rem; }
+.facts > div:nth-child(odd) { padding-left: 0; border-right: 1px solid rgb(176 144 220 / .22); }
+.facts > div:nth-child(even) { padding-right: 0; }
+.facts > div:not(:nth-last-child(-n+2)) { border-bottom: 1px solid rgb(176 144 220 / .22); }
 .facts dt { color: var(--neutral-600); font-size: .85rem; font-weight: 600; }
 .facts dd { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0; color: var(--neutral-900); font-size: .92rem; font-weight: 600; }
 .tone { padding: .25rem .6rem; border: 1px solid #ddcef5; border-radius: var(--radius-full); color: #5926a5; font-size: .78rem; background: white; }
@@ -58,7 +61,8 @@
   .avatar { position: absolute; top: .25rem; left: 0; width: 3.5rem; height: 3.5rem; border-width: 3px; font-size: 1.5rem; }
   .body h1 { margin: 0 0 1rem 4.5rem; font-size: 1.8rem; }
   .facts { grid-template-columns: 1fr; }
-  .facts > div { grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; }
+  .facts > div { grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; padding: .7rem 0; border-right: none !important; }
+  .facts > div:not(:last-child) { border-bottom: 1px solid rgb(176 144 220 / .22); }
   .contact { padding: 1.25rem 0 0; }
   .contactButton { width: 100%; }
 }
