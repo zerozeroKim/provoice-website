@@ -13,14 +13,15 @@ export type ActionCardAction = {
 };
 
 export type ActionCardProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
+  icon?: ReactNode;
   title: ReactNode;
   description: ReactNode;
   variant?: 'gradient' | 'light';
   primaryAction: ActionCardAction;
-  secondaryActions?: ActionCardAction[];
-  secondaryLabel?: string;
-  /** secondaryActions 대신 같은 박스 안에 임의의 내용(예: 혜택 태그)을 넣고 싶을 때 씁니다. */
-  secondaryContent?: ReactNode;
+  /** 카드 우측에 흐릿하게 깔리는 장식용 일러스트 아이콘입니다. */
+  decoration?: ReactNode;
+  secondaryDividerLabel?: string;
+  secondaryLinks?: ActionCardAction[];
 };
 
 function Action({ action, className }: { action: ActionCardAction; className: string }) {
@@ -37,28 +38,25 @@ function Action({ action, className }: { action: ActionCardAction; className: st
   return <button className={className} type="button" onClick={action.onClick}>{icon}<span>{action.label}</span></button>;
 }
 
-export function ActionCard({ title, description, variant = 'light', primaryAction, secondaryActions = [], secondaryLabel = '간편 연결', secondaryContent, className = '', ...props }: ActionCardProps) {
+export function ActionCard({ icon, title, description, variant = 'light', primaryAction, decoration, secondaryDividerLabel, secondaryLinks = [], className = '', ...props }: ActionCardProps) {
   return (
     <article data-component="ActionCard" data-variant={variant} className={`${styles.actionCard} ${styles[variant]} ${className}`} {...props}>
+      {decoration && <div className={styles.decoration} aria-hidden="true">{decoration}</div>}
+      {icon && <div className={styles.iconBadge} aria-hidden="true">{icon}</div>}
       <div className={styles.content}>
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
       <Action action={primaryAction} className={styles.primaryAction} />
-      {secondaryContent ? (
-        <div className={styles.secondaryGroup}>
-          {secondaryLabel && <span className={styles.secondaryLabel}>{secondaryLabel}</span>}
-          <div className={styles.secondaryActions}>{secondaryContent}</div>
-        </div>
-      ) : secondaryActions.length > 0 && (
-        <div className={styles.secondaryGroup}>
-          <span className={styles.secondaryLabel}>{secondaryLabel}</span>
-          <div className={styles.secondaryActions}>
-            {secondaryActions.map((action) => (
-              <Action key={action.label} action={action} className={`${styles.secondaryAction} ${action.tone ? styles[action.tone] : ''}`} />
+      {secondaryLinks.length > 0 && (
+        <>
+          <div className={styles.divider}><span>{secondaryDividerLabel}</span></div>
+          <div className={styles.secondaryLinks}>
+            {secondaryLinks.map((action) => (
+              <Action key={action.label} action={action} className={`${styles.secondaryLink} ${action.tone ? styles[action.tone] : ''}`} />
             ))}
           </div>
-        </div>
+        </>
       )}
     </article>
   );

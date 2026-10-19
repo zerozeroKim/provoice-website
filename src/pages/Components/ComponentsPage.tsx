@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
+import { FileText, Mic } from 'lucide-react';
 import { ActionCard, Breadcrumb, Button, Chip, FilterDropdown, Footer, GNB, LoadMoreControl, PortfolioCard, PortfolioDetail, PortfolioFilter, SectionHeader, ServiceCard, Select, Stepper, TestimonialCard, TextField, ToggleGroup, VoiceActorCard } from '../../design-system';
 import styles from './ComponentsPage.module.css';
 
@@ -213,24 +214,23 @@ export function ComponentsPage() {
             <div className={styles.actionCardGrid}>
               <ActionCard
                 variant="gradient"
+                icon={<FileText />}
+                decoration={<FileText />}
                 title="프로젝트 의뢰하기"
                 description="번역·더빙이 필요한 콘텐츠가 있으신가요? 담당 PM이 24시간 내 견적과 일정을 안내합니다."
                 primaryAction={{ label: '의뢰 문의 시작하기' }}
-                secondaryLabel="다른 채널로 문의"
-                secondaryActions={[
-                  { label: '네이버로 문의', href: 'https://blog.naver.com/provoiceon', tone: 'naver' },
-                  { label: '카카오로 문의', href: 'https://pf.kakao.com/_xfNjDK', tone: 'kakao' },
+                secondaryDividerLabel="간편하게 시작하기"
+                secondaryLinks={[
+                  { label: '네이버로 시작하기', href: 'https://blog.naver.com/provoiceon', tone: 'naver' },
+                  { label: '카카오로 시작하기', href: 'https://pf.kakao.com/_xfNjDK', tone: 'kakao' },
                 ]}
               />
               <ActionCard
+                icon={<Mic />}
+                decoration={<Mic />}
                 title="성우·번역가로 등록하기"
-                description="포트폴리오를 한 곳에 정리하고, 검증된 프로보이스 등록 전문가로 프로젝트 섭외를 받아보세요."
+                description="포트폴리오를 한 곳에 정리하고, 검증된 클라이언트와 새로운 프로젝트를 만나보세요."
                 primaryAction={{ label: '전문가 등록하기' }}
-                secondaryLabel="소셜 계정으로 가입"
-                secondaryActions={[
-                  { label: '네이버로 가입', href: 'https://blog.naver.com/provoiceon', tone: 'naver' },
-                  { label: '카카오로 가입', href: 'https://pf.kakao.com/_xfNjDK', tone: 'kakao' },
-                ]}
               />
             </div>
           </article>

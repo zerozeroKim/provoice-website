@@ -1,5 +1,6 @@
+import { FileText, Mic } from 'lucide-react';
 import { useLanguage, useT } from '@/lib/i18n';
-import { ActionCard, Chip, SectionHeader } from '../../components';
+import { ActionCard, SectionHeader } from '../../components';
 import styles from './GetStartedSection.module.css';
 
 const quickContactActions = [
@@ -7,41 +8,35 @@ const quickContactActions = [
   { label: '카카오', href: 'https://pf.kakao.com/_xfNjDK', tone: 'kakao' as const },
 ];
 
-const expertBenefits = [
-  { ko: '포트폴리오 무료 등록', en: 'Free portfolio listing' },
-  { ko: '검증 배지 제공', en: 'Verified badge' },
-  { ko: '프로젝트 매칭 알림', en: 'Project match alerts' },
-];
-
 export function GetStartedSection() {
   const t = useT();
   const { language } = useLanguage();
-  const quickContactActionsLocalized = quickContactActions.map((action) => ({ ...action, label: action.tone === 'naver' ? t('네이버', 'Naver') : t('카카오', 'KakaoTalk') }));
+  const quickContactActionsLocalized = quickContactActions.map((action) => ({ ...action, label: action.tone === 'naver' ? t('네이버로 시작하기', 'Start with Naver') : t('카카오로 시작하기', 'Start with Kakao') }));
   return (
     <section className={styles.getStartedSection} aria-label={t('지금 시작하기', 'Get started')}>
       <SectionHeader className={styles.getStartedHeader} eyebrow="GET STARTED" title={t('지금 시작하세요', 'Get started today')} />
       <div className={styles.getStartedGrid}>
         <ActionCard
           variant="gradient"
+          icon={<FileText />}
+          decoration={<FileText />}
           title={t('프로젝트 의뢰하기', 'Start a Project')}
           description={language === 'en'
             ? <>Have content that needs translation or dubbing?<br />Your dedicated PM will guide you through pricing and scheduling within 24 hours.</>
             : <>번역·더빙이 필요한 콘텐츠가 있으신가요?<br />담당 PM이 24시간 내 견적과 일정을 안내합니다.</>}
           primaryAction={{ label: t('의뢰 문의 시작하기', 'Start Your Inquiry') }}
-          secondaryLabel={t('빠른 문의', 'Quick Contact')}
-          secondaryActions={quickContactActionsLocalized}
+          secondaryDividerLabel={t('간편하게 시작하기', 'Quick start')}
+          secondaryLinks={quickContactActionsLocalized}
           className={styles.getStartedCard}
         />
         <ActionCard
+          icon={<Mic />}
+          decoration={<Mic />}
           title={t('성우·번역가로 등록하기', 'Register as a Voice Actor or Translator')}
           description={language === 'en'
-            ? <>Organize your portfolio in one place,<br />and meet new projects as a verified Provoice expert.</>
-            : <>포트폴리오를 한 곳에 정리하고,<br />검증된 프로보이스 전문가로 새로운 프로젝트를 만나보세요.</>}
+            ? <>Organize your portfolio in one place,<br />and meet new projects with verified clients.</>
+            : <>포트폴리오를 한 곳에 정리하고,<br />검증된 클라이언트와 새로운 프로젝트를 만나보세요.</>}
           primaryAction={{ label: t('전문가 등록하기', 'Register as an Expert') }}
-          secondaryLabel={t('가입 혜택', 'Member Benefits')}
-          secondaryContent={expertBenefits.map((benefit) => (
-            <Chip key={benefit.ko} variant="status" tone="purple" size="sm">{t(benefit.ko, benefit.en)}</Chip>
-          ))}
           className={styles.getStartedCard}
         />
       </div>
