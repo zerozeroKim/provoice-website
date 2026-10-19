@@ -32,7 +32,16 @@
 .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .avatarFlag { display: grid; width: 100%; height: 100%; place-items: center; font-size: 8.5rem; line-height: 1; }
 .body { min-width: 0; width: 100%; max-width: 34rem; }
-.body h1 { margin: 0 0 1.25rem; color: var(--neutral-950); font-size: clamp(2rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
+.body h1 { margin: 0 0 1rem; color: var(--neutral-950); font-size: clamp(2rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
+
+.demoPlayer { display: flex; align-items: center; gap: .75rem; min-height: 2.75rem; margin-bottom: 1.25rem; padding: .5rem .9rem; border: 1px solid #e6ddf3; border-radius: .9rem; background: white; }
+.demoPlayButton { display: grid; flex: none; width: 2rem; height: 2rem; place-items: center; border: 0; border-radius: 50%; background: var(--gradient-deep-purple); color: white; cursor: pointer; transition: transform .16s ease; }
+.demoPlayButton:hover { transform: scale(1.06); }
+.demoPlayerLabel { flex: none; color: var(--neutral-600); font-size: .8rem; font-weight: 700; }
+.demoProgressTrack { position: relative; display: block; flex: 1; min-width: 4rem; height: 4px; overflow: hidden; border-radius: var(--radius-full); background: var(--neutral-100); }
+.demoProgressTrack > span { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--purple-500); transition: width .15s linear; }
+.demoPlayerTime { flex: none; color: var(--neutral-500); font-size: .78rem; font-variant-numeric: tabular-nums; }
+
 .facts { display: grid; gap: 0; margin: 0; }
 .facts > div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 1rem; align-items: center; min-height: 2.85rem; padding: .5rem 0; border-bottom: 1px solid #ebe3f3; }
 .facts > div:last-child { border-bottom: 0; }

@@ -120,7 +120,7 @@ export function TalentDirectorySection({ talents, headingLevel = 2 }: { talents:
   );
 }
 
-const talentLanguages = [
+export const talentLanguages = [
   { code: 'KO', ko: '한국어', en: 'Korean' },
   { code: 'EN', ko: '영어', en: 'English' },
   { code: 'JP', ko: '일본어', en: 'Japanese' },
