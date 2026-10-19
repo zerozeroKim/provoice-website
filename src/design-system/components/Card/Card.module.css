@@ -32,30 +32,6 @@
 }
 .iconBadge svg { width: 1.6rem; height: 1.6rem; }
 
-.decoration {
-  position: absolute;
-  top: 50%;
-  right: -1rem;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 11rem;
-  height: 11rem;
-  color: rgb(128 56 255 / .16);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-.decoration::before {
-  position: absolute;
-  inset: 10%;
-  border-radius: 46% 54% 40% 60% / 58% 44% 56% 42%;
-  background: linear-gradient(145deg, rgb(128 56 255 / .14), rgb(128 56 255 / .04));
-  content: '';
-}
-.decoration svg { position: relative; width: 50%; height: 50%; filter: drop-shadow(0 12px 18px rgb(79 20 180 / .14)); transform: rotate(-8deg); }
-.decoration svg, .iconBadge, .content, .primaryAction, .divider, .secondaryLinks { position: relative; z-index: 1; }
-
 .actionCard:hover,
 .actionCard:focus-within { transform: none; box-shadow: none; border-color: rgba(128, 56, 255, .25); }
 
@@ -143,7 +119,6 @@
 
 @media (max-width: 560px) {
   .actionCard { min-height: auto; padding: 1.75rem 1.35rem; }
-  .decoration { display: none; }
   .primaryAction { width: 100%; }
   .secondaryLinks { grid-template-columns: 1fr; }
 }

@@ -19,7 +19,6 @@ export function GetStartedSection() {
         <ActionCard
           variant="gradient"
           icon={<FileText />}
-          decoration={<FileText />}
           title={t('프로젝트 의뢰하기', 'Start a Project')}
           description={language === 'en'
             ? <>Have content that needs translation or dubbing?<br />Your dedicated PM will guide you through pricing and scheduling within 24 hours.</>
@@ -31,7 +30,6 @@ export function GetStartedSection() {
         />
         <ActionCard
           icon={<Mic />}
-          decoration={<Mic />}
           title={t('성우·번역가로 등록하기', 'Register as a Voice Actor or Translator')}
           description={language === 'en'
             ? <>Organize your portfolio in one place,<br />and meet new projects with verified clients.</>

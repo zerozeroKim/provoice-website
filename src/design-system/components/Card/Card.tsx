@@ -18,8 +18,6 @@ export type ActionCardProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   description: ReactNode;
   variant?: 'gradient' | 'light';
   primaryAction: ActionCardAction;
-  /** 카드 우측에 흐릿하게 깔리는 장식용 일러스트 아이콘입니다. */
-  decoration?: ReactNode;
   secondaryDividerLabel?: string;
   secondaryLinks?: ActionCardAction[];
 };
@@ -38,10 +36,9 @@ function Action({ action, className }: { action: ActionCardAction; className: st
   return <button className={className} type="button" onClick={action.onClick}>{icon}<span>{action.label}</span></button>;
 }
 
-export function ActionCard({ icon, title, description, variant = 'light', primaryAction, decoration, secondaryDividerLabel, secondaryLinks = [], className = '', ...props }: ActionCardProps) {
+export function ActionCard({ icon, title, description, variant = 'light', primaryAction, secondaryDividerLabel, secondaryLinks = [], className = '', ...props }: ActionCardProps) {
   return (
     <article data-component="ActionCard" data-variant={variant} className={`${styles.actionCard} ${styles[variant]} ${className}`} {...props}>
-      {decoration && <div className={styles.decoration} aria-hidden="true">{decoration}</div>}
       {icon && <div className={styles.iconBadge} aria-hidden="true">{icon}</div>}
       <div className={styles.content}>
         <h3>{title}</h3>
