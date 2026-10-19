@@ -43,7 +43,7 @@ export function ServiceSection({ services }: { services: ServiceItem[] }) {
             description={t('캐스팅부터 번역, 사운드까지 — 콘텐츠 하나를 세계 여러 시장에 내보낼 수 있도록 설계된 서비스를 제공합니다.', 'From casting to translation to sound — services designed to take a single piece of content into markets worldwide.')}
           />
           <div className={styles.serviceGrid}>
-            {resolved.map((service) => <ServiceCard key={service.title} {...service} onOpen={() => goToService(service)} />)}
+            {resolved.map((service) => <ServiceCard key={service.title} {...service} badgeAccent={service.featured} onOpen={() => goToService(service)} />)}
           </div>
         </div>
       </section>

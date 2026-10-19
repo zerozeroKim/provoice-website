@@ -69,6 +69,13 @@
 
 .card[data-featured='true'] .badge { border-color: rgb(255 255 255 / .25); background: rgb(255 255 255 / .14); color: var(--neutral-0); box-shadow: none; }
 
+.badgeAccent {
+  border-color: transparent;
+  background: linear-gradient(135deg, #ffd23f, #ff9d2e);
+  color: #4a2b00;
+  box-shadow: 0 4px 14px rgb(255 157 46 / .5);
+}
+
 .icon {
   display: flex;
   align-items: center;
@@ -148,7 +155,7 @@
 .card[data-layout='compact'] h3 {
   width: 100%;
   min-height: 2.7em;
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   line-height: 1.35;
   text-align: left;
 }
@@ -156,7 +163,7 @@
 .card[data-layout='compact'] p {
   width: 100%;
   margin-top: 0.65rem;
-  font-size: 0.87rem;
+  font-size: 1rem;
   line-height: 1.65;
   text-align: left;
 }

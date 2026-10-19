@@ -240,7 +240,7 @@ export function ComponentsPage() {
               <ServiceCard imageSrc="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=82" imageAlt="녹음실 마이크" title="더빙" description="애니메이션·게임·웹툰부터 기업 콘텐츠까지, 캐릭터와 메시지에 맞는 성우 캐스팅으로 자연스러운 더빙을 제공합니다." badge="CORE" />
               <ServiceCard imageSrc="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=900&q=82" imageAlt="오디오 믹싱 콘솔" title="사운드" description="효과음, 믹싱, 마스터링까지 — 완성도 높은 사운드로 콘텐츠의 몰입감을 더합니다." />
               <ServiceCard imageSrc="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=82" imageAlt="번역과 현지화 자료" title="번역" description="게이머부터 일반 사용자까지 자연스럽게 이해할 수 있는 번역과 현지화 품질을 보장합니다. (ISO 17100)" />
-              <ServiceCard imageSrc="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=82" imageAlt="AI 기술 이미지" title="AI 서비스" description="중요한 장면은 사람의 감성을 살린 더빙으로 마무리합니다." badge="NEW" link="PROVOICE × AI 자세히 보기 →" />
+              <ServiceCard imageSrc="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=82" imageAlt="AI 기술 이미지" title="AI 서비스" description="중요한 장면은 사람의 감성을 살린 더빙으로 마무리합니다." badge="NEW" featured badgeAccent link="PROVOICE × AI 자세히 보기 →" />
             </div>
           </article>
         </section>
